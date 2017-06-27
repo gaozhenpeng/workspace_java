@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema>
+	<field id="public-key-encoding" type="A" length="2" />
+	<field id="public-key-seq-of-modulus-exponent" type="BEOF"
+		length="9999" />
+</schema>

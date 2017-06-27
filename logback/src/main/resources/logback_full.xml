@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+       classpath: logback.groovy
+    -> classpath: logback-test.xml
+    -> classpath: logback.xml
+    -> ServiceLoader: any implementation of com.qos.logback.classic.spi.Configurator
+    -> Logback's own BasicConfigurator
+-->
+<configuration>
+
+    <!-- 控制台输出 -->
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%-5level [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] %logger{36}.%M:%L | %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- file all -->
+    <appender name="file-all"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ALL</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/all.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>200MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%-5level [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] %logger.%M:%L | %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- file debug -->
+    <appender name="file-debug"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>DEBUG</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY </onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/debug.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>200MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%-5level [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] %logger.%M:%L | %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- file error -->
+    <appender name="file-error"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY </onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/error.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>200MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%-5level [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] %logger.%M:%L | %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- file contains -->
+    <appender name="file-contains"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter"> <!-- evaluator requires org.codehaus.janino -->
+            <evaluator>
+                <expression>message.contains("str")</expression>
+            </evaluator>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/contains.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>200MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%-5level [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] %logger.%M:%L | %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    
+    <!-- db, direct connection -->
+    <appender name="db" class="ch.qos.logback.classic.db.DBAppender">
+        <!-- logback-classic-*.jar!ch/qos/logback/classic/db/script/mysql.sql
+        
+        grant all privileges on logback_db.* to logback@'%' identified by 'logback';
+        flush privileges;
+        
+        DROP DATABASE IF EXISTS `logback_db`;
+        CREATE DATABASE `logback_db` CHARACTER SET 'utf8' COLLATE 'utf8_general_ci'; 
+        USE `logback_db`;
+        
+        
+        # Logback: the reliable, generic, fast and flexible logging framework.
+        # Copyright (C) 1999-2010, QOS.ch. All rights reserved.
+        #
+        # See http://logback.qos.ch/license.html for the applicable licensing 
+        # conditions.
+        
+        # This SQL script creates the required tables by ch.qos.logback.classic.db.DBAppender.
+        #
+        # It is intended for MySQL databases. It has been tested on MySQL 5.1.37 
+        # on Linux
+        
+        
+        BEGIN;
+        DROP TABLE IF EXISTS logging_event_property;
+        DROP TABLE IF EXISTS logging_event_exception;
+        DROP TABLE IF EXISTS logging_event;
+        COMMIT;
+        
+        
+        BEGIN;
+        CREATE TABLE logging_event 
+          (
+            timestmp         BIGINT NOT NULL,
+            formatted_message  TEXT NOT NULL,
+            logger_name       VARCHAR(254) NOT NULL,
+            level_string      VARCHAR(254) NOT NULL,
+            thread_name       VARCHAR(254),
+            reference_flag    SMALLINT,
+            arg0              VARCHAR(254),
+            arg1              VARCHAR(254),
+            arg2              VARCHAR(254),
+            arg3              VARCHAR(254),
+            caller_filename   VARCHAR(254) NOT NULL,
+            caller_class      VARCHAR(254) NOT NULL,
+            caller_method     VARCHAR(254) NOT NULL,
+            caller_line       CHAR(4) NOT NULL,
+            event_id          BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY
+          );
+        COMMIT;
+        
+        BEGIN;
+        CREATE TABLE logging_event_property
+          (
+            event_id          BIGINT NOT NULL,
+            mapped_key        VARCHAR(254) NOT NULL,
+            mapped_value      TEXT,
+            PRIMARY KEY(event_id, mapped_key),
+            FOREIGN KEY (event_id) REFERENCES logging_event(event_id)
+          );
+        COMMIT;
+        
+        BEGIN;
+        CREATE TABLE logging_event_exception
+          (
+            event_id         BIGINT NOT NULL,
+            i                SMALLINT NOT NULL,
+            trace_line       VARCHAR(254) NOT NULL,
+            PRIMARY KEY(event_id, i),
+            FOREIGN KEY (event_id) REFERENCES logging_event(event_id)
+          );
+        COMMIT;
+        -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>WARN</level>
+        </filter>
+        <!-- direct db connection -->
+        <connectionSource
+            class="ch.qos.logback.core.db.DriverManagerConnectionSource">
+            <driverClass>com.mysql.jdbc.Driver</driverClass>
+            <url>jdbc:mysql://localhost:3306/logback_db?serverTimezone=UTC</url>
+            <user>logback</user>
+            <password>logback</password>
+        </connectionSource>
+        <!-- WARNING: No encoder node in DBAppender -->
+    </appender>
+    
+    <!-- db, datasource -->
+    <appender name="db-ds" class="ch.qos.logback.classic.db.DBAppender">
+        <!-- logback-classic-*.jar!ch/qos/logback/classic/db/script/mysql.sql
+        
+        grant all privileges on logback_ds_db.* to logback_ds@'%' identified by 'logback_ds';
+        flush privileges;
+        
+        DROP DATABASE IF EXISTS `logback_ds_db`;
+        CREATE DATABASE `logback_ds_db` CHARACTER SET 'utf8' COLLATE 'utf8_general_ci'; 
+        USE `logback_ds_db`;
+        
+        # Logback: the reliable, generic, fast and flexible logging framework.
+        # Copyright (C) 1999-2010, QOS.ch. All rights reserved.
+        #
+        # See http://logback.qos.ch/license.html for the applicable licensing 
+        # conditions.
+        
+        # This SQL script creates the required tables by ch.qos.logback.classic.db.DBAppender.
+        #
+        # It is intended for MySQL databases. It has been tested on MySQL 5.1.37 
+        # on Linux
+        
+        
+        BEGIN;
+        DROP TABLE IF EXISTS logging_event_property;
+        DROP TABLE IF EXISTS logging_event_exception;
+        DROP TABLE IF EXISTS logging_event;
+        COMMIT;
+        
+        
+        BEGIN;
+        CREATE TABLE logging_event 
+          (
+            timestmp         BIGINT NOT NULL,
+            formatted_message  TEXT NOT NULL,
+            logger_name       VARCHAR(254) NOT NULL,
+            level_string      VARCHAR(254) NOT NULL,
+            thread_name       VARCHAR(254),
+            reference_flag    SMALLINT,
+            arg0              VARCHAR(254),
+            arg1              VARCHAR(254),
+            arg2              VARCHAR(254),
+            arg3              VARCHAR(254),
+            caller_filename   VARCHAR(254) NOT NULL,
+            caller_class      VARCHAR(254) NOT NULL,
+            caller_method     VARCHAR(254) NOT NULL,
+            caller_line       CHAR(4) NOT NULL,
+            event_id          BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY
+          );
+        COMMIT;
+        
+        BEGIN;
+        CREATE TABLE logging_event_property
+          (
+            event_id          BIGINT NOT NULL,
+            mapped_key        VARCHAR(254) NOT NULL,
+            mapped_value      TEXT,
+            PRIMARY KEY(event_id, mapped_key),
+            FOREIGN KEY (event_id) REFERENCES logging_event(event_id)
+          );
+        COMMIT;
+        
+        BEGIN;
+        CREATE TABLE logging_event_exception
+          (
+            event_id         BIGINT NOT NULL,
+            i                SMALLINT NOT NULL,
+            trace_line       VARCHAR(254) NOT NULL,
+            PRIMARY KEY(event_id, i),
+            FOREIGN KEY (event_id) REFERENCES logging_event(event_id)
+          );
+        COMMIT;
+        -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>WARN</level>
+        </filter>
+        <!-- db datasource -->
+        <connectionSource class="ch.qos.logback.core.db.DataSourceConnectionSource">
+            <dataSource class="org.apache.commons.dbcp2.BasicDataSource">
+                <driverClassName>com.mysql.jdbc.Driver</driverClassName>
+                <url>jdbc:mysql://localhost:3306/logback_ds_db?serverTimezone=UTC</url>
+                <username>logback_ds</username>
+                <password>logback_ds</password>
+            </dataSource>
+        </connectionSource>
+        <!-- WARNING: No encoder node in DBAppender -->
+    </appender>
+
+    <!-- common loggers -->
+    <logger name="org.hibernate">
+        <level value="WARN" />
+    </logger>
+    <logger name="org.springframework">
+        <level value="WARN" />
+    </logger>
+    <logger name="org.apache">
+        <level value="WARN" />
+    </logger>
+    <logger name="net.sf.ehcache">
+        <level value="WARN" />
+    </logger>
+    
+    <!-- special loggers -->
+    <logger name="com.at">
+        <level value="DEBUG" />
+    </logger>
+    
+    <!-- root logger -->
+    <root level="DEBUG">
+        <appender-ref ref="stdout" />
+        <appender-ref ref="file-all" />
+        <appender-ref ref="file-debug" />
+        <appender-ref ref="file-error" />
+        <appender-ref ref="file-contains" />
+        <appender-ref ref="db" />
+        <appender-ref ref="db-ds" />
+    </root>
+
+</configuration>

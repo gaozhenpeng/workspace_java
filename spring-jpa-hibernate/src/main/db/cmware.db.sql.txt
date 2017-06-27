@@ -1,0 +1,144 @@
+-- create user
+GRANT ALL ON cmware.* to cmware@'%' identified by 'cmware' ;
+FLUSH PRIVILEGES;
+
+-- create db
+DROP DATABASE IF EXISTS `cmware`;
+CREATE DATABASE `cmware` CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+USE `cmware`;
+
+-- table cm_deposit
+DROP TABLE IF EXISTS cm_deposit;
+CREATE TABLE cm_deposit(
+   depositid            serial,
+   deposit_label        national varchar(20) not null,
+   trace_num            national varchar(20),
+   shiftid              bigint unsigned,
+   batchid              int(11),
+   terminalid           bigint unsigned,
+   operatorid           bigint unsigned,
+   auto_amount          int(11),
+   count                int(11),
+   manual_amount        int(11),
+   deposit_time         datetime not null,
+   rc1id                national varchar(20),
+   rc1info              national varchar(64),
+   rc2id                national varchar(20),
+   rc2info              national varchar(64),
+   rc3id                national varchar(20),
+   rc3info              national varchar(64),
+   rc4id                national varchar(20),
+   rc4info              national varchar(64),
+   detail               varchar(512),
+   resp_code            varchar(10),
+   resp_msg             varchar(256),
+   PRIMARY KEY (`depositid`)
+) ENGINE = InnoDB;
+
+
+
+
+
+-- 创建表
+DROP TABLE IF EXISTS `sequense`;
+CREATE TABLE `sequense` (
+    `seq_name` varchar(256) NOT NULL,
+    `seq_increment` int(11) unsigned NOT NULL DEFAULT 1,
+    `seq_min_value` int(11) unsigned NOT NULL DEFAULT 1,
+    `seq_max_value` bigint(20) unsigned NOT NULL DEFAULT 18446744073709551615,
+    `seq_curr_value` bigint(20) unsigned NOT NULL DEFAULT 1,
+    `seq_cycle` boolean NOT NULL DEFAULT FALSE,
+    PRIMARY KEY (`seq_name`)
+) ENGINE = MyISAM;
+-- 插入测试数据
+insert into sequense (seq_name) values('batchid');
+
+
+-- 创建获取当前值的函数
+DROP FUNCTION IF EXISTS currval;
+DELIMITER $$
+CREATE FUNCTION currval (a_seq_name VARCHAR(256))
+RETURNS bigint(20)
+READS SQL DATA
+BEGIN
+  DECLARE val bigint(20);
+  SELECT seq_curr_value INTO val
+  FROM sequense
+  WHERE seq_name = a_seq_name;
+  RETURN val;
+END $$
+DELIMITER ;
+-- 测试当前值函数
+select currval('batchid');
+
+
+-- 创建获取下一个值的存储过程
+DROP PROCEDURE IF EXISTS nextval;
+DELIMITER $$
+CREATE PROCEDURE `nextval` (in i_seq_name varchar(256), out val bigint(20))
+BEGIN
+  set val = null;
+  SELECT seq_curr_value INTO val FROM sequense WHERE seq_name = i_seq_name for update;
+
+  IF val IS NOT NULL THEN
+      UPDATE
+          sequense
+      SET
+          seq_curr_value = IF (
+              (seq_curr_value + seq_increment) > seq_max_value,
+              IF (
+               seq_cycle = TRUE,
+               seq_min_value,
+               NULL
+              ),
+              seq_curr_value + seq_increment
+          )
+      WHERE
+          seq_name = i_seq_name
+      ;
+  END IF;
+
+END $$
+
+DELIMITER ;
+
+-- 测试获取下一个值
+call nextval('batchid', @x);
+select @x;
+
+-- 创建获取下一个值的存储过程
+DROP PROCEDURE IF EXISTS nextval;
+DELIMITER $$
+CREATE PROCEDURE `nextval` (in i_seq_name varchar(256))
+BEGIN
+  DECLARE val bigint(20);
+  set val = null;
+  SELECT seq_curr_value INTO val FROM sequense WHERE seq_name = i_seq_name for update;
+
+  IF val IS NOT NULL THEN
+      UPDATE
+          sequense
+      SET
+          seq_curr_value = IF (
+              (seq_curr_value + seq_increment) > seq_max_value,
+              IF (
+               seq_cycle = TRUE,
+               seq_min_value,
+               NULL
+              ),
+              seq_curr_value + seq_increment
+          )
+      WHERE
+          seq_name = i_seq_name
+      ;
+  END IF;
+
+  SELECT val;
+
+END $$
+
+DELIMITER ;
+
+-- 测试获取下一个值
+call nextval('batchid');
+

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schema>
+	<field id="unknown-content" type="BEOM" length="65535" />
+</schema>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<logger name="SSMLogger" class="org.jpos.q2.qbean.LoggerAdaptor">
+	<log-listener class="org.jpos.util.ProtectedLogListener">
+		<property name="protect" value="" />
+		<property name="wipe" value="" />
+	</log-listener>
+	<log-listener class="org.jpos.util.SimpleLogListener" />
+	<log-listener class="org.jpos.util.BufferedLogListener">
+		<property name="max-size" value="100" />
+		<property name="name" value="logger.Q2.buffered" />
+	</log-listener>
+	<log-listener class="org.jpos.util.RotateLogListener">
+		<property name="window" value="86400" />
+		<property name="copies" value="450" />
+		<property name="maxsize" value="104857600" />
+		<property name="file" value="log/ssm.log" />
+	</log-listener>
+	<!-- log-listener class="com.at.jpos.helper.LogbackListener" / -->
+</logger>

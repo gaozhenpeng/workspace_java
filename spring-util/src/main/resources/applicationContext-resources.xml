@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+                      http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                      http://www.springframework.org/schema/util
+                      http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+  <bean id="springUtils" class="com.at.spring.SpringUtils">
+    <property name="aList" ref="aList" />
+    <property name="aMap" ref="aMap" />
+    <property name="aSet" ref="aSet" />
+  </bean>
+
+  <util:set id="aSet" set-class="java.util.HashSet" value-type="java.lang.String">
+    <value>a</value>
+    <value>b</value>
+    <value>c</value>
+    <value>d</value>
+    <value>e</value>
+    <value>f</value>
+    <value>g</value>
+  </util:set>
+
+  <util:map id="aMap" map-class="java.util.HashMap">
+    <entry key="a" value="av" />
+    <entry key="b" value="bv" />
+    <entry key="c" value="cv" />
+    <entry key="d" value="dv" />
+    <entry key="e" value="ev" />
+    <entry key="f" value="fv" />
+    <entry key="g" value="gv" />
+  </util:map>
+
+  <util:list id="aList" list-class="java.util.ArrayList">
+    <value>a</value>
+    <value>b</value>
+    <value>c</value>
+    <value>d</value>
+    <value>e</value>
+    <value>f</value>
+  </util:list>
+
+
+</beans>

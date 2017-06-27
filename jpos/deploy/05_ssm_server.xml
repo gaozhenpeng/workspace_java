@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+
+<server class="org.jpos.q2.iso.QServer" name="SSMServer" logger="SSMLogger"
+	realm="ssm_server">
+	<attr name="port" type="java.lang.Integer">10101</attr>
+	<attr name="minSessions" type="java.lang.Integer">10</attr>
+	<attr name="maxSessions" type="java.lang.Integer">150</attr>
+	<channel class="com.at.jpos.ssm.SSMChannel" packager="org.jpos.iso.packager.FSDPackager"
+		logger="SSMLogger" realm="ssm_channel">
+		<property name="schema" value="base" />
+		<property name="schema_prefix" value="ssm-req-" />
+		<property name="timeout" value="10000" />
+		<property name="connect-timeout" value="10000" />
+	</channel>
+	<request-listener class="com.at.jpos.ssm.SSMRequestListener"
+		logger="SSMLogger">
+		<property name="response_schema" value="base" />
+		<property name="response_schema_prefix" value="ssm-res-" />
+	</request-listener>
+</server>

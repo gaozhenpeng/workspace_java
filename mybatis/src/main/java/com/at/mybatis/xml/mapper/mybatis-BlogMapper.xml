@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.at.mybatis.xml.mapper.BlogMapper">
+	<select id="selectBlog" resultType="com.at.mybatis.xml.vo.Blog">
+		select * from blog where blog_id = #{blog_id}
+	</select>
+	<update id="updateBlog" parameterType="com.at.mybatis.xml.vo.Blog">
+		update blog
+		<set>
+			<if test="name != null">name = #{name},</if>
+			<if test="content != null">content = #{content},</if>
+			<if test="updated_datetime != null">updated_datetime = #{updated_datetime},</if>
+			<if test="created_datetime != null">created_datetime = #{created_datetime},</if>
+		</set>
+		where blog_id = #{blog_id}
+	</update>
+</mapper>

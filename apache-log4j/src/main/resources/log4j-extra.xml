@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <!-- apache-log4j-extras is required
+    -->
+
+    <!-- appender consoleAppender -->
+    <appender name="consoleAppender" class="org.apache.log4j.ConsoleAppender">
+        <!-- <param name="threshold" value="WARN" /> -->
+        <param name="target" value="System.out" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                value="%-5p [%d{yyyy-MM-dd HH:mm:ss,SSS}] %C{1}.%M:%L | %m%n" />
+        </layout>
+    </appender>
+
+    <!-- appender rollingFileAppender -->
+    <appender name="rollingFileAppender" class="org.apache.log4j.RollingFileAppender">
+        <param name="Append" value="true" />
+        <param name="File" value="logs/log4j.rollfile.log" />
+        <param name="MaxBackupIndex" value="10" />
+        <param name="MaxFileSize" value="20971520" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                value="%-5p [%d{yyyy-MM-dd HH:mm:ss,SSS}] %C{1}.%M:%L | %m%n" />
+        </layout>
+    </appender>
+
+    <!-- appender gzRollingFileAppender -->
+    <appender name="gzRollingFileAppender" class="org.apache.log4j.rolling.RollingFileAppender">
+        <param name="Append" value="true" />
+        <rollingPolicy class="org.apache.log4j.rolling.FixedWindowRollingPolicy">
+            <param name="activeFileName" value="logs/log4j.gzrollfile.log" />
+            <param name="minIndex" value="1" />
+            <param name="maxIndex" value="10" />
+            <param name="FileNamePattern" value="logs/log4j.gzrollfile.log.%i.gz" />
+        </rollingPolicy>
+        <triggeringPolicy class="org.apache.log4j.rolling.SizeBasedTriggeringPolicy">
+            <param name="maxFileSize" value="20971520" />
+        </triggeringPolicy>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%-5p [%d{yyyy-MM-dd HH:mm:ss,SSS}] %C{1}.%M:%L | %m%n" />
+        </layout>
+    </appender>
+
+    <!-- appender dailyRollingFileAppender -->
+    <appender name="dailyRollingFileAppender" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="Append" value="true" />
+        <param name="File" value="logs/log4j.dailyrollfile.log" />
+        <param name="DatePattern" value="'.'yyyyMMdd" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                value="%-5p [%d{yyyy-MM-dd HH:mm:ss,SSS}] %C{1}.%M:%L | %m%n" />
+        </layout>
+    </appender>
+    
+    <!-- appender gzDailyRollingFileAppender -->
+    <appender name="gzDailyRollingFileAppender" class="org.apache.log4j.rolling.RollingFileAppender">
+        <param name="Append" value="true" />
+        <rollingPolicy class="org.apache.log4j.rolling.TimeBasedRollingPolicy">
+            <param name="activeFileName" value="logs/log4j.dailygzrollfile.log" />
+            <param name="FileNamePattern" value="logs/log4j.dailygzrollfile.log.%d{yyyyMMdd}.gz" />
+        </rollingPolicy>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%-5p [%d{yyyy-MM-dd HH:mm:ss,SSS}] %C{1}.%M:%L | %m%n" />
+        </layout>
+    </appender>
+    
+    <!-- common loggers -->
+    <logger name="org.hibernate">
+        <level value="WARN" />
+    </logger>
+    <logger name="org.springframework">
+        <level value="WARN" />
+    </logger>
+    <logger name="net.sf.ehcache">
+        <level value="WARN" />
+    </logger>
+    
+    <!-- special loggers -->
+    <logger name="com.at">
+        <level value="DEBUG" />
+    </logger>
+
+    <!-- root logger -->
+    <root>
+        <level value="INFO" />
+        <appender-ref ref="consoleAppender" />
+        <appender-ref ref="rollingFileAppender" />
+        <appender-ref ref="gzRollingFileAppender" />
+        <appender-ref ref="dailyRollingFileAppender" />
+        <appender-ref ref="gzDailyRollingFileAppender" />
+    </root>
+    
+</log4j:configuration>

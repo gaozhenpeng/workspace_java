@@ -1,0 +1,7 @@
+.*
+/license-tools/cfg/grgbanking.lic
+/license-tools/cfg/grgbanking.ppk
+/license-tools/cfg/grgbanking.pub
+/spark/metastore_db
+/spark/output
+/sqlite/db
