@@ -30,6 +30,7 @@ public class AfterReceivePostProcessor implements MessagePostProcessor{
 	@Autowired
 	private PropagationGetter propagationGetter;
 	
+	private static final Map<String, String> EMPTY_MAP = new HashMap<String, String>();
 	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -43,6 +44,8 @@ public class AfterReceivePostProcessor implements MessagePostProcessor{
 			Map<String, String> strHeaders = null;
 			if(headersObj != null){
 				strHeaders = (HashMap<String, String>)headersObj;
+			}else{
+				strHeaders = EMPTY_MAP;
 			}
 			// JDK1.8 required
 //			TraceContextOrSamplingFlags result = tracing.propagation().extractor(Map<String, String>::get).extract(strHeaders);

@@ -43,7 +43,7 @@ public class RabbitmqConfiguration {
 	 * add user and vhost
 	 *   rabbitmqctl add_user test test123
 	 *   rabbitmqctl add_vhost /mq_test
-	 *   rabbitmqctl set_permissions -p /mq_test test '.*' '.*' '.*'
+	 *   rabbitmqctl set_permissions -p /mq_test test ".*" ".*" ".*"
 	 *   rabbitmqctl set_user_tags test management
 	 * @return
 	 */

@@ -52,22 +52,22 @@ public class BraveSpringConfiguration extends WebMvcConfigurerAdapter {
 
 	/** Configuration for how to send spans to Zipkin */
 	@Bean
-	Sender sender() {
+	public Sender sender() {
 		return OkHttpSender.create("http://127.0.0.1:9411/api/v1/spans");
 	}
 
 	/** Configuration for how to buffer spans into messages for Zipkin */
 	@Bean
-	Reporter<Span> reporter() {
+	public Reporter<Span> reporter() {
 		return AsyncReporter.builder(sender()).build();
 	}
 
 	/** Controls aspects of tracing such as the name that shows up in the UI */
 	@Bean
-	Tracing tracing() {
+	public Tracing tracing() {
 		return Tracing.newBuilder()
 			.traceId128Bit(true) // use 128b traceID, 32 hex char
-			.localServiceName("spring-mvc-brave-mybatis-druid-example")
+			.localServiceName("spring-mvc-brave-mybatis-druid")
 			//// log4j2, import brave.context.log4j2.ThreadContextCurrentTraceContext;
 			//.currentTraceContext(ThreadContextCurrentTraceContext.create()) // puts trace IDs into logs
 			.currentTraceContext(MDCCurrentTraceContext.create()) // puts trace IDs into logs
@@ -79,12 +79,12 @@ public class BraveSpringConfiguration extends WebMvcConfigurerAdapter {
 	// decides how to name and tag spans. By default they are named the same as
 	// the http method.
 	@Bean
-	HttpTracing httpTracing() {
+	public HttpTracing httpTracing() {
 		return HttpTracing.create(tracing());
 	}
 
 	@Bean
-	RestTemplate template() {
+	public RestTemplate template() {
 		return new RestTemplate();
 	}
 
