@@ -1,4 +1,4 @@
-package com.at.zipkin.brave;
+package com.at.zipkin.brave.noreport;
 
 import java.io.IOException;
 
@@ -21,25 +21,26 @@ public class Brave4LocalMain {
 	
 	public static void main(String[] args) throws IOException {
 		
-		Sender zkSender1 = OkHttpSender.create("http://127.0.0.1:9411/api/v1/spans");
-		AsyncReporter<zipkin.Span> reporter1 = AsyncReporter.builder(zkSender1).build();
+//		Sender zkSender1 = OkHttpSender.create("http://127.0.0.1:9411/api/v1/spans");
+//		AsyncReporter<zipkin.Span> reporter1 = AsyncReporter.builder(zkSender1).build();
 		// Create a tracing component with the service name you want to see in Zipkin.
 		Tracing tracing1 = Tracing.newBuilder()
 							.traceId128Bit(true) // use 128b traceID, 32 hex char
 							.localServiceName("Brave4LocalMain-1")
 							.currentTraceContext(MDCCurrentTraceContext.create()) // puts trace IDs into logs
-							.reporter(reporter1)
+//							.reporter(reporter1)
+							.reporter(new LocalReporter())
 							.sampler(Sampler.ALWAYS_SAMPLE) // or any other Sampler
 							.build();
 		
 		// simulate to be the 2nd component
-		Sender zkSender2 = OkHttpSender.create("http://127.0.0.1:9411/api/v1/spans");
-		AsyncReporter<zipkin.Span> reporter2 = AsyncReporter.builder(zkSender2).build();
+//		Sender zkSender2 = OkHttpSender.create("http://127.0.0.1:9411/api/v1/spans");
+//		AsyncReporter<zipkin.Span> reporter2 = AsyncReporter.builder(zkSender2).build();
 		Tracing tracing2 = Tracing.newBuilder()
 							.traceId128Bit(true) // use 128b traceID, 32 hex char
 							.localServiceName("Brave4LocalMain-2")
 							.currentTraceContext(MDCCurrentTraceContext.create()) // puts trace IDs into logs
-							.reporter(reporter2)
+							.reporter(new LocalReporter())
 							.sampler(Sampler.ALWAYS_SAMPLE) // or any other Sampler
 							.build();
 
@@ -123,8 +124,8 @@ public class Brave4LocalMain {
 		// This might be a shutdown hook for some users
 		tracing1.close();
 		tracing2.close();
-		reporter1.close();
-		reporter2.close();
+//		reporter1.close();
+//		reporter2.close();
 //		zkSender1.close();
 //		zkSender2.close();
 		logger.info("closed");

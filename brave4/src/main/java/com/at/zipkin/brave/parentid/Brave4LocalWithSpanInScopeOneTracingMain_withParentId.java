@@ -1,33 +1,29 @@
-package com.at.zipkin.brave;
+package com.at.zipkin.brave.parentid;
 
 import java.io.IOException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.at.zipkin.brave.noreport.LocalReporter;
+
 import brave.Span;
 import brave.Span.Kind;
 import brave.Tracer;
 import brave.Tracer.SpanInScope;
 import brave.Tracing;
-import brave.context.slf4j.MDCCurrentTraceContext;
 import brave.sampler.Sampler;
-import zipkin.reporter.AsyncReporter;
-import zipkin.reporter.Sender;
-import zipkin.reporter.okhttp3.OkHttpSender;
 
-public class Brave4LocalWithSpanInScopeOneTracingMain {
-	private static final Logger logger = LoggerFactory.getLogger(Brave4LocalWithSpanInScopeOneTracingMain.class);
+public class Brave4LocalWithSpanInScopeOneTracingMain_withParentId {
+	private static final Logger logger = LoggerFactory.getLogger(Brave4LocalWithSpanInScopeOneTracingMain_withParentId.class);
 	
 	public static void main(String[] args) throws IOException, InterruptedException {
-		Sender zkSender1 = OkHttpSender.create("http://127.0.0.1:9411/api/v1/spans");
-		AsyncReporter<zipkin.Span> reporter1 = AsyncReporter.builder(zkSender1).build();
 		// Create a tracing component with the service name you want to see in Zipkin.
 		Tracing tracing1 = Tracing.newBuilder()
 							.traceId128Bit(true) // use 128b traceID, 32 hex char
-							.localServiceName("Brave4LocalWithSpanInScopeOneTracingMain")
-							.currentTraceContext(MDCCurrentTraceContext.create()) // puts trace IDs into logs
-							.reporter(reporter1)
+							.localServiceName("Brave4HttpSenderWithSpanInScopeOneTracingMain-parentId")
+							.currentTraceContext(Slf4jMDCCurrentTraceContext.create()) // puts trace IDs into logs
+							.reporter(new LocalReporter())
 							.sampler(Sampler.ALWAYS_SAMPLE) // or any other Sampler
 							.build();
 
@@ -61,7 +57,7 @@ public class Brave4LocalWithSpanInScopeOneTracingMain {
 		// When all tracing tasks are complete, close the tracing component and reporter
 		// This might be a shutdown hook for some users
 		tracing1.close();
-		reporter1.close();
+//		reporter1.close();
 		logger.info("closed");
 	}
 

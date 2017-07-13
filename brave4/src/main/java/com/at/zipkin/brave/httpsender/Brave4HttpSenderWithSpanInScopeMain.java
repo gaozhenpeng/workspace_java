@@ -1,4 +1,4 @@
-package com.at.zipkin.brave;
+package com.at.zipkin.brave.httpsender;
 
 import java.io.IOException;
 
@@ -16,9 +16,9 @@ import zipkin.reporter.AsyncReporter;
 import zipkin.reporter.Sender;
 import zipkin.reporter.okhttp3.OkHttpSender;
 
-public class Brave4LocalWithSpanInScopeMain {
+public class Brave4HttpSenderWithSpanInScopeMain {
 
-	private static final Logger logger = LoggerFactory.getLogger(Brave4LocalWithSpanInScopeMain.class);
+	private static final Logger logger = LoggerFactory.getLogger(Brave4HttpSenderWithSpanInScopeMain.class);
 	
 	public static void main(String[] args) throws IOException, InterruptedException {
 		String zipkin_server_endpoint = "http://127.0.0.1:9411/api/v1/spans";
@@ -28,7 +28,7 @@ public class Brave4LocalWithSpanInScopeMain {
 		// Create a tracing component with the service name you want to see in Zipkin.
 		Tracing tracing1 = Tracing.newBuilder()
 							.traceId128Bit(true) // use 128b traceID, 32 hex char
-							.localServiceName("Brave4LocalWithSpanInScopeMain1")
+							.localServiceName("Brave4HttpSenderWithSpanInScopeMain")
 							.currentTraceContext(MDCCurrentTraceContext.create()) // puts trace IDs into logs
 							.reporter(reporter1)
 							.sampler(Sampler.ALWAYS_SAMPLE) // or any other Sampler
