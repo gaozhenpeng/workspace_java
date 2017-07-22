@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN"> <!-- logging level for log4j2 events -->
+	<Properties>
+		<Property name="defaultLayoutPattern">%-5level [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] %logger{64}.%method:%line | %message%n</Property>
+		<Property name="stdoutLayoutPattern">${sd:defaultLayoutPattern}</Property>
+		<Property name="fileLayoutPattern">${sd:defaultLayoutPattern}</Property>
+	</Properties>
+	<Appenders>
+		<Console name="stdout" target="SYSTEM_OUT">
+			<PatternLayout pattern="${sd:stdoutLayoutPattern}" charset="UTF-8"/>
+		</Console>
+		<RollingFile name="file-all"
+			fileName="logs/all.log"
+			filePattern="logs/all.%d{yyyy-MM-dd}.%i.log.gz"
+			append="true"
+			immediateFlush="false" >
+			<PatternLayout pattern="${sd:fileLayoutPattern}" charset="UTF-8"/>
+			<Policies><!-- events of triggering rolling -->
+				<OnStartupTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="200MB" />
+				<TimeBasedTriggeringPolicy />
+			</Policies>
+			<DefaultRolloverStrategy max="30" />
+		</RollingFile>
+		<!--
+			WARNING: Don't save loggings to RMDB in production environment.
+			
+			
+			CREATE USER log4j2@'%' IDENTIFIED BY 'log4j2';
+			GRANT ALL ON log4j2.* TO log4j2@'%';
+			
+			DROP DATABASE IF EXISTS `log4j2`;
+			CREATE DATABASE `log4j2` CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+			USE log4j2;
+			
+			DROP TABLE IF EXISTS `log4j2_logs`;
+			CREATE TABLE `log4j2_logs` (
+			 	`logs_id` int(10) NOT NULL AUTO_INCREMENT
+			 	,`event_datetime` datetime NOT NULL COMMENT '%d'
+			 	,`level` varchar(16)  DEFAULT NULL COMMENT '%level'
+			 	,`threadId` varchar(16)  DEFAULT NULL COMMENT '%threadId'
+			 	,`thread` varchar(16)  DEFAULT NULL COMMENT '%thread'
+			 	,`logger` varchar(64)  DEFAULT NULL COMMENT '%logger{64}'
+			 	,`method` varchar(32)  DEFAULT NULL COMMENT '%method'
+			 	,`line` varchar(16)  DEFAULT NULL COMMENT '%line'
+			 	,`message` varchar(4096) DEFAULT NULL COMMENT '%message'
+			 	,`exception` varchar(4096) DEFAULT NULL COMMENT '%exception{full}'
+			    ,PRIMARY KEY (`logs_id`)
+			    ,KEY `INDEX_LOG_DATE` (`event_datetime`) USING BTREE
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8; 
+		-->
+		<JDBC name="database" tableName="log4j2_logs">
+			<ConnectionFactory class="com.at.log4j2.db.ConnectionFactory" method="getDatabaseConnection" />
+			<Column name="event_datetime" isEventTimestamp="true" />
+			<Column name="level" pattern="%level" />
+			<Column name="threadId" pattern="%threadId" />
+			<Column name="thread" pattern="%thread" />
+			<Column name="logger" pattern="%logger{64}" />
+			<Column name="method" pattern="%method" />
+			<Column name="line" pattern="%line" />
+			<Column name="message" pattern="%message" />
+			<Column name="exception" pattern="%exception{full}" />
+		</JDBC>
+	</Appenders>
+	<Loggers>
+		<!-- async all loggers with vm arguments  (recommended for efficiency)
+				-DLog4jContextSelector=org.apache.logging.log4j.core.async.AsyncLoggerContextSelector
+			or
+				use <AyncLogger>, <AsyncRoot> (recommended for certainty)
+
+		<AsyncLogger name="com.at" level="trace" includeLocation="true" additivity="false">
+			<AppenderRef ref="file-all" />
+		</AsyncLogger>
+		-->
+	
+		<!-- common loggers -->
+		<AsyncLogger name="org.hibernate" level="WARN" />
+		<AsyncLogger name="org.springframework" level="WARN" />
+		<AsyncLogger name="org.apache" level="WARN" />
+		<AsyncLogger name="net.sf.ehcache" level="WARN" />
+	
+		<!-- special loggers -->
+		<AsyncLogger name="com.at" level="DEBUG" />
+		
+		<AsyncRoot level="INFO" includeLocation="true">
+			<AppenderRef ref="stdout" />
+			<AppenderRef ref="file-all" />
+			<AppenderRef ref="database" />
+		</AsyncRoot>
+	</Loggers>
+</Configuration>
