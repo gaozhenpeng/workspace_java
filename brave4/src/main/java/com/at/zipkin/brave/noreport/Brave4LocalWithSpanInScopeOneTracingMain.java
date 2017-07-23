@@ -12,9 +12,6 @@ import brave.Tracer.SpanInScope;
 import brave.Tracing;
 import brave.context.slf4j.MDCCurrentTraceContext;
 import brave.sampler.Sampler;
-import zipkin.reporter.AsyncReporter;
-import zipkin.reporter.Sender;
-import zipkin.reporter.okhttp3.OkHttpSender;
 
 public class Brave4LocalWithSpanInScopeOneTracingMain {
 	private static final Logger logger = LoggerFactory.getLogger(Brave4LocalWithSpanInScopeOneTracingMain.class);
@@ -27,7 +24,7 @@ public class Brave4LocalWithSpanInScopeOneTracingMain {
 							.traceId128Bit(true) // use 128b traceID, 32 hex char
 							.localServiceName("Brave4HttpSenderWithSpanInScopeOneTracingMain")
 							.currentTraceContext(MDCCurrentTraceContext.create()) // puts trace IDs into logs
-							.reporter(new LocalReporter())
+							.reporter(new NoopReporter())
 							.sampler(Sampler.ALWAYS_SAMPLE) // or any other Sampler
 							.build();
 

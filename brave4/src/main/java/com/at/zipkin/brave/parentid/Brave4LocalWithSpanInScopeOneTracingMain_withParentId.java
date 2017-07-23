@@ -5,7 +5,7 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.at.zipkin.brave.noreport.LocalReporter;
+import com.at.zipkin.brave.noreport.NoopReporter;
 
 import brave.Span;
 import brave.Span.Kind;
@@ -23,7 +23,7 @@ public class Brave4LocalWithSpanInScopeOneTracingMain_withParentId {
 							.traceId128Bit(true) // use 128b traceID, 32 hex char
 							.localServiceName("Brave4HttpSenderWithSpanInScopeOneTracingMain-parentId")
 							.currentTraceContext(Slf4jMDCCurrentTraceContext.create()) // puts trace IDs into logs
-							.reporter(new LocalReporter())
+							.reporter(new NoopReporter())
 							.sampler(Sampler.ALWAYS_SAMPLE) // or any other Sampler
 							.build();
 
