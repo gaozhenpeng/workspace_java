@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN"> <!-- logging level for log4j2 events -->
 	<Properties>
-		<Property name="defaultLayoutPattern">%-5level [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%16thread] %64logger{1.}.%-16method:%5line | %message%n</Property>
+		<Property name="defaultLayoutPattern">[%level] [%thread] [%logger.%method:%line] | %message%n</Property>
 		<Property name="stdoutLayoutPattern">${sd:defaultLayoutPattern}</Property>
 		<Property name="fileLayoutPattern">${sd:defaultLayoutPattern}</Property>
 	</Properties>

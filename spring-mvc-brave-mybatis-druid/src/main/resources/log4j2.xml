@@ -35,9 +35,9 @@
 		-->
 	
 		<!-- common loggers -->
-		<AsyncLogger name="org.hibernate" level="WARN" />
 		<AsyncLogger name="org.springframework" level="WARN" />
 		<AsyncLogger name="org.apache" level="WARN" />
+		<AsyncLogger name="org.hibernate" level="WARN" />
 		<AsyncLogger name="net.sf.ehcache" level="WARN" />
 	
 		<!-- special loggers -->
