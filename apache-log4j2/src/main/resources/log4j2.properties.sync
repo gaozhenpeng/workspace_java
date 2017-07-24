@@ -1,0 +1,59 @@
+# logging level of log4j itself
+status = WARN
+
+# properties setting
+property.defaultLayoutPattern = [%level] [%thread] [%logger.%method:%line] | %message%n
+property.stdoutLayoutPattern = ${sd:defaultLayoutPattern}
+property.fileLayoutPattern = ${sd:defaultLayoutPattern}
+
+appender.console.name = stdout
+appender.console.type = Console
+appender.console.layout.type = PatternLayout
+appender.console.layout.pattern = ${sd:stdoutLayoutPattern}
+ 
+appender.rolling.name = file-all
+appender.rolling.type = RollingFile
+appender.rolling.append = true
+appender.rolling.immediateFlush = false
+appender.rolling.fileName = logs/all.log
+appender.rolling.filePattern = logs/all.%d{yyyy-MM-dd}.%i.log.gz
+appender.rolling.layout.type = PatternLayout
+appender.rolling.layout.pattern = ${sd:fileLayoutPattern}
+appender.rolling.policies.type = Policies
+appender.rolling.policies.time.type = TimeBasedTriggeringPolicy
+appender.rolling.policies.startup.type = OnStartupTriggeringPolicy
+appender.rolling.policies.size.type = SizeBasedTriggeringPolicy
+appender.rolling.policies.size.size=200MB
+appender.rolling.strategy.type = DefaultRolloverStrategy
+appender.rolling.strategy.max = 30
+ 
+#logger.rolling.name = com.example.my.app
+#logger.rolling.level = debug
+#logger.rolling.additivity = false
+#logger.rolling.appenderRef.rolling.ref = RollingFile
+# 
+logger.R1.name = org.hibernate
+logger.R1.includeLocation = true
+logger.R1.level = WARN
+
+logger.R2.name = org.springframework
+logger.R2.includeLocation = true
+logger.R2.level = WARN
+
+logger.R3.name = org.apache
+logger.R3.includeLocation = true
+logger.R3.level = WARN
+
+logger.R4.name = net.sf.ehcache
+logger.R4.includeLocation = true
+logger.R4.level = WARN
+
+logger.R5.name = com.at
+logger.R5.includeLocation = true
+logger.R5.level = DEBUG
+
+# no idea how to set async sync together in properties file
+rootLogger.level = INFO
+rootLogger.includeLocation = true
+rootLogger.appenderRef.stdout.ref = stdout
+rootLogger.appenderRef.file-all.ref = file-all

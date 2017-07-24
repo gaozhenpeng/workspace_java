@@ -74,15 +74,15 @@
 		-->
 	
 		<!-- common loggers -->
-		<AsyncLogger name="org.hibernate" level="WARN" />
-		<AsyncLogger name="org.springframework" level="WARN" />
-		<AsyncLogger name="org.apache" level="WARN" />
-		<AsyncLogger name="net.sf.ehcache" level="WARN" />
+		<AsyncLogger name="org.hibernate" level="WARN" includeLocation="true" />
+		<AsyncLogger name="org.springframework" level="WARN" includeLocation="true" />
+		<AsyncLogger name="org.apache" level="WARN" includeLocation="true" />
+		<AsyncLogger name="net.sf.ehcache" level="WARN" includeLocation="true" />
 	
 		<!-- special loggers -->
-		<AsyncLogger name="com.at" level="DEBUG" />
+		<AsyncLogger name="com.at" level="DEBUG" includeLocation="true" />
 		
-		<AsyncRoot level="INFO" includeLocation="true">
+		<AsyncRoot level="INFO" includeLocation="true" >
 			<AppenderRef ref="stdout" />
 			<AppenderRef ref="file-all" />
 			<AppenderRef ref="database" />
