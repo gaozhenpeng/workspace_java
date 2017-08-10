@@ -19,39 +19,39 @@
 		<dependency>
 			<groupId>io.zipkin.brave</groupId>
 			<artifactId>brave</artifactId>
-			<version>4.3.4</version>
+			<version>4.5.1</version>
 		</dependency>
 		<!-- sending packages to zipkin server -->
 		<dependency>
 			<groupId>io.zipkin.reporter</groupId>
 			<artifactId>zipkin-sender-okhttp3</artifactId>
-			<version>0.10.0</version>
+			<version>1.0.1</version>
 		</dependency>
 		
 		<!-- slf4j: %X{traceId}, %X{spanId} -->
 		<dependency>
 			<groupId>io.zipkin.brave</groupId>
 			<artifactId>brave-context-slf4j</artifactId>
-			<version>4.3.4</version>
+			<version>4.5.1</version>
 		</dependency>
 		
 		<!-- instrumentation for mysql -->
 		<dependency>
 			<groupId>io.zipkin.brave</groupId>
 			<artifactId>brave-instrumentation-mysql</artifactId>
-			<version>4.3.4</version>
+			<version>4.5.1</version>
 		</dependency>
 		<!-- instrumentation for RestTemplate -->
 		<dependency>
 			<groupId>io.zipkin.brave</groupId>
 			<artifactId>brave-instrumentation-spring-web</artifactId>
-			<version>4.3.4</version>
+			<version>4.5.1</version>
 		</dependency>
 		<!-- instrumentation for spring mvc -->
 		<dependency>
 			<groupId>io.zipkin.brave</groupId>
 			<artifactId>brave-instrumentation-spring-webmvc</artifactId>
-			<version>4.3.4</version>
+			<version>4.5.1</version>
 		</dependency>
 		
 		<!-- slf4j to logback

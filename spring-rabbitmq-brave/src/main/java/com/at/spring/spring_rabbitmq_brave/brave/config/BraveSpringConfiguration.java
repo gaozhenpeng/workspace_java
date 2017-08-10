@@ -30,36 +30,44 @@ public class BraveSpringConfiguration {
 
 	@Value("#{'${zipkin.sender.endpoint}'.trim()}")
 	private String zipkinSenderEndpoint;
+	
 
-	/** Controls aspects of tracing such as the name that shows up in the UI */
 	@Bean
-	public Tracing tracing() {
+	public Reporter<zipkin.Span> reporter() {
+		logger.trace("start reporter()");
+		
 		if(logger.isDebugEnabled()){
 			logger.debug("zipkinTracingLocalServiceName: '" + zipkinTracingLocalServiceName + "'");
 			logger.debug("zipkinSenderEndpoint: '" + zipkinSenderEndpoint + "'");
 		}
-		
+
 		Reporter<zipkin.Span> reporter = null;
 		if("localreporter".equals(zipkinSenderEndpoint)){
 			reporter = new NoopReporter();
 		}else{
 			reporter = AsyncReporter.builder(OkHttpSender.create(zipkinSenderEndpoint)).build();
 		}
+		return reporter;
 
-		logger.debug("one tracing");
+	}
+
+	/** Controls aspects of tracing such as the name that shows up in the UI */
+	@Bean
+	public Tracing tracing() {
+		logger.trace("start tracing()");
 		return Tracing.newBuilder()
 			.traceId128Bit(true) // use 128b traceID, 32 hex char
 			.localServiceName(zipkinTracingLocalServiceName)
 			.currentTraceContext(Slf4jMDCCurrentTraceContext.create()) // puts trace IDs into logs
 			.sampler(Sampler.ALWAYS_SAMPLE) // always sampler
-			.reporter(reporter)
+			.reporter(reporter())
 			.build();
 	}
 
 	/** Controls aspects of tracing such as the name that shows up in the UI */
 	@Bean
 	public Tracer tracer() {
-		logger.debug("one tracer");
+		logger.trace("start tracer()");
 		return tracing().tracer();
 	}
 }

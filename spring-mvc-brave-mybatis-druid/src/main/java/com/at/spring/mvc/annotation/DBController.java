@@ -19,16 +19,16 @@ public class DBController {
 	@Autowired
 	SpringMybatisMain springMybatisMain;
 	
-	@RequestMapping(value = "/helloworld/spring_mybatis_main", method = RequestMethod.GET)
+	@RequestMapping(value = "/helloworld/spring_mybatis_main", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView spring_mybatis_main() throws IOException {
-		logger.debug("Entering spring_mybatis_main");
+		logger.trace("Entering spring_mybatis_main");
 
 		springMybatisMain.main();
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("helloworld");
 		mav.addObject("message", "spring_mybatis_main");
 
-		logger.debug("Exiting spring_mybatis_main");
+		logger.trace("Exiting spring_mybatis_main");
 		return mav;
 	}
 }

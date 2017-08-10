@@ -11,8 +11,8 @@ public class NoopReporter implements Reporter<zipkin.Span> {
 
 	@Override
 	public void report(Span span) {
-		if(logger.isDebugEnabled()){
-			logger.debug("span: '" + span + "'");
+		if(logger.isTraceEnabled()){
+			logger.trace("span: '" + span + "'");
 		}
 	}
 

@@ -32,28 +32,30 @@ public class BraveSpringConfiguration  extends WebMvcConfigurerAdapter {
 	private static final Logger logger = LoggerFactory.getLogger(BraveSpringConfiguration.class);
 
 
+
 	@Value("#{'${zipkin.tracing.localservicename}'.trim()}")
 	private String zipkinTracingLocalServiceName;
 
 	@Value("#{'${zipkin.sender.endpoint}'.trim()}")
 	private String zipkinSenderEndpoint;
-
+	
 	/** Controls aspects of tracing such as the name that shows up in the UI */
 	@Bean
 	public Tracing tracing() {
+		logger.trace("start tracing()");
+
 		if(logger.isDebugEnabled()){
 			logger.debug("zipkinTracingLocalServiceName: '" + zipkinTracingLocalServiceName + "'");
 			logger.debug("zipkinSenderEndpoint: '" + zipkinSenderEndpoint + "'");
 		}
-		
+
 		Reporter<zipkin.Span> reporter = null;
 		if("localreporter".equals(zipkinSenderEndpoint)){
 			reporter = new NoopReporter();
 		}else{
 			reporter = AsyncReporter.builder(OkHttpSender.create(zipkinSenderEndpoint)).build();
 		}
-
-		logger.debug("one tracing");
+		
 		return Tracing.newBuilder()
 			.traceId128Bit(true) // use 128b traceID, 32 hex char
 			.localServiceName(zipkinTracingLocalServiceName)
@@ -66,7 +68,7 @@ public class BraveSpringConfiguration  extends WebMvcConfigurerAdapter {
 	/** Controls aspects of tracing such as the name that shows up in the UI */
 	@Bean
 	public Tracer tracer() {
-		logger.debug("one tracer");
+		logger.trace("start tracer()");
 		return tracing().tracer();
 	}
 	
@@ -75,11 +77,13 @@ public class BraveSpringConfiguration  extends WebMvcConfigurerAdapter {
 	// the http method.
 	@Bean
 	public HttpTracing httpTracing() {
+		logger.trace("start httpTracing()");
 		return HttpTracing.create(tracing());
 	}
 
 	@Bean
 	public AsyncHandlerInterceptor asyncHandlerInterceptor(){
+		logger.trace("start asyncHandlerInterceptor()");
 		AsyncHandlerInterceptor asyncHandlerInterceptor = TracingHandlerInterceptor.create(httpTracing());
 		return asyncHandlerInterceptor;
 	}
@@ -89,6 +93,7 @@ public class BraveSpringConfiguration  extends WebMvcConfigurerAdapter {
 	 */
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
+		logger.trace("start addInterceptors(InterceptorRegistry)");
 		registry.addInterceptor(asyncHandlerInterceptor());
 	}
 }
