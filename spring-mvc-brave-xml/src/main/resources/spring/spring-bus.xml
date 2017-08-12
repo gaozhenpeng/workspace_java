@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="GBK"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-4.0.xsd
+     http://www.springframework.org/schema/mvc 
+     http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	
+	<context:property-placeholder location="classpath:*.properties" ignore-unresolvable="true"  />
+	
+	<bean id="zipkinReporterManager" class="com.at.spring.brave.reporter.ReporterManager" >
+		<property name="zipkinSenderEndpoint" value="${zipkin.sender.endpoint}"/>
+	</bean>
+	<bean id="zipkinReporter" factory-bean="zipkinReporterManager" factory-method="build" />
+	
+	<bean id="tracing" class="brave.spring.beans.TracingFactoryBean">
+		<property name="localServiceName" value="${zipkin.tracing.localservicename}" />
+		<property name="reporter" ref="zipkinReporter" />
+		<property name="traceId128Bit" value="true" />
+		<property name="currentTraceContext">
+			<bean class="com.at.spring.brave.logproperty.Slf4jMDCCurrentTraceContext" factory-method="create" />
+		</property>
+	</bean>
+
+	<bean id="httpTracing" class="brave.spring.beans.HttpTracingFactoryBean">
+		<property name="tracing" ref="tracing" />
+	</bean>
+	
+	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+		<property name="interceptors">
+			<list>
+				<bean class="brave.spring.web.TracingClientHttpRequestInterceptor"
+					factory-method="create">
+					<constructor-arg type="brave.http.HttpTracing" ref="httpTracing" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<mvc:interceptors>
+		<bean class="brave.spring.webmvc.TracingHandlerInterceptor" factory-method="create">
+			<constructor-arg type="brave.http.HttpTracing" ref="httpTracing" />
+		</bean>
+	</mvc:interceptors>
+
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/views/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+
+
+
+	<!-- 设置使用注解的类所在的jar包 -->
+	<context:component-scan base-package="com.at.spring" />
+	<mvc:annotation-driven />
+</beans>
