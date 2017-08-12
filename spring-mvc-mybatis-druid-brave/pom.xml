@@ -2,10 +2,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.at</groupId>
-	<artifactId>spring-mvc-brave-mybatis-druid</artifactId>
+	<artifactId>spring-mvc-mybatis-druid-brave</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<build>
-		<outputDirectory>webapps/spring_mvc_brave_mybatis_druid/WEB-INF/classes</outputDirectory>
+		<outputDirectory>webapps/spring_mvc_mybatis_druid_brave/WEB-INF/classes</outputDirectory>
 	</build>
 	<dependencies>
 		<!-- 数据库连接池，提供防sql注入、监控(web)等功能 -->

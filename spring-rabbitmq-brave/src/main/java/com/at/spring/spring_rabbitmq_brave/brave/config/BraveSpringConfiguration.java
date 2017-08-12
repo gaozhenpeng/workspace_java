@@ -42,7 +42,7 @@ public class BraveSpringConfiguration {
 		}
 
 		Reporter<zipkin.Span> reporter = null;
-		if("localreporter".equals(zipkinSenderEndpoint)){
+		if("noopreporter".equals(zipkinSenderEndpoint)){
 			reporter = new NoopReporter();
 		}else{
 			reporter = AsyncReporter.builder(OkHttpSender.create(zipkinSenderEndpoint)).build();

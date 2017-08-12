@@ -136,8 +136,8 @@
                prefix="localhost_access_log" suffix=".txt"
                pattern="%h %l %u %t &quot;%r&quot; %s %b" />
 
-        <Context docBase="e:/workspace_java/spring-mvc-brave-mybatis-druid/webapps/spring_mvc_brave_mybatis_druid"
-                path="/spring_mvc_brave_mybatis_druid" reloadable="true" />
+        <Context docBase="e:/workspace_java/spring-mvc-mybatis-druid-brave/webapps/spring_mvc_mybatis_druid_brave"
+                path="/spring_mvc_mybatis_druid_brave" reloadable="true" />
         <!-- Context docBase="e:/workspace_java/spring-mvc/webapps/spring_mvc" path="" 
                 reloadable="true" / -->
       </Host>
