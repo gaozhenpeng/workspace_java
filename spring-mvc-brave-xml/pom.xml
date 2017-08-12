@@ -15,7 +15,7 @@
 			<artifactId>brave</artifactId>
 			<version>4.5.1</version>
 		</dependency>
-		<!-- zipkin java client, brave -->
+		<!-- zipkin spring beans for the configurations in xml style -->
 		<dependency>
 			<groupId>io.zipkin.brave</groupId>
 			<artifactId>brave-spring-beans</artifactId>
