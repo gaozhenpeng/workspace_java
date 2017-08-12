@@ -2,10 +2,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.at</groupId>
-	<artifactId>spring-mvc-brave</artifactId>
+	<artifactId>spring-mvc-brave-anno</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<build>
-		<outputDirectory>webapps/spring_mvc_brave/WEB-INF/classes</outputDirectory>
+		<outputDirectory>webapps/spring_mvc_brave_anno/WEB-INF/classes</outputDirectory>
 	</build>
 	<dependencies>
 
