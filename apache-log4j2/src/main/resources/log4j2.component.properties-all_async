@@ -1,1 +1,2 @@
+# make all logger async
 Log4jContextSelector=org.apache.logging.log4j.core.async.AsyncLoggerContextSelector

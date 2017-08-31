@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN"> <!-- logging level for log4j2 events -->
 	<Properties>
-		<Property name="defaultLayoutPattern">[%level] [%thread] [%logger.%method:%line] | %message%n</Property>
+		<Property name="defaultLayoutPattern">[%-5level] [%thread] [%logger.%method:%line] | %message%n</Property>
 		<Property name="stdoutLayoutPattern">${sd:defaultLayoutPattern}</Property>
 		<Property name="fileLayoutPattern">${sd:defaultLayoutPattern}</Property>
 	</Properties>
@@ -24,9 +24,10 @@
 		</RollingFile>
 	</Appenders>
 	<Loggers>
-		<!-- async all loggers with vm arguments  (recommended for efficiency)
+		<!--
+			1. async all loggers with vm arguments  (recommended for efficiency)
 				-DLog4jContextSelector=org.apache.logging.log4j.core.async.AsyncLoggerContextSelector
-			or
+			2. or
 				use <AyncLogger>, <AsyncRoot> (recommended for certainty)
 
 		<AsyncLogger name="com.at" level="trace" includeLocation="true" additivity="false">

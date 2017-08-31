@@ -2,7 +2,7 @@
 status = WARN
 
 # properties setting
-property.defaultLayoutPattern = [%level] [%thread] [%logger.%method:%line] | %message%n
+property.defaultLayoutPattern = [%-5level] [%thread] [%logger.%method:%line] | %message%n
 property.stdoutLayoutPattern = ${sd:defaultLayoutPattern}
 property.fileLayoutPattern = ${sd:defaultLayoutPattern}
 
