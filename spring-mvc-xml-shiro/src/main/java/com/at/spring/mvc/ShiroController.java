@@ -89,7 +89,7 @@ public class ShiroController {
 			if (subject.isAuthenticated()) {
 				request.getSession().setAttribute("user", params);
 				SavedRequest savedRequest = WebUtils.getSavedRequest(request);
-				// 获取保存的URL
+				// saved request url
 				if (savedRequest == null || savedRequest.getRequestUrl() == null) {
 					return "redirect:admin/home";
 				} else {
@@ -102,31 +102,31 @@ public class ShiroController {
 				return "login";
 			}
 		} catch (IncorrectCredentialsException e) {
-			msg = "登录密码错误. Password for account " + token.getPrincipal() + " was incorrect.";
+			msg = "Incorrect Credential. Password for account " + token.getPrincipal() + " was incorrect.";
 			model.addAttribute("message", msg);
 			logger.warn(msg);
 		} catch (ExcessiveAttemptsException e) {
-			msg = "登录失败次数过多";
+			msg = "Excessive Attempts";
 			model.addAttribute("message", msg);
 			logger.warn(msg);
 		} catch (LockedAccountException e) {
-			msg = "帐号已被锁定. The account for username " + token.getPrincipal() + " was locked.";
+			msg = "Locked Account. The account for username " + token.getPrincipal() + " was locked.";
 			model.addAttribute("message", msg);
 			logger.warn(msg);
 		} catch (DisabledAccountException e) {
-			msg = "帐号已被禁用. The account for username " + token.getPrincipal() + " was disabled.";
+			msg = "Disabled Account. The account for username " + token.getPrincipal() + " was disabled.";
 			model.addAttribute("message", msg);
 			logger.warn(msg);
 		} catch (ExpiredCredentialsException e) {
-			msg = "帐号已过期. the account for username " + token.getPrincipal() + "  was expired.";
+			msg = "Expired Credential. the account for username " + token.getPrincipal() + "  was expired.";
 			model.addAttribute("message", msg);
 			logger.warn(msg);
 		} catch (UnknownAccountException e) {
-			msg = "帐号不存在. There is no user with username of " + token.getPrincipal();
+			msg = "Unknown Acount. There is no user with username of " + token.getPrincipal();
 			model.addAttribute("message", msg);
 			logger.warn(msg);
 		} catch (UnauthorizedException e) {
-			msg = "您没有得到相应的授权！" + e.getMessage();
+			msg = "Unauthorized! " + e.getMessage();
 			model.addAttribute("message", msg);
 			logger.warn(msg);
 		}
@@ -134,6 +134,7 @@ public class ShiroController {
 		logger.debug("Exiting doLogin(@RequestParam Map<String,String>, HttpServletRequest, Model)");
 		return "login";
 	}
+	
 	
 	
 	

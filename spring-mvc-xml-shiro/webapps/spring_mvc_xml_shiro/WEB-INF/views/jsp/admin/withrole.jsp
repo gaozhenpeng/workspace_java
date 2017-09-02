@@ -20,7 +20,7 @@
 <p>You're a simple user</p>
 </shiro:hasRole>
 
-<p><a href="<c:url value='/api/shiro/dologout'/>"><button>退出登录</button></a>
+<p><a href="<c:url value='/api/shiro/dologout'/>"><button>logout</button></a>
 </p>
 
 </body>

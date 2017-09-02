@@ -11,14 +11,14 @@
 <body>
 
 <shiro:hasPermission name="user:create"><%-- permission check can be defined in spring 'shiroFilter'--%>
-<p>欢迎${user.username}登录</p>
+<p>Welcome ${user.username}!</p>
 <p>
 	You're able to create user.
 </p> 
 </shiro:hasPermission>
 
 
-<p><a href="<c:url value='/api/shiro/dologout'/>"><button>退出登录</button></a>
+<p><a href="<c:url value='/api/shiro/dologout'/>"><button>logout</button></a>
 </p>
 </body>
 </html>
