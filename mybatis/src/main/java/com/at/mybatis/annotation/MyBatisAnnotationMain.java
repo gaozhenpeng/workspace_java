@@ -31,7 +31,7 @@ public class MyBatisAnnotationMain {
         logger.debug("setting datasource factory");
         Properties dataSourceProperties = new Properties();
         dataSourceProperties.setProperty("driver", "com.mysql.jdbc.Driver");
-        dataSourceProperties.setProperty("url", "jdbc:mysql://127.0.0.1:3306/test");
+        dataSourceProperties.setProperty("url", "jdbc:mysql://127.0.0.1:3306/test?serverTimezone=UTC&useSSL=false");
         dataSourceProperties.setProperty("username", "root");
         dataSourceProperties.setProperty("password", "");
         
