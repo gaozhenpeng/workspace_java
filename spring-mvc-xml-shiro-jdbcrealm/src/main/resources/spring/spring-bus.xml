@@ -50,12 +50,9 @@
 
     <!-- Used by the SecurityManager to access security data (users, roles, etc).
          Many other realm implementations can be used too (PropertiesRealm,
-         LdapRealm, etc. -->
-    <!--
-    使用Shiro自带的JdbcRealm类
-    指定密码匹配所需要用到的加密对象
-    指定存储用户、角色、权限许可的数据源及相关查询语句
-    -->
+         LdapRealm, etc.
+         Shiro native JdbcRealm
+         -->
     <bean id="jdbcRealm" class="org.apache.shiro.realm.jdbc.JdbcRealm">
         <!-- <property name="credentialsMatcher" ref="credentialsMatcher"></property> -->
         <property name="permissionsLookupEnabled" value="true"></property>
@@ -68,7 +65,7 @@
                   value="select sp.permission_name from sec_permission sp,sec_role_permission srp,sec_role sr where 1 = 1 and sr.role_name = ? and srp.role_id = sr.role_id and sp.permission_id = srp.role_id"></property>
     </bean>
     
-    <!-- 数据库保存的密码是使用MD5算法加密的，所以这里需要配置一个密码匹配对象 -->
+    <!-- if password is saved in db by md5, Md5CredentialsMatcher is required. -->
     <!-- <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.Md5CredentialsMatcher"></bean> -->
 
 	<!-- Sample RDBMS data source that would exist in any application - not Shiro related. -->
