@@ -1,4 +1,4 @@
-package com.at.spring.mvc.annotation;
+package com.at.spring.mvc;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping(value="/helloworld")
+@RequestMapping(value = "/helloworld")
 public class HWController {
 	private static final Logger logger = LoggerFactory.getLogger(HWController.class);
 
@@ -48,7 +48,6 @@ public class HWController {
 		logger.debug("Exiting helloworld, 2.");
 		return "helloworld";
 	}
-
 	@RequestMapping(value = "params", method = {RequestMethod.GET,RequestMethod.POST})
 	public String helloWorld(@RequestParam Map<String, String> params, Model m) {
 		logger.debug("Entering helloworld, params.");
