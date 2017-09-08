@@ -6,14 +6,7 @@
 		<artifactId>workspace-java</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>com.at.jmock</groupId>
-	<artifactId>jmock-expectations</artifactId>
+	<groupId>com.at</groupId>
+	<artifactId>java8_localtime</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<dependencies>
-		<dependency>
-			<groupId>org.jmock</groupId>
-			<artifactId>jmock-junit4</artifactId>
-			<version>2.5.1</version>
-		</dependency>
-	</dependencies>
 </project>
