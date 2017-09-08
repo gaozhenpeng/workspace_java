@@ -7,7 +7,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<groupId>com.at</groupId>
-	<artifactId>spring-mvc-xml-shiro-mybatis</artifactId>
+	<artifactId>spring-mvc-xml-shiro-jdbcrealm</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<build>
 		<outputDirectory>webapps/spring_mvc_xml_shiro_jdbcrealm/WEB-INF/classes</outputDirectory>
