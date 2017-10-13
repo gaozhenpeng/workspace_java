@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<!-- provider's app info, be used to calculate the dependency -->
+	<dubbo:application name="hello-world-app" />
+
+	<!-- avaialbe registries: multicast, zookeeper, redis -->
+	<dubbo:registry address="multicast://224.5.6.7:1234" />
+
+	<!-- protocoty type and port -->
+	<dubbo:protocol name="dubbo" port="20880" />
+
+	<!-- service interface -->
+	<dubbo:service interface="com.at.dubbo.simple.service.DemoService" ref="demoServiceImpl" />
+
+	<!-- local bean -->
+	<bean id="demoServiceImpl" class="com.at.dubbo.simple.service.impl.DemoServiceImpl" />
+</beans>

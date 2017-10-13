@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://code.alibabatech.com/schema/dubbo
+            http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<!--
+		App name, be used to calculate dependency.
+		
+		Not a match condition. Don't set the same value as
+		the server's one -->
+	<dubbo:application name="consumer-of-helloworld-app" />
+
+	<!-- avaialbe registries: multicast, zookeeper, redis -->
+	<dubbo:registry address="multicast://224.5.6.7:1234" />
+
+	<!-- remote service reference. it can be referenced like local bean -->
+	<dubbo:reference id="demoService" interface="com.at.dubbo.simple.service.DemoService" />
+	
+</beans>
