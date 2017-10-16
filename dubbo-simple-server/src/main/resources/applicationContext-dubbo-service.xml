@@ -16,7 +16,7 @@
 	<dubbo:protocol name="dubbo" port="20880" />
 
 	<!-- service interface -->
-	<dubbo:service interface="com.at.dubbo.simple.service.DemoService" ref="demoServiceImpl" />
+	<dubbo:service interface="com.at.dubbo.simple.service.DemoService" ref="demoServiceImpl" timeout="10000" />
 
 	<!-- local bean -->
 	<bean id="demoServiceImpl" class="com.at.dubbo.simple.service.impl.DemoServiceImpl" />
