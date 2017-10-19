@@ -18,7 +18,9 @@
 		  init-method="init" destroy-method="destroy">
 	</bean>
 
-	<!-- 使用托管方式的disconf配置(无代码侵入, 配置更改会自动reload) -->
+	<!--
+        Configurations proxied by disconf (non-intrusive,
+        configuration will be reload automatically if modified) -->
 	<bean id="configproperties_disconf"
 		  class="com.baidu.disconf.client.addons.properties.ReloadablePropertiesFactoryBean">
 		<property name="locations">
@@ -50,7 +52,7 @@
 
 
 
-	<!-- 扫描包 -->
+	<!-- scan packages -->
 	<context:component-scan base-package="com.at" />
 	
 	<!-- other configuration items
