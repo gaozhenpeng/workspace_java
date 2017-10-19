@@ -12,7 +12,7 @@
 	<!-- disconf, start: -->
 	<bean id="disconfMgrBean" class="com.baidu.disconf.client.DisconfMgrBean"
 		  destroy-method="destroy">
-		<property name="scanPackage" value="com.wtoip.share" />
+		<property name="scanPackage" value="com.at.disconf" />
 	</bean>
 	<bean id="disconfMgrBean2" class="com.baidu.disconf.client.DisconfMgrBeanSecond"
 		  init-method="init" destroy-method="destroy">
