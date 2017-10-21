@@ -7,7 +7,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<groupId>com.at.dubbo</groupId>
-	<artifactId>dubbo-simple-server</artifactId>
+	<artifactId>dubbo-simple-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<dependencies>
 	
