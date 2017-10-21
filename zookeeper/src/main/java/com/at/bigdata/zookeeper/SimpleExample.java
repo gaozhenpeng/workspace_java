@@ -12,8 +12,8 @@ import org.apache.zookeeper.data.Stat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SimpleOfficialExample {
-	private static final Logger logger = LoggerFactory.getLogger(SimpleOfficialExample.class);
+public class SimpleExample {
+	private static final Logger logger = LoggerFactory.getLogger(SimpleExample.class);
 	
 	
 	public static void main(String[] args) throws IOException, KeeperException, InterruptedException {
