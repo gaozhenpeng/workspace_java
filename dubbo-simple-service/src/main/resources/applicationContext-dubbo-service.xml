@@ -9,12 +9,25 @@
 	<!-- provider's app info, be used to calculate the dependency -->
 	<dubbo:application name="hello-world-app" />
 
-	<!-- avaialbe registries: multicast, zookeeper, redis -->
-	<dubbo:registry address="multicast://224.5.6.7:1234" />
+	<!-- local network, auto discover -->
+	<!-- <dubbo:registry address="multicast://224.5.6.7:1234" /> -->
+	
+	<!-- zookeeper standalone -->
+	<dubbo:registry address="zookeeper://127.0.0.1:2181" />
+	<!-- zookeeper cluster -->
+	<!-- 
+	<dubbo:registry address="zookeeper://10.20.153.10:2181?backup=10.20.153.11:2181,10.20.153.12:2181" />
+	-->
 
 	<!-- protocoty type and port -->
 	<dubbo:protocol name="dubbo" port="20880" />
 
+	<!-- auto detect by default, but it would fail easily when
+	     there're multiple IPs were bound -->
+	<!-- 
+	<dubbo:provider host="192.168.2.102" />
+	-->
+	
 	<!-- service interface -->
 	<dubbo:service interface="com.at.dubbo.simple.service.DemoService" ref="demoServiceImpl" timeout="10000" />
 
