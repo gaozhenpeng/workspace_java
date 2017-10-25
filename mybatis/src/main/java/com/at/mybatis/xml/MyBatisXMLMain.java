@@ -2,9 +2,14 @@ package com.at.mybatis.xml;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
@@ -27,13 +32,32 @@ public class MyBatisXMLMain {
         boolean isAutoCommit = false;
         SqlSession session = sqlSessionFactory.openSession(isAutoCommit);
         try {
-            Blog blog = session.selectOne("com.at.mybatis.xml.mapper.BlogMapper.selectBlog", 3);
-            logger.info(blog == null ? "blog is null" : "blog: " + blog.toString());
-            blog.setContent("Current Time: " + new Date().getTime());
-            blog.setName(null);
-            session.update("com.at.mybatis.xml.mapper.BlogMapper.updateBlog", blog);
-//          if(true){throw new RuntimeException("Broken the transaction.");}
-            session.commit();
+            List<Integer> ids = new ArrayList<Integer>();
+            ids.add(1);
+            ids.add(2);
+            ids.add(3);
+            ids.add(4);
+            ids.add(5);
+            List<Integer> not_ids = new ArrayList<Integer>();
+            not_ids.add(5);
+            not_ids.add(6);
+            not_ids.add(7);
+            not_ids.add(8);
+            
+            Map params = new HashMap();
+            params.put("ids", ids);
+            params.put("not_ids", not_ids);
+
+            List<Blog> blogs = session.selectList("com.at.mybatis.xml.mapper.BlogMapper.selectBlogs", params, new RowBounds(3, 3));
+            logger.info(blogs == null ? "blogs is null" : "blog: " + blogs.toString());
+            for(Blog blog : blogs){
+	            blog.setContent("Current Time: " + new Date().getTime());
+	            blog.setName(null);
+	            blog.setUpdated_datetime(new Date());
+	            session.update("com.at.mybatis.xml.mapper.BlogMapper.updateBlog", blog);
+	//          if(true){throw new RuntimeException("Broken the transaction.");}
+	            session.commit();
+            }
         }catch(Exception e){
             logger.error("Shit happened!", e);
             session.rollback();
