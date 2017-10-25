@@ -45,6 +45,7 @@ public class MyBatisXMLMain {
             not_ids.add(8);
             
             Map params = new HashMap();
+            params.put("not_name", "notmyname");
             params.put("ids", ids);
             params.put("not_ids", not_ids);
 
