@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN"> <!-- logging level for log4j2 events -->
+	<Properties>
+		<Property name="defaultLayoutPattern">[%-5level] [%logger.%method:%line] | %message%n</Property>
+		<Property name="stdoutLayoutPattern">${sd:defaultLayoutPattern}</Property>
+		<Property name="fileLayoutPattern">${sd:defaultLayoutPattern}</Property>
+	</Properties>
+	<Appenders>
+		<Console name="stdout" target="SYSTEM_OUT">
+			<PatternLayout pattern="${sd:stdoutLayoutPattern}" charset="UTF-8"/>
+		</Console>
+		<RollingFile name="file-all"
+			fileName="logs/all.log"
+			filePattern="logs/all.%d{yyyy-MM-dd}.%i.log.gz"
+			append="true"
+			immediateFlush="false" >
+			<PatternLayout pattern="${sd:fileLayoutPattern}" charset="UTF-8"/>
+			<Policies><!-- events of triggering rolling -->
+				<OnStartupTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="200MB" />
+				<TimeBasedTriggeringPolicy />
+			</Policies>
+			<DefaultRolloverStrategy max="30" />
+		</RollingFile>
+	</Appenders>
+	<Loggers>
+		<!-- async all loggers with vm arguments  (recommended for efficiency)
+				-DLog4jContextSelector=org.apache.logging.log4j.core.async.AsyncLoggerContextSelector
+			or
+				use <AyncLogger>, <AsyncRoot> (recommended for certainty)
+
+		<AsyncLogger name="com.at" level="trace" includeLocation="true" additivity="false">
+			<AppenderRef ref="file-all" />
+		</AsyncLogger>
+		-->
+	
+		<!-- common loggers -->
+		<!-- 
+		<AsyncLogger name="org.springframework" level="WARN" includeLocation="true"/>
+		<AsyncLogger name="org.apache" level="WARN" includeLocation="true"/>
+		<AsyncLogger name="org.hibernate" level="WARN" includeLocation="true"/>
+		<AsyncLogger name="net.sf.ehcache" level="WARN" includeLocation="true"/>
+		 -->
+		<!-- special loggers -->
+		<AsyncLogger name="com.at" level="DEBUG" includeLocation="true"/>
+		<AsyncLogger name="com.at.spring" level="TRACE" includeLocation="true"/>
+		
+		<AsyncRoot level="INFO" includeLocation="true">
+			<AppenderRef ref="stdout" />
+			<AppenderRef ref="file-all" />
+		</AsyncRoot>
+	</Loggers>
+</Configuration>
