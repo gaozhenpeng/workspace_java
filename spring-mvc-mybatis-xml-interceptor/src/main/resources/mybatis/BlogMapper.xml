@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.at.spring.mybatis.dao.BlogDao">
+	<select id="selectBlog" resultType="com.at.spring.mybatis.vo.Blog">
+		select * from blog where blog_id = #{blog_id}
+	</select>
+	<update id="updateBlog" parameterType="com.at.spring.mybatis.vo.Blog">
+		update blog
+		<set>
+			<if test="name != null">name = #{name},</if>
+			<if test="content != null">content = #{content},</if>
+			<if test="updated_datetime != null">updated_datetime = #{updated_datetime},</if>
+			<if test="created_datetime != null">created_datetime = #{created_datetime},</if>
+		</set>
+		where blog_id = #{blog_id}
+	</update>
+	
+	<select id="selectBlogs" resultType="com.at.spring.mybatis.vo.Blog">
+		select * from blog where 1 = 1
+		<if test="notname != null" >
+			and name != #{notname}
+		</if>
+		<if test="ids != null and ids.size() > 0" >
+			and blog_id in 
+			<foreach collection="ids" item="item" open="(" separator=", " close=")" >
+				#{item}
+			</foreach>
+		</if>
+		<if test="notids != null and notids.size() > 0" >
+			and blog_id not in
+			<foreach collection="notids" item="notitem" open="(" separator=", " close=")" >
+				#{notitem}
+			</foreach>
+		</if>
+	</select>
+</mapper>
