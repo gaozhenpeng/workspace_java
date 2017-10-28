@@ -9,9 +9,6 @@
 	<groupId>com.at</groupId>
 	<artifactId>spring-mvc-mybatis-druid</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<build>
-		<outputDirectory>webapps/spring_mvc_mybatis_druid/WEB-INF/classes</outputDirectory>
-	</build>
 	<dependencies>
 		<!-- 数据库连接池，提供防sql注入、监控(web)等功能 -->
 		<dependency>

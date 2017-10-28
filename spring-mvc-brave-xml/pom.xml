@@ -9,9 +9,6 @@
 	<groupId>com.at</groupId>
 	<artifactId>spring-mvc-brave-xml</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<build>
-		<outputDirectory>webapps/spring_mvc_brave_xml/WEB-INF/classes</outputDirectory>
-	</build>
 	<dependencies>
 
 		<!-- zipkin java client, brave -->

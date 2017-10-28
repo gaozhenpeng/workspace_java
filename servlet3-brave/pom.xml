@@ -9,9 +9,6 @@
 	<groupId>com.at</groupId>
 	<artifactId>servlet3-brave</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<build>
-		<outputDirectory>webapps/servlet3_brave/WEB-INF/classes</outputDirectory>
-	</build>
 	<dependencies>
 		<!-- Servlet -->
 		<dependency>

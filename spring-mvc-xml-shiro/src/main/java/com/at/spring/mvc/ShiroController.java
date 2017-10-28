@@ -62,7 +62,7 @@ public class ShiroController {
 		logger.info("page_path: '{}'", page_path);
 		
 		logger.debug("Exiting login()");
-		return "login";
+		return "/login";
 	}
 
 	@RequestMapping(value = "/dologout", method = {RequestMethod.GET,RequestMethod.POST})
@@ -87,19 +87,24 @@ public class ShiroController {
 		try {
 			subject.login(token);
 			if (subject.isAuthenticated()) {
+				logger.debug("subject is authenticated.");
 				request.getSession().setAttribute("user", params);
 				SavedRequest savedRequest = WebUtils.getSavedRequest(request);
 				// saved request url
 				if (savedRequest == null || savedRequest.getRequestUrl() == null) {
-					return "redirect:admin/home";
+					logger.debug("redirect: admin/home");
+					return "redirect: admin/home";
 				} else {
-					// String url = savedRequest.getRequestUrl().substring(12,
-					// savedRequest.getRequestUrl().length());
 //					return "forward:" + savedRequest.getRequestUrl();
-					return "redirect:" + savedRequest.getRequestUrl();
+					String urlWithContextPath = savedRequest.getRequestUrl();
+					String urlWithoutContextPath = urlWithContextPath.replaceFirst(request.getContextPath(), "");
+					logger.debug("urlWithContextPath: '{}'", urlWithContextPath);
+					logger.debug("urlWithoutContextPath: '{}'", urlWithoutContextPath);
+					return "redirect:" + urlWithoutContextPath;
 				}
 			} else {
-				return "login";
+				logger.debug("subject is unauthenticated.");
+				return "/login";
 			}
 		} catch (IncorrectCredentialsException e) {
 			msg = "Incorrect Credential. Password for account " + token.getPrincipal() + " was incorrect.";
@@ -132,7 +137,7 @@ public class ShiroController {
 		}
 
 		logger.debug("Exiting doLogin(@RequestParam Map<String,String>, HttpServletRequest, Model)");
-		return "login";
+		return "/login";
 	}
 	
 	

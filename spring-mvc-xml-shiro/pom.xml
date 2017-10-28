@@ -9,9 +9,7 @@
 	<groupId>com.at</groupId>
 	<artifactId>spring-mvc-xml-shiro</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<build>
-		<outputDirectory>webapps/spring_mvc_xml_shiro/WEB-INF/classes</outputDirectory>
-	</build>
+
 	<dependencies>
 
 		<!-- shiro -->

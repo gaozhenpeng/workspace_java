@@ -9,9 +9,6 @@
 	<groupId>com.at.spring</groupId>
 	<artifactId>spring-mvc-servlet3</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<build>
-		<outputDirectory>webapps/spring_mvc_servlet3/WEB-INF/classes</outputDirectory>
-	</build>
 	<dependencies>
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
