@@ -26,6 +26,18 @@
 
 
 	<!-- remote service reference. it can be referenced like local bean -->
-	<dubbo:reference id="demoService" interface="com.at.dubbo.simple.service.DemoService" />
+	<!--  -->
+	<dubbo:reference
+		id="demoService"
+		interface="com.at.dubbo.simple.service.DemoService"/>
+		 
+	<!-- It can also be explicitly specify the provider address by
+		 the url attribute of dubbo:reference -->
+	<!--
+	<dubbo:reference
+		id="demoService"
+		interface="com.at.dubbo.simple.service.DemoService"
+		url="dubbo://127.0.0.1:20880" />
+	-->
 	
 </beans>
