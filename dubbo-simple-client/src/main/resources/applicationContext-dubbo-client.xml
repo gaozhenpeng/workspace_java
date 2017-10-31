@@ -29,7 +29,8 @@
 	<!--  -->
 	<dubbo:reference
 		id="demoService"
-		interface="com.at.dubbo.simple.service.DemoService"/>
+		interface="com.at.dubbo.simple.service.DemoService"
+		version="1.0.0"/>
 		 
 	<!-- It can also be explicitly specify the provider address by
 		 the url attribute of dubbo:reference -->
@@ -37,6 +38,7 @@
 	<dubbo:reference
 		id="demoService"
 		interface="com.at.dubbo.simple.service.DemoService"
+		version="1.0.0"
 		url="dubbo://127.0.0.1:20880" />
 	-->
 	

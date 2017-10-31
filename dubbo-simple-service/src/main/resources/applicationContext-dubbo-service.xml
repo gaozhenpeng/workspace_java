@@ -29,7 +29,7 @@
 	-->
 	
 	<!-- service interface -->
-	<dubbo:service interface="com.at.dubbo.simple.service.DemoService" ref="demoServiceImpl" timeout="10000" />
+	<dubbo:service interface="com.at.dubbo.simple.service.DemoService" version="1.0.0" ref="demoServiceImpl" timeout="10000" />
 
 	<!-- local bean -->
 	<bean id="demoServiceImpl" class="com.at.dubbo.simple.service.impl.DemoServiceImpl" />
