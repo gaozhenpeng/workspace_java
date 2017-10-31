@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://code.alibabatech.com/schema/dubbo
+            http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<!--
+		App name, be used to calculate dependency.
+		
+		Not a match condition. Don't set the same value as
+		the server's one -->
+	<dubbo:application name="consumer-of-helloworld-app" />
+
+
+	<!-- local network, auto discover -->
+	<!-- <dubbo:registry address="multicast://224.5.6.7:1234" /> -->
+	
+	<!-- zookeeper standalone -->
+	<dubbo:registry address="zookeeper://127.0.0.1:2181" />
+	<!-- zookeeper cluster -->
+	<!-- 
+	<dubbo:registry address="zookeeper://10.20.153.10:2181?backup=10.20.153.11:2181,10.20.153.12:2181" />
+	-->
+
+
+	<!-- remote service reference. it can be referenced like local bean -->
+	<!-- 
+	<dubbo:reference
+		id="demoService"
+		interface="com.at.dubbo.simple.service.DemoService"
+		version="1.0.0"/>
+	-->
+		 
+	<!-- It can also be explicitly specify the provider address by
+		 the url attribute of dubbo:reference -->
+	<!--
+	<dubbo:reference
+		id="demoService"
+		interface="com.at.dubbo.simple.service.DemoService"
+		version="1.0.0"
+		url="dubbo://127.0.0.1:20880" />
+	-->
+	
+	<!-- Annotation scanning packages. 
+		Multiple values are separated by comma.
+		All classes in current ApplicationContext will be scanned
+		if no value is set for the 'package' attribute.
+	-->
+	<dubbo:annotation package="com.at.dubbo.simple.client" />
+</beans>

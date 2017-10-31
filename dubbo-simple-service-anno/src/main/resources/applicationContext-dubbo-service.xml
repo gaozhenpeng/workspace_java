@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<!-- provider's app info, be used to calculate the dependency -->
+	<dubbo:application name="hello-world-app" />
+
+	<!-- local network, auto discover -->
+	<!-- <dubbo:registry address="multicast://224.5.6.7:1234" /> -->
+	
+	<!-- zookeeper standalone -->
+	<dubbo:registry address="zookeeper://127.0.0.1:2181" />
+	<!-- zookeeper cluster -->
+	<!-- 
+	<dubbo:registry address="zookeeper://10.20.153.10:2181?backup=10.20.153.11:2181,10.20.153.12:2181" />
+	-->
+
+	<!-- protocoty type and port -->
+	<dubbo:protocol name="dubbo" port="20880" />
+
+	<!-- auto detect by default, but it would fail easily when
+	     there're multiple IPs were bound -->
+	<!-- 
+	<dubbo:provider host="192.168.2.102" />
+	-->
+	
+	<!-- service interface -->
+	<!--
+	<dubbo:service interface="com.at.dubbo.simple.service.DemoService" ref="demoServiceImpl" timeout="10000" />
+	-->
+
+	<!-- local bean -->
+	<!--
+	<bean id="demoServiceImpl" class="com.at.dubbo.simple.service.impl.DemoServiceImpl" />
+	-->
+	
+	<!-- Annotation scanning packages. 
+		Multiple values are separated by comma.
+		All classes in current ApplicationContext will be scanned
+		if no value is set for the 'package' attribute.
+	-->
+	<dubbo:annotation package="com.at.dubbo.simple.service" />
+</beans>
