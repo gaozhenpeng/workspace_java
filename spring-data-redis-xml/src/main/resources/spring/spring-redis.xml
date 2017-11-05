@@ -24,6 +24,7 @@
         p:host-name="${redis.hostname}"
         p:port="${redis.port}"
         p:password="${redis.password}"
+        p:database="${redis.database}"
         
         p:use-pool="true"
         p:pool-config-ref="jedisPoolConfig"
