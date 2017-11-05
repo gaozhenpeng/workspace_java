@@ -20,7 +20,7 @@ public class RedisConfiguration {
 	public JedisConnectionFactory jedisConnectionFactory(){
 		logger.debug("jedisConnectionFactory() begin");
 		JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
-		jedisPoolConfig.setMaxIdle(3); // 3
+		jedisPoolConfig.setMinIdle(3); // 3
 		jedisPoolConfig.setMaxTotal(10); // 10
 		jedisPoolConfig.setMaxWaitMillis(1000); // 1s
 		

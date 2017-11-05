@@ -1,5 +1,6 @@
 package com.at.spring_data_redis;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -42,7 +43,7 @@ public class RedisTemplateMain {
 		return url;
 	}
 	
-	public static void main(String[] args) throws MalformedURLException {
+	public static void main(String[] args) throws IOException {
 		logger.debug("Enterring Main.");
 
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(RedisTemplateMain.class);
@@ -53,6 +54,8 @@ public class RedisTemplateMain {
 		main.addLink("myuserid", new URL(orgLink));
 		String link = main.getLink("myuserid");
 		logger.info("orgLink: '{}', link: '{}' ;", orgLink, link);
+		
+//		System.in.read();
 		
 		context.close();
 		logger.debug("Exiting Main.");
