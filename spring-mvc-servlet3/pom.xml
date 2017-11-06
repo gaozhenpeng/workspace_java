@@ -9,6 +9,8 @@
 	<groupId>com.at.spring</groupId>
 	<artifactId>spring-mvc-servlet3</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+
 	<dependencies>
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
@@ -65,4 +67,7 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+	<build>
+		<finalName>${project.artifactId}</finalName>
+	</build>
 </project>

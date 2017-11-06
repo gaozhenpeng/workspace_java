@@ -9,7 +9,8 @@
 	<groupId>com.at</groupId>
 	<artifactId>spring-mvc-mybatis-druid-brave</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	
+	<packaging>war</packaging>
+
 	<dependencies>
 		<!-- 数据库连接池，提供防sql注入、监控(web)等功能 -->
 		<dependency>
@@ -215,4 +216,7 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+	<build>
+		<finalName>${project.artifactId}</finalName>
+	</build>
 </project>

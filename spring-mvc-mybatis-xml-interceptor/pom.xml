@@ -9,6 +9,8 @@
 	<groupId>com.at</groupId>
 	<artifactId>spring-mvc-mybatis-xml-interceptor</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+
 	<dependencies>
 		
 		<dependency>
@@ -144,4 +146,7 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+	<build>
+		<finalName>${project.artifactId}</finalName>
+	</build>
 </project>

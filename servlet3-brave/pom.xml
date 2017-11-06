@@ -9,6 +9,8 @@
 	<groupId>com.at</groupId>
 	<artifactId>servlet3-brave</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+
 	<dependencies>
 		<!-- Servlet -->
 		<dependency>
@@ -51,4 +53,7 @@
 			<version>4.3.4</version>
 		</dependency>
 	</dependencies>
+	<build>
+		<finalName>${project.artifactId}</finalName>
+	</build>
 </project>

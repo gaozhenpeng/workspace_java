@@ -9,6 +9,8 @@
 	<groupId>com.at</groupId>
 	<artifactId>servlet3</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+
 	<dependencies>
 		<!-- Servlet -->
 		<dependency>
@@ -26,4 +28,7 @@
 			<version>1.2.3</version>
 		</dependency>
 	</dependencies>
+	<build>
+		<finalName>${project.artifactId}</finalName>
+	</build>
 </project>

@@ -9,8 +9,9 @@
 	<groupId>com.at</groupId>
 	<artifactId>spring-mvc-xml</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<dependencies>
+	<packaging>war</packaging>
 
+	<dependencies>
 		<!-- slf4j to logback
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
@@ -99,4 +100,7 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+	<build>
+		<finalName>${project.artifactId}</finalName>
+	</build>
 </project>

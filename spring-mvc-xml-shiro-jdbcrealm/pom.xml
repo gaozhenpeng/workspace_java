@@ -9,9 +9,9 @@
 	<groupId>com.at</groupId>
 	<artifactId>spring-mvc-xml-shiro-jdbcrealm</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	
-	<dependencies>
+	<packaging>war</packaging>
 
+	<dependencies>
 		<!-- shiro -->
 		<!-- shiro-spring referened shiro-web and shiro-core -->
 		<dependency>
@@ -125,4 +125,7 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+	<build>
+		<finalName>${project.artifactId}</finalName>
+	</build>
 </project>
