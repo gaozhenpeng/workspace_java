@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.at.mybatis.xml.mapper.BlogMapper">
+    <resultMap id="base_result_map" type="com.at.mybatis.xml.vo.Blog">
+        <id column="blog_id" property="blog_id" jdbcType="BIGINT" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="content" property="content" jdbcType="VARCHAR" />
+        <result column="updated_datetime" property="updated_datetime" jdbcType="TIMESTAMP" />
+        <result column="created_datetime" property="created_datetime" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <sql id="base_column_list">
+        blog_id, name, content, updated_datetime, created_datetime
+    </sql>
+
+    <sql id="condition_sql">
+        <if test="blog_id != null">
+            and blog_id = #{blog_id,jdbcType=BIGINT}
+        </if>
+        <if test="name != null">
+            and name = #{name,jdbcType=VARCHAR}
+        </if>
+        <if test="content != null">
+            and content = #{content,jdbcType=VARCHAR}
+        </if>
+        <if test="updated_datetime != null">
+            and updated_datetime = #{updated_datetime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="created_datetime != null">
+            and created_datetime = #{created_datetime,jdbcType=TIMESTAMP}
+        </if>
+    </sql>
+    <delete id="deleteSelective" parameterType="com.at.mybatis.xml.vo.Blog">
+        delete from blog
+        <where>
+            <choose>
+                <when test="blog_id != null">
+                    AND blog_id = #{blog_id,jdbcType=BIGINT}
+                </when>
+                <when test="name != null">
+                    AND name = #{name,jdbcType=VARCHAR}
+                    <if test="content != null">
+                        AND content = #{content,jdbcType=VARCHAR}
+                    </if>
+                </when>
+                <otherwise>
+                    AND id = -999
+                </otherwise>
+            </choose>
+        </where>
+    </delete>
+
+    <insert id="insertSelective" parameterType="com.at.mybatis.xml.vo.Blog" useGeneratedKeys="true" keyProperty="blog_id">
+        insert into blog
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="blog_id != null">
+                blog_id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            <if test="updated_datetime != null">
+                updated_datetime,
+            </if>
+            <if test="created_datetime != null">
+                created_datetime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="blog_id != null">
+                #{blog_id,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="updated_datetime != null">
+                #{updated_datetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="created_datetime != null">
+                #{created_datetime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateSelective" parameterType="com.at.mybatis.xml.vo.Blog">
+        update blog
+        <set>
+            <if test="name != null">name = #{name,jdbcType=VARCHAR},</if>
+            <if test="content != null">content = #{content,jdbcType=VARCHAR},</if>
+            <if test="updated_datetime != null">updated_datetime = #{updated_datetime,jdbcType=TIMESTAMP},</if>
+            <if test="created_datetime != null">created_datetime = #{created_datetime,jdbcType=TIMESTAMP},</if>
+        </set>
+        <where>
+            <choose>
+                <when test="blog_id != null">
+                    blog_id = #{blog_id,jdbcType=BIGINT}
+                </when>
+                <otherwise>
+                    blog_id = -999
+                </otherwise>
+            </choose>
+        </where>
+    </update>
+
+    <select id="selectBlog" resultType="com.at.mybatis.xml.vo.Blog">
+        select
+        <include refid="base_column_list" />
+        from blog
+        <where>
+            <include refid="condition_sql" />
+        </where>
+    </select>
+
+    <select id="selectBlogs" resultType="com.at.mybatis.xml.vo.Blog">
+        select
+        <include refid="base_column_list" />
+        from blog
+        <where>
+            <if test="not_name != null" >
+                and name != #{not_name,jdbcType=VARCHAR}
+            </if>
+            <if test="ids != null and ids.size() > 0" >
+                and blog_id in
+                <foreach collection="ids" item="item" open="(" separator=", " close=")" >
+                    #{item,jdbcType=BIGINT}
+                </foreach>
+            </if>
+            <if test="not_ids != null and not_ids.size() > 0" >
+                and blog_id not in
+                <foreach collection="not_ids" item="not_item" open="(" separator=", " close=")" >
+                    #{not_item,jdbcType=BIGINT}
+                </foreach>
+            </if>
+        </where>
+    </select>
+</mapper>

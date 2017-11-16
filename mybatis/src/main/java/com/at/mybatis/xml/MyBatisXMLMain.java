@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -25,8 +24,8 @@ public class MyBatisXMLMain {
     public static void main(String[] args) throws IOException {
         logger.debug("Enterring Main.");
 
-        String resource = "com/at/mybatis/xml/mybatis-config.xml";
-        InputStream inputStream = Resources.getResourceAsStream(resource);
+        String resource = "mybatis/mybatis-config.xml";
+        InputStream inputStream = MyBatisXMLMain.class.getClassLoader().getResourceAsStream(resource);
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
     
         boolean isAutoCommit = false;
@@ -52,7 +51,7 @@ public class MyBatisXMLMain {
             List<Blog> blogs = session.selectList("com.at.mybatis.xml.mapper.BlogMapper.selectBlogs", params, new RowBounds(3, 3));
             logger.info(blogs == null ? "blogs is null" : "blog: " + blogs.toString());
             for(Blog blog : blogs){
-	            blog.setContent("Current Time: " + new Date().getTime());
+	            blog.setContent("Current Time: " + System.currentTimeMillis());
 	            blog.setName(null);
 	            blog.setUpdated_datetime(new Date());
 	            session.update("com.at.mybatis.xml.mapper.BlogMapper.updateBlog", blog);
