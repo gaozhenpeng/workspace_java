@@ -19,6 +19,7 @@
     <build>
         <resources>
             <resource>
+                <!-- relative path against to pom.xml -->
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
             </resource>
