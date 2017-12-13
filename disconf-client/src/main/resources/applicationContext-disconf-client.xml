@@ -9,57 +9,63 @@
             http://www.springframework.org/schema/context/spring-context.xsd">
 
 
-	<!-- disconf, start: -->
-	<bean id="disconfMgrBean" class="com.baidu.disconf.client.DisconfMgrBean"
-		  destroy-method="destroy">
-		<property name="scanPackage" value="com.at.disconf" />
+  <!-- disconf, start: -->
+  <bean id="disconfMgrBean" class="com.baidu.disconf.client.DisconfMgrBean"
+    destroy-method="destroy">
+    <property name="scanPackage" value="com.at.disconf" />
+  </bean>
+  <bean id="disconfMgrBean2" class="com.baidu.disconf.client.DisconfMgrBeanSecond"
+    init-method="init" destroy-method="destroy">
+  </bean>
+
+  <!--
+      Configurations proxied by disconf (non-intrusive,
+      configuration will be reload automatically if modified)
+
+      Note:
+          1. only files listed here will be downloaded from disconf server.
+          2. using accompanyed with spring PropertyPlaceholderConfigurer is a good practice
+  -->
+  <bean id="configproperties_disconf"
+    class="com.baidu.disconf.client.addons.properties.ReloadablePropertiesFactoryBean">
+    <property name="locations">
+      <list>
+        <value>classpath:/jdbc.properties</value>
+        <value>classpath:/env.properties</value>
+        <value>classpath:/dubbo.properties</value>
+      </list>
+    </property>
+  </bean>
+
+  <bean id="propertyConfigurer"
+    class="com.baidu.disconf.client.addons.properties.ReloadingPropertyPlaceholderConfigurer">
+  <!--
+    Allows overridden by JVM options.
+    e.g. java -Djdbc.url=123 -jar xxx.jar
+  -->
+  <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+  <property name="ignoreResourceNotFound" value="true" />
+  <property name="ignoreUnresolvablePlaceholders" value="true" />
+  <property name="propertiesArray">
+    <list>
+      <ref bean="configproperties_disconf" />
+    </list>
+  </property>
 	</bean>
-	<bean id="disconfMgrBean2" class="com.baidu.disconf.client.DisconfMgrBeanSecond"
-		  init-method="init" destroy-method="destroy">
-	</bean>
 
-	<!--
-        Configurations proxied by disconf (non-intrusive,
-        configuration will be reload automatically if modified) -->
-	<bean id="configproperties_disconf"
-		  class="com.baidu.disconf.client.addons.properties.ReloadablePropertiesFactoryBean">
-		<property name="locations">
-			<list>
-				<value>classpath:/jdbc.properties</value>
-				<value>classpath:/env.properties</value>
-				<value>classpath:/dubbo.properties</value>
-			</list>
-		</property>
-	</bean>
-
-	<bean id="propertyConfigurer"
-		  class="com.baidu.disconf.client.addons.properties.ReloadingPropertyPlaceholderConfigurer">
-		<!-- Allows overriden by JVM options.
-			e.g. java -Djdbc.url=123 -jar xxx.jar
-			-->
-		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
-		<property name="ignoreResourceNotFound" value="true" />
-		<property name="ignoreUnresolvablePlaceholders" value="true" />
-		<property name="propertiesArray">
-			<list>
-				<ref bean="configproperties_disconf" />
-			</list>
-		</property>
-	</bean>
-
-	<!-- disconf, end; -->
+  <!-- disconf, end; -->
 
 
 
 
-	<!-- scan packages -->
-	<context:component-scan base-package="com.at" />
-	
-	<!-- other configuration items
-	<import resource="classpath*:dubbo/at-*.xml"/>
-	<aop:aspectj-autoproxy/>
-	
-	
-	-->
+  <!-- scan packages -->
+  <context:component-scan base-package="com.at" />
+  
+  <!-- other configuration items
+  <import resource="classpath*:dubbo/at-*.xml"/>
+  <aop:aspectj-autoproxy/>
+  
+  
+  -->
 
 </beans>
