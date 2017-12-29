@@ -13,7 +13,6 @@
 		the server's one -->
 	<dubbo:application name="consumer-of-helloworld-app" />
 
-
 	<!-- local network, auto discover -->
 	<!-- <dubbo:registry address="multicast://224.5.6.7:1234" /> -->
 	
@@ -39,7 +38,7 @@
 		id="demoService"
 		interface="com.at.dubbo.simple.service.DemoService"
 		version="1.0.0"
-		url="dubbo://127.0.0.1:20880" />
+		url="dubbo://127.0.0.1:20880?serialization=compactedjava" />
 	-->
 	
 </beans>

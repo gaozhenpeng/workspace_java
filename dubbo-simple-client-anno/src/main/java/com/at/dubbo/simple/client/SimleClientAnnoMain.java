@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.at.dubbo.simple.service.DemoService;
+import com.at.dubbo.simple.service.dto.Request;
+import com.at.dubbo.simple.service.dto.Response;
 
 @Component
 public class SimleClientAnnoMain {
@@ -14,11 +16,13 @@ public class SimleClientAnnoMain {
 	
 	
 	
-	@Reference(version="1.0.0", url="dubbo://127.0.0.1:20880")
+	@Reference(version="1.0.0", url="dubbo://127.0.0.1:20880?serialization=compactedjava")
 	private DemoService demoService;
 	
-	public String sayHello(String name){
-		return demoService.sayHello(name);
+	public Response sayHello(String name){
+	    Request req = new Request();
+	    req.setName(name);
+		return demoService.sayHello(req);
 	}
 	
 	
@@ -27,7 +31,7 @@ public class SimleClientAnnoMain {
 				new String[] { "classpath*:/applicationContext-dubbo-client.xml" });
 		context.start();
 		SimleClientAnnoMain main = context.getBean(SimleClientAnnoMain.class); // 获取远程服务代理
-		String hello = main.sayHello("world"); // 执行远程方法
-		logger.info("Result: '{}'", hello); // 显示调用结果
+		Response res = main.sayHello("world"); // 执行远程方法
+		logger.info("Result: '{}'", res.getName()); // 显示调用结果
 	}
 }

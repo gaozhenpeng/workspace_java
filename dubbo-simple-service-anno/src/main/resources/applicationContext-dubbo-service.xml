@@ -20,7 +20,7 @@
 	-->
 
 	<!-- protocoty type and port -->
-	<dubbo:protocol name="dubbo" port="20880" />
+	<dubbo:protocol name="dubbo" port="20880" serialization="compactedjava"/>
 
 	<!-- auto detect by default, but it would fail easily when
 	     there're multiple IPs were bound -->
