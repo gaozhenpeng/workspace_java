@@ -21,6 +21,18 @@ import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.log4j.Logger;
 
+/**
+ * <p>Use for count results without modifying sql</p>
+ * <p>Usage example:</p>
+ * <code><pre>
+ *      Object countObject = 
+ *              (Object) getSqlSession()
+ *                  .selectOne(
+ *                      getStatement(sqlId)
+ *                      , new ExecutorInterceptor.CountParameter(paramMap)
+ *                  );
+ * </pre></code>
+ */
 @Intercepts({
 	@Signature(type = Executor.class
 			, method = "query"
