@@ -7,9 +7,10 @@
     <packaging>pom</packaging>
     <properties>
         <java.version>1.8</java.version>
-        <maven-resources-plugin.version>2.7</maven-resources-plugin.version>
-        <maven-compiler-plugin.version>3.6.2</maven-compiler-plugin.version>
-        <maven-surefire-plugin.version>2.18.1</maven-surefire-plugin.version>
+        <maven-resources-plugin.version>3.0.2</maven-resources-plugin.version>
+        <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
+        <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
+        <maven-surefire-plugin.version>2.20.1</maven-surefire-plugin.version>
         <maven-surefire-plugin.skipTests>true</maven-surefire-plugin.skipTests>
         <project.build.source_encoding>UTF-8</project.build.source_encoding>
 
@@ -95,6 +96,19 @@
                     <target>${java.version}</target>
                     <encoding>${project.build.source_encoding}</encoding>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${maven-source-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
             <plugin>
