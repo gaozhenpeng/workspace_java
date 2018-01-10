@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
@@ -26,6 +25,7 @@ public class MongoQueryMain {
     private static final String databaseName = "test";
     
     public static void main(String[] args) {
+        MongoClient mongoClient = null;
         try {
             
             // 1. server address
@@ -43,7 +43,7 @@ public class MongoQueryMain {
             // connection
             //    WARNING: if the credential is not available, no exception will be thrown here.
             logger.debug("before new client");
-            MongoClient mongoClient = new MongoClient(addrs, credentialList);
+            mongoClient = new MongoClient(addrs, credentialList);
             logger.debug("after new client");
 
             // switch to database
@@ -68,7 +68,11 @@ public class MongoQueryMain {
                 }
             }
         } catch (Exception e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            logger.error("mongo query exception.", e);
+        }finally {
+            if(mongoClient != null) {
+                mongoClient.close();
+            }
         }
     }
 }
