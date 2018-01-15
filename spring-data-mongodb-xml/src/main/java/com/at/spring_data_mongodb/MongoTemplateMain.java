@@ -32,12 +32,12 @@ public class MongoTemplateMain {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    public void mapreduceCopy(Long docNum) {
+    public void mapreduce(Long docNum) {
         log.info("map reduce 'copy' start:");
         Assert.notNull(mongoTemplate, "mongoTemplate should not be null");
         Assert.notNull(docNum, "docNum should not be null");
 
-        Query query = new BasicQuery("{}");
+        Query query = new BasicQuery("{}").limit(1);
 //        Query query=new Query();
 //        String createTime = "";
 //        List<String> typeList = new ArrayList<>();
@@ -122,7 +122,7 @@ public class MongoTemplateMain {
         MongoTemplateMain main = ctx.getBean(MongoTemplateMain.class);
         main.dropCollection(OUTPUT_COLLECTION);
         main.createCollection(OUTPUT_COLLECTION);
-        main.mapreduceCopy(6000000L);
+        main.mapreduce(6000000L);
         main.findMallIndustryStatics();
 
         long endTime = System.currentTimeMillis();
