@@ -16,6 +16,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 import com.at.spring_data_mongodb.model.MallIndustryStatics;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBCollection;
+import com.mongodb.client.model.Indexes;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,9 +32,10 @@ public class MongoTemplateMain {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    public void mapreduceCopy() {
+    public void mapreduceCopy(Long docNum) {
         log.info("map reduce 'copy' start:");
         Assert.notNull(mongoTemplate, "mongoTemplate should not be null");
+        Assert.notNull(docNum, "docNum should not be null");
 
         Query query = new BasicQuery("{}");
 //        Query query=new Query();
@@ -43,7 +47,7 @@ public class MongoTemplateMain {
 //                    .and("type").in(typeList)
 //        );
         Map<String, Object> scopeVariables = new HashMap<>();
-        scopeVariables.put("doc_num", new Long(600));
+        scopeVariables.put("doc_num", docNum);
         
         MapReduceOptions mapReduceOptions =
                 new MapReduceOptions()
@@ -95,6 +99,16 @@ public class MongoTemplateMain {
         mongoTemplate.dropCollection(collectionName);
     }
 
+    public void createCollection(String collectionName) {
+        log.info("mongoTemplate.createCollection({})", collectionName);
+        DBCollection dbCollection = mongoTemplate.createCollection(collectionName);
+        dbCollection.createIndex(
+                new BasicDBObject()
+                    .append("_id.industryCode", 1)
+                    .append("_id.beginDate", 1)
+                    .append("_id.endDate", 1));
+    }
+
     public static void main(String[] args) throws IOException {
         log.info("Enterring Main.");
         AbstractApplicationContext ctx = new ClassPathXmlApplicationContext(
@@ -107,7 +121,8 @@ public class MongoTemplateMain {
         
         MongoTemplateMain main = ctx.getBean(MongoTemplateMain.class);
         main.dropCollection(OUTPUT_COLLECTION);
-        main.mapreduceCopy();
+        main.createCollection(OUTPUT_COLLECTION);
+        main.mapreduceCopy(6000000L);
         main.findMallIndustryStatics();
 
         long endTime = System.currentTimeMillis();
