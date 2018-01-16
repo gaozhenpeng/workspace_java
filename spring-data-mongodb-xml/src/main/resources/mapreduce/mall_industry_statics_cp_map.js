@@ -1,7 +1,7 @@
 function(){
     thisDoc = this;
-    let maxSize = doc_num;
-    for(let i = 0 ; i < maxSize ; i++){
+    var maxSize = doc_num;
+    for(var i = 0 ; i < maxSize ; i++){
         emit( {
                 "industryCode" : "type_" + i,
                 "type" : "REQREC",

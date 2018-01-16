@@ -122,7 +122,7 @@ public class MongoTemplateMain {
         MongoTemplateMain main = ctx.getBean(MongoTemplateMain.class);
         main.dropCollection(OUTPUT_COLLECTION);
         main.createCollection(OUTPUT_COLLECTION);
-        main.mapreduce(6000000L);
+        main.mapreduce(10000L);
         main.findMallIndustryStatics();
 
         long endTime = System.currentTimeMillis();

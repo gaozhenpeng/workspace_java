@@ -8,26 +8,32 @@
            http://www.springframework.org/schema/data/mongo/spring-mongo.xsd
            http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
-  
   <!-- 
   <mongo:mongo-client
           id="mongoClient"
           host="${mongodb.host}"
           port="${mongodb.port}"
           credentials="${mongodb.username}:${mongodb.password}@${mongodb.databaseName}">
-    <mongo:client-options connections-per-host="${mongodb.connectionsPerHost}" />
+    <mongo:client-options
+              connections-per-host="${mongodb.connectionsPerHost}"
+    />
   </mongo:mongo-client>
-   -->
-  
+  -->
+
   <mongo:mongo-client
           id="mongoClient"
           replica-set="${mongodb.address}"
           credentials="${mongodb.username}:${mongodb.password}@${mongodb.databaseName}">
-    <mongo:client-options connections-per-host="${mongodb.connectionsPerHost}" />
+    <mongo:client-options
+              connections-per-host="${mongodb.connectionsPerHost}"
+              connect-timeout="${mongodb.connectTimeout}"
+              max-wait-time="${mongodb.maxWaitTime}"
+              socket-keep-alive="${mongodb.socketKeepAlive}"
+              socket-timeout="${mongodb.socketTimeout}"
+    />
   </mongo:mongo-client>
-  
+
   <mongo:db-factory id="mongoDbFactory" dbname="${mongodb.databaseName}" mongo-ref="mongoClient"/>
-  
   
   <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
     <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
