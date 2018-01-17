@@ -10,6 +10,7 @@ import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.mapreduce.MapReduceOptions;
+import org.springframework.data.mongodb.core.mapreduce.MapReduceResults;
 import org.springframework.data.mongodb.core.query.BasicQuery;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
@@ -18,7 +19,6 @@ import org.springframework.util.Assert;
 import com.at.spring_data_mongodb.model.MallIndustryStatics;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
-import com.mongodb.client.model.Indexes;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -57,7 +57,7 @@ public class MongoTemplateMain {
                     .finalizeFunction("classpath:mapreduce/mall_industry_statics_cp_finalize.js")
                     ;
         
-        mongoTemplate.mapReduce(
+        MapReduceResults<MallIndustryStatics> mapReduceResults = mongoTemplate.mapReduce(
                 query
                 , INPUT_COLLECTION
                 , "classpath:mapreduce/mall_industry_statics_cp_map.js"
