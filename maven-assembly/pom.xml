@@ -89,7 +89,7 @@
               <outputProperty>mavenDependenciesClasspath</outputProperty>
               <outputWriteReleases>true</outputWriteReleases>
               <outputWriteSnapshots>true</outputWriteSnapshots>
-              <prefix>jars</prefix>
+              <prefix>${jar.path.prefix}/jars</prefix>
               <includeScope>runtime</includeScope>
             </configuration>
           </execution>
