@@ -20,26 +20,13 @@
       <directory>src/main/assembly/maven</directory>
       <filtered>true</filtered>
     </fileSet>
-    <fileSet>
-      <directory>target</directory>
-      <outputDirectory>/jars</outputDirectory>
-      <includes>
-        <include>*.jar</include>
-      </includes>
-      <excludes>
-        <exclude>*-sources.jar</exclude>
-      </excludes>
-    </fileSet>
   </fileSets>
   <!-- use this section if you want to package dependencies -->
   <dependencySets>
     <dependencySet>
       <outputDirectory>/jars</outputDirectory>
-      <excludes>
-        <exclude>*:pom</exclude>
-      </excludes>
       <useStrictFiltering>true</useStrictFiltering>
-      <useProjectArtifact>false</useProjectArtifact>
+      <useProjectArtifact>true</useProjectArtifact>
       <scope>runtime</scope>
     </dependencySet>
   </dependencySets>

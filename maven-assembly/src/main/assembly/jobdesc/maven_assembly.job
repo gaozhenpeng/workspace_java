@@ -1,5 +1,5 @@
 type = javaprocess
 java.class = com.at.maven_assembly.Log4j2Main
-classpath = ${projectBuildFinalNameClasspath},${dependenciesClasspath}
+classpath = ${jobClasspath}
 main.args = ${b} ${c}
 jvm.args = -Ddisconf.conf_server_host=https://disconf.at.com -Ddisconf.env=dev
