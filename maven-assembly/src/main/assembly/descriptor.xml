@@ -12,7 +12,7 @@
   <fileSets>
     <fileSet>
       <outputDirectory>/</outputDirectory>
-      <directory>src/main/assembly/jobdesc</directory>
+      <directory>src/main/assembly/jobs</directory>
       <filtered>false</filtered>
     </fileSet>
     <fileSet>

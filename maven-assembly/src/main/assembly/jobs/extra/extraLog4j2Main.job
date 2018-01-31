@@ -1,3 +1,0 @@
-type = javaprocess
-java.class = com.at.maven_assembly.Log4j2Main
-main.args = ${b} ${c}

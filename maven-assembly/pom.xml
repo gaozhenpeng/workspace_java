@@ -9,6 +9,12 @@
   <artifactId>maven-assembly</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <dependencies>
+  
+    <dependency>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <version>20171018</version>
+    </dependency>
     
     <dependency>
       <groupId>junit</groupId>
@@ -89,6 +95,9 @@
               <outputProperty>mavenDependenciesClasspath</outputProperty>
               <outputWriteReleases>true</outputWriteReleases>
               <outputWriteSnapshots>true</outputWriteSnapshots>
+              <!-- ### jar.path.prefix should be set in azkaban's property
+                   ### DON'T set it in spring, or it will fail.
+              -->
               <prefix>${jar.path.prefix}/jars</prefix>
               <includeScope>runtime</includeScope>
             </configuration>
