@@ -1,0 +1,2 @@
+type = javaprocess
+java.class = com.at.maven_assembly.cat2.JsonParseArgsJob
