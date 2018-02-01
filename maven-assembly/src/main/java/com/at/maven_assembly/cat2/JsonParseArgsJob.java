@@ -8,7 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class JsonParseArgsJob {
-    // main.args = "{\"JsonParseArgsJob\" : {\"somekey\" : \"somevalue\" }, \"JsonParseArgsJob1\" : {\"otherkey\" : \"othervalue\"}}"
+    // java call: "{\"JsonParseArgsJob\" : {\"somekey\" : \"somevalue\" }, \"JsonParseArgsJob1\" : {\"otherkey\" : \"othervalue\"}}"
+    // azkaban flow parameters: '{"JsonParseArgsJob" : {"somekey" : "somevalue" }, "JsonParseArgsJob1" : {"otherkey" : "othervalue"}}'
     public static void main(String[] args) {
         if (args != null && args.length > 0) {
             Arrays.stream(args).forEach((arg) -> {
