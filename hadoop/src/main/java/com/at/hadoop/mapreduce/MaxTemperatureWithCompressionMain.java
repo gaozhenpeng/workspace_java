@@ -2,9 +2,11 @@ package com.at.hadoop.mapreduce;
 
 import java.io.IOException;
 
+import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
+import org.apache.hadoop.io.compress.CompressionCodec;
 import org.apache.hadoop.io.compress.GzipCodec;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
@@ -23,7 +25,12 @@ public class MaxTemperatureWithCompressionMain {
 			System.err.println("Usage: MaxTemperatureWithCompressionMain <outputpath> <inputpath>...");
 			System.exit(-1);
 		}
-		Job job = Job.getInstance();
+		// new API for compression of map output
+		Configuration conf = new Configuration();
+		conf.setBoolean(Job.MAP_OUTPUT_COMPRESS, true);
+		conf.setClass(Job.MAP_OUTPUT_COMPRESS_CODEC, GzipCodec.class, CompressionCodec.class);
+		
+		Job job = Job.getInstance(conf);
 		job.setJarByClass(MaxTemperatureWithCompressionMain.class);
 		job.setJobName("Max Temperature with Compression");
 		
