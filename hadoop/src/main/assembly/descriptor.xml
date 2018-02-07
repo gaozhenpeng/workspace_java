@@ -5,25 +5,14 @@
   xsi:schemaLocation="
     http://maven.apache.org/plugins/maven-assembly-plugin/assembly/2.0.0
     http://maven.apache.org/xsd/assembly-2.0.0.xsd" >
-  <id>azkaban</id>
+  <id>hadoop</id>
   <formats>
-    <format>zip</format>
+    <format>jar</format>
   </formats>
-  <fileSets>
-    <fileSet>
-      <outputDirectory>/</outputDirectory>
-      <directory>src/main/assembly/jobs</directory>
-      <filtered>false</filtered>
-    </fileSet>
-    <fileSet>
-      <outputDirectory>/</outputDirectory>
-      <directory>src/main/assembly/maven</directory>
-      <filtered>true</filtered>
-    </fileSet>
-  </fileSets>
+  <includeBaseDirectory>false</includeBaseDirectory>
   <dependencySets>
     <dependencySet>
-      <outputDirectory>/jars</outputDirectory>
+      <outputDirectory>/lib</outputDirectory>
       <useStrictFiltering>true</useStrictFiltering>
       <useProjectArtifact>true</useProjectArtifact>
       <scope>runtime</scope>
