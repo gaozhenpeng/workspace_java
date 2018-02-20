@@ -1,17 +1,18 @@
 package com.at.hadoop.io;
 
 import java.io.IOException;
-import java.net.URI;
 
+import org.apache.avro.hadoop.io.AvroSequenceFile.Writer;
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.SequenceFile;
+import org.apache.hadoop.io.SequenceFile.CompressionType;
 import org.apache.hadoop.io.Text;
+import org.apache.hadoop.io.compress.GzipCodec;
 import org.apache.zookeeper.common.IOUtils;
 
-public class SequenceFileWriteDemo {
+public class SequenceFileWrite {
 	private static final String[] DATA = {
 			"One, two, buckle my shoe",
 			"Three, four, shut the door",
@@ -23,14 +24,22 @@ public class SequenceFileWriteDemo {
 	public static void main(String[] args) throws IOException{
 		String uri = args[0];
 		Configuration conf = new Configuration();
-		FileSystem fs = FileSystem.get(URI.create(uri),conf);
 		Path path = new Path(uri);
 		
 		IntWritable key = new IntWritable();
 		Text value = new Text();
 		SequenceFile.Writer writer = null;
 		try{
-			writer = SequenceFile.createWriter(fs, conf, path, key.getClass(), value.getClass());
+			writer = SequenceFile.createWriter(
+			                    conf
+			                    , Writer.file(path), Writer.keyClass(key.getClass()), Writer.valueClass(value.getClass())
+			                    // compression type and compression codec
+			                    //    1. gzip may not be available in windows hadoop
+			                    //    2. the writer.getLength() returns a constant value for 'CompressionType.Block' (block)
+//			                    , Writer.compression(CompressionType.BLOCK, new DeflateCodec())
+                              , Writer.compression(CompressionType.BLOCK, new GzipCodec())
+			                    
+			        );
 			
 			for(int i = 0 ; i < 100 ; i++){
 				key.set(100 - i);

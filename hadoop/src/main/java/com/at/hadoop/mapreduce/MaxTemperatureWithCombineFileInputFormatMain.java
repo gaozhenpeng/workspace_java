@@ -20,7 +20,7 @@ public class MaxTemperatureWithCombineFileInputFormatMain {
 	 */
 	public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException{
 		if(args.length != 2){
-			System.err.println("Usage: MaxTemperatureWithCompressionMain <outputpath> <inputpath>...");
+			System.err.println("Usage: MaxTemperatureWithCombineFileInputFormatMain <outputpath> <inputpath>...");
 			System.exit(-1);
 		}
 		Job job = Job.getInstance();
