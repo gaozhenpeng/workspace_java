@@ -1,16 +1,21 @@
 <?xml version="1.0"?>
 <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
 <configuration>
+  <!-- mapreduce engine -->
   <property>
     <name>mapreduce.framework.name</name>
     <value>yarn-tez</value>
+    <!--
+    <value>yarn</value>
+    -->
+  </property>
+  <!-- job history -->
+  <property>
+	<name>mapreduce.jobhistory.address</name>
+	<value>historyserver:10020</value>
   </property>
   <property>
-    <name>mapreduce.jobhistory.address</name>
-    <value>master:10020</value>
-  </property>
-  <property>
-    <name>mapreduce.jobhistory.webapp.address</name>
-    <value>master:19888</value>
+	<name>mapreduce.jobhistory.webapp.address</name>
+	<value>historyserver:19888</value>
   </property>
 </configuration>

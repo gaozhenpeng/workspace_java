@@ -19,7 +19,12 @@
       <groupId>org.apache.avro</groupId>
       <artifactId>avro-mapred</artifactId>
       <classifier>hadoop2</classifier> <!-- classifier after version number: $MAVEN_REP/org/apache/avro/avro-mapred/avro-mapred-1.7.4-hadoop2.jar -->
-      <version>1.7.4</version>
+      <version>1.7.6</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.parquet</groupId>
+      <artifactId>parquet-avro</artifactId>
+      <version>1.8.0</version>
     </dependency>
     <dependency>
       <groupId>org.hamcrest</groupId>

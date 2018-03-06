@@ -1,0 +1,4 @@
+127.5.5.1 master
+127.5.5.2 historyserver
+127.5.5.3 slave1
+#127.5.5.4 slave2

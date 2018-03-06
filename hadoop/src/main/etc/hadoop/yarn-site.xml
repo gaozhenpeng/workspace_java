@@ -1,13 +1,6 @@
 <?xml version="1.0"?>
 <configuration>
-  <property>
-    <name>yarn.nodemanager.aux-services</name>
-    <value>mapreduce_shuffle</value>
-  </property>
-  <property>
-    <name>yarn.nodemanager.aux-services.mapreduce.shuffle.class</name>
-    <value>org.apache.hadoop.mapred.ShuffleHandler</value>
-  </property>
+  <!-- resource manager -->
   <property>
     <name>yarn.resourcemanager.scheduler.address</name>
     <value>master:8030</value>
@@ -19,5 +12,29 @@
   <property>
     <name>yarn.resourcemanager.address</name>
     <value>master:8043</value>
+  </property>
+  <!-- node manager -->
+  <property>
+    <name>yarn.nodemanager.aux-services</name>
+    <value>mapreduce_shuffle</value>
+  </property>
+  <property>
+    <name>yarn.nodemanager.aux-services.mapreduce.shuffle.class</name>
+    <value>org.apache.hadoop.mapred.ShuffleHandler</value>
+  </property>
+  <!-- job history -->
+  <property>
+    <name>yarn.log-aggregation-enable</name>
+    <value>false</value>
+  </property>
+  <property>
+    <name>yarn.log-aggregation.retain-seconds</name>
+    <value>86400</value>
+  </property>
+  <!-- disk-health-checker -->
+  <property>
+    <name>yarn.nodemanager.disk-health-checker.max-disk-utilization-per-disk-percentage
+    </name>
+    <value>99.0</value>
   </property>
 </configuration>

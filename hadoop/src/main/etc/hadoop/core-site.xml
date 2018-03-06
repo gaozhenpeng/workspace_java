@@ -9,4 +9,5 @@
     <name>hadoop.tmp.dir</name>
     <value>/home/hadoop/tmp</value>
   </property>
+
 </configuration>
