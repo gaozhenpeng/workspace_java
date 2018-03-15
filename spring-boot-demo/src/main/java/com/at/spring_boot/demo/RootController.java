@@ -11,7 +11,7 @@ public class RootController {
 
     @RequestMapping("/")
     public String home() {
-        log.info("Inside.");
+        log.info("hello home.");
         return "hello world!";
     }
 }
