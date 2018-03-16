@@ -19,11 +19,12 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.version>1.8</java.version>
+    <spring-boot-maven-plugin.configuration.mainClass>com.at.spring_boot.demo.DemoApplication</spring-boot-maven-plugin.configuration.mainClass>
     <!--
        start-class with spring-boot-starter-parent
        or define the mainClass property with spring-boot-maven-plugin
      -->
-    <start-class>com.at.spring_boot.demo.DemoApplication</start-class>
+    <start-class>${spring-boot-maven-plugin.configuration.mainClass}</start-class>
   </properties>
 
   <dependencies>
@@ -77,6 +78,11 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+        <!-- 
+        <configuration>
+            <mainClass>${spring-boot-maven-plugin.configuration.mainClass}</mainClass>
+        </configuration>
+        -->
       </plugin>
       <!-- compiler options -->
       <plugin>
