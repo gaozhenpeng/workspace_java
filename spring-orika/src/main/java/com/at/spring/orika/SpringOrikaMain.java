@@ -73,7 +73,7 @@ public class SpringOrikaMain {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringOrikaMain.class);
 
         // 默认 bean 的名字
-        SpringOrikaMain springDozerMain = context.getBean(SpringOrikaMain.class);
+        SpringOrikaMain springOrikaMain = context.getBean(SpringOrikaMain.class);
         
         NotSameAttribute notSameAttribute = new NotSameAttribute();
         notSameAttribute.setId(1234);
@@ -84,11 +84,11 @@ public class SpringOrikaMain {
         notSameAttribute.setDateOnBoard(new Date());
         log.info("notSameAttribute org: '{}'", notSameAttribute);
         
-        NotSameAttributeDto notSameAttributeDto = springDozerMain.po2dto(notSameAttribute);
+        NotSameAttributeDto notSameAttributeDto = springOrikaMain.po2dto(notSameAttribute);
         
         log.info("notSameAttributeDto: '{}'", notSameAttributeDto);
 
-        NotSameAttribute notSameAttribute2 = springDozerMain.dto2po(notSameAttributeDto);
+        NotSameAttribute notSameAttribute2 = springOrikaMain.dto2po(notSameAttributeDto);
         
         log.info("notSameAttribute tran back: '{}'", notSameAttribute2);
     }
