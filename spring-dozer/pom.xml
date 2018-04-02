@@ -80,11 +80,11 @@
     </dependency>
      -->
     <!-- log4j java commons-logging
+    -->
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-jcl</artifactId>
     </dependency>
-    -->
   </dependencies>
   <dependencyManagement>
     <dependencies>

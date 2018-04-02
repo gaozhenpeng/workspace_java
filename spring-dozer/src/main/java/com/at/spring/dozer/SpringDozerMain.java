@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 public class SpringDozerMain {
     
     @Autowired
-    DozerBeanMapper dozerBeanMapper;
+    private DozerBeanMapper dozerBeanMapper;
     
     @Bean
     public DozerBeanMapper dozerBeanMapper() {
@@ -57,6 +57,7 @@ public class SpringDozerMain {
         notSameAttribute.setNoMatchedNameFromB("noMatchedNameFromB");
         notSameAttribute.setUserId(567890L);
         notSameAttribute.setBirthDate(new Date());
+        notSameAttribute.setDateOnBoard(new Date());
         log.info("notSameAttribute org: '{}'", notSameAttribute);
         
         NotSameAttributeDto notSameAttributeDto = springDozerMain.po2dto(notSameAttribute);

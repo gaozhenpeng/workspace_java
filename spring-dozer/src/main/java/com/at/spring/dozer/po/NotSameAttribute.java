@@ -9,6 +9,7 @@ import lombok.Data;
 @Data
 public class NotSameAttribute implements Serializable {
     private Date birthDate;
+    private Date dateOnBoard;
     private String name;
     private Integer id;
     private Long userId;

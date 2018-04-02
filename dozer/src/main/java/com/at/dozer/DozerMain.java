@@ -23,6 +23,7 @@ public class DozerMain {
         notSameAttribute.setNoMatchedNameFromB("noMatchedNameFromB");
         notSameAttribute.setUserId(567890L);
         notSameAttribute.setBirthDate(new Date());
+        notSameAttribute.setDateOnBoard(new Date());
         log.info("notSameAttribute org: '{}'", notSameAttribute);
         
         NotSameAttributeDto notSameAttributeDto =  

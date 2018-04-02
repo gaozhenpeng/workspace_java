@@ -9,6 +9,10 @@
   <mapping date-format="yyyy-MM-dd HH:mm:ss">
     <class-a>com.at.spring.dozer.dto.NotSameAttributeDto</class-a>
     <class-b>com.at.spring.dozer.po.NotSameAttribute</class-b>
+    <field >
+      <a date-format="yyyy-MM-dd">dateOnBoard</a>
+      <b>dateOnBoard</b>
+    </field>
     <field>
       <a>noMatchedNameFromA</a>
       <b>noMatchedNameFromB</b>
