@@ -28,7 +28,7 @@ public class SpringOrikaMain {
     private MapperFacade mapperFacade;
     
     @Bean
-    public MapperFacade orikaMapperFacader() {
+    public MapperFacade orikaMapperFacade() {
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
         ConverterFactory converterFactory  = mapperFactory.getConverterFactory();
         
