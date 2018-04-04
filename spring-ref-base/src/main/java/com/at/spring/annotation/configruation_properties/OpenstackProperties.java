@@ -2,7 +2,6 @@ package com.at.spring.annotation.configruation_properties;
 
 //import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import com.sun.istack.internal.NotNull;
 
 /**
  * The spring-boot package is required for the @ConfigurationProperties annotation
@@ -21,9 +20,7 @@ import com.sun.istack.internal.NotNull;
 //      ,prefix = "openstack"
 //      ,ignoreUnknownFields = false)
 public class OpenstackProperties {
-    @NotNull
     private Identity identity;
-    @NotNull
     private Compute compute;
     
     

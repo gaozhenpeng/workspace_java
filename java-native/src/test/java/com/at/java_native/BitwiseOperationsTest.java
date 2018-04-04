@@ -78,18 +78,18 @@ public class BitwiseOperationsTest {
      *     ________
      *     11011100  = 220 (In decimal)
      *     
-     *   But because java shows the 2's complement of the negative result
-     *   -(n + 1)
-     *    11011100 
-     *     ________
-     *     00100011  = 35
-     *   +        1
-     *     ________
-     *     00100100  = 36
-     *     
-     *   -(36) = -36
+     *   But, java shows negative result (the leading bit '1') with its 2's complement
+     *   ~n = -(-n + 1)
+     *   -11011100 
+     *    ________
+     *    00100011  = 35
+     *  +        1
+     *    ________
+     *    00100100  = 36
+     *    
+     *  -(36) = -36
      *   
-     *   So the complement operations: -(~~n + 1) = -(35 + 1) = -36
+     *   So the complement operations: (if the leading bit is '1' then) ~n = -(~~n + 1) = -(35 + 1) = -36
      * </pre></code>
      */
     @Test
