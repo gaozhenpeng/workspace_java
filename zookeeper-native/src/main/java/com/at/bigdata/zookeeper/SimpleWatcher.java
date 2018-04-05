@@ -4,11 +4,11 @@ import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.Watcher.Event.EventType;
 import org.apache.zookeeper.Watcher.Event.KeeperState;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class SimpleWatcher implements Watcher{
-	private static final Logger logger = LoggerFactory.getLogger(SimpleWatcher.class);
 
 	@Override
 	public void process(WatchedEvent event) {
@@ -18,7 +18,7 @@ public class SimpleWatcher implements Watcher{
 		String evPath = event.getPath();
 		
 		EventType evType = event.getType();
-		logger.info("Event Info, type: '{}', path: '{}', state: '{}';", 
+		log.info("Event Info, type: '{}', path: '{}', state: '{}';", 
 				evType.name(), evPath, keeperState.name());
 	}
 
