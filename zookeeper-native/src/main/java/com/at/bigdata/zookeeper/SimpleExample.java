@@ -18,16 +18,16 @@ public class SimpleExample {
 
     public static void main(String[] args) throws IOException, KeeperException, InterruptedException {
         if (args.length < 3) {
-            log.error("USAGE: {} <hostPort> <zkpath> <path4Setting>", SimpleExample.class.getSimpleName());
+            log.error("USAGE: {} <hostPort> <travalPath> <setValuePath>", SimpleExample.class.getSimpleName());
             System.exit(2);
         }
         String hostPort = args[0]; //   127.0.0.1:2181
-        String zkPath = args[1]; //   /zookeeper
-        String path4Setting = args.length >= 3 ? args[2] : null; //   /mytest
+        String travalPath = args[1]; //   /zookeeper_native
+        String setValuePath = args.length >= 3 ? args[2] : null; //   /zookeeper_native
 
         ZooKeeper zk = new ZooKeeper(hostPort, 3000, new SimpleWatcher());
-        setValues(zk, path4Setting);
-        travelByPreorder(zk, zkPath);
+        setValues(zk, setValuePath);
+        travelByPreorder(zk, travalPath);
 
 //        Stat stat = zk.exists(args[1], false);
 //        assert stat != null : "The root dir should have been already existed.";
@@ -61,7 +61,7 @@ public class SimpleExample {
         assert getD != null && new String(getD, "UTF-8")
                 .equals(new String(setD, "UTF-8")) : "getD is null or does not equals to setD";
 
-        //		zk.delete(zkPath, zk.exists(zkPath, false).getVersion());
+//        zk.delete(zkPath, zk.exists(zkPath, false).getVersion());
     }
 
     public static void travelByPreorder(ZooKeeper zk, String zkPath) throws KeeperException, InterruptedException, UnsupportedEncodingException {
