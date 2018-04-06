@@ -27,15 +27,17 @@ public class OrikaMain {
         
         mapperFactory
             .classMap(NotSameAttribute.class, NotSameAttributeDto.class)
-            // NOT map nulls from A to B. default: true
-            .mapNulls(false)
-            // NOT map nulls from B to A. default: true
-            .mapNullsInReverse(false)
+//            // NOT map nulls from A to B. default: true
+//            .mapNulls(false)
+//            // NOT map nulls from B to A. default: true
+//            .mapNullsInReverse(false)
             // default mapping for the same names
             .byDefault()
             // mapping for different names
             .field("noMatchedNameFromB", "noMatchedNameFromA")
-            .fieldMap("dateOnBoard").converter("dateFull").add()
+            .fieldMap("dateOnBoard").converter("dateFull")
+            // contine the chain operation
+            .add()
             .register()
             ;
         mapperFacade = mapperFactory.getMapperFacade();
