@@ -26,17 +26,34 @@ public class SimpleExample {
         String setValuePath = args.length >= 3 ? args[2] : null; //   /zookeeper_native
 
         ZooKeeper zk = new ZooKeeper(hostPort, 3000, new SimpleWatcher());
-        setValues(zk, setValuePath);
-        travelByPreorder(zk, travalPath);
+        
 
-//        Stat stat = zk.exists(args[1], false);
-//        assert stat != null : "The root dir should have been already existed.";
-//
-//        List<String> children = zk.getChildren(zkPath, false);
-//
-//        for (String c : children) {
-//            log.info("\t{}\n", c);
-//        }
+        if (zk.exists(setValuePath, false) == null) {
+            log.info("Create path: '{}'", setValuePath);
+            zk.create(setValuePath, null, Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
+        }
+        
+        setValues(zk, setValuePath);
+
+        // transaction
+        zk.transaction()
+            .create("/transactionpath1", null, Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL)
+            .create("/transactionpath2", "data2".getBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL)
+            .setData("/transactionpath1", "data1".getBytes(), -1)
+//            .delete("/transactionpathx", -1)
+            ;
+        
+        
+        travelByPreorder(zk, travalPath, 0);
+        
+
+        log.info("Delete path: '{}'", setValuePath);
+        zk.delete(setValuePath
+//                , zk.exists(setValuePath, false).getVersion()
+                , -1
+                );
+
+        travelByPreorder(zk, travalPath, 0);
     }
 
     public static void setValues(ZooKeeper zk, String zkPath) throws KeeperException, InterruptedException, UnsupportedEncodingException {
@@ -44,48 +61,49 @@ public class SimpleExample {
         Objects.requireNonNull(zk, "zk should not be null");
         Objects.requireNonNull(zkPath, "zkPath should not be null");
         
-        if (zk.exists(zkPath, false) == null) {
-            zk.create(zkPath, null, Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
-        }
         byte[] setD = "{\"data\" : \"fox\"}".getBytes("UTF-8");
-        log.info("setD: '{}'.", new String(setD, "UTF-8"));
-        log.debug("setD: '{}'.", setD);
+        log.info("setD string: '{}'.", new String(setD, "UTF-8"));
+        log.debug("setD bytes: '{}'.", setD);
         zk.setData(zkPath, setD, zk.exists(zkPath, false).getVersion());
 
         Stat getDataStat = new Stat();
         int hashCode = getDataStat.hashCode();
         byte[] getD = zk.getData(zkPath, false, getDataStat);
-        log.info("getD: '{}'.", new String(getD, "UTF-8"));
-        log.debug("getD: '{}'.", getD);
+        log.info("getD string: '{}'.", new String(getD, "UTF-8"));
+        log.debug("getD bytes: '{}'.", getD);
         assert hashCode != getDataStat.hashCode() : "Stat is expected to be changed.";
         assert getD != null && new String(getD, "UTF-8")
                 .equals(new String(setD, "UTF-8")) : "getD is null or does not equals to setD";
 
-//        zk.delete(zkPath, zk.exists(zkPath, false).getVersion());
     }
 
-    public static void travelByPreorder(ZooKeeper zk, String zkPath) throws KeeperException, InterruptedException, UnsupportedEncodingException {
+    public static void travelByPreorder(ZooKeeper zk, String zkPath, int level) throws KeeperException, InterruptedException, UnsupportedEncodingException {
         log.info("set values, zk: '{}', zkPath: '{}'", zk, zkPath);
         Objects.requireNonNull(zk, "zk should not be null");
         Objects.requireNonNull(zkPath, "zkPath should not be null");
 
+        
         if (zk.exists(zkPath, false) == null) {
             log.warn("zkPath '{}' does not exist.", zkPath);
             return;
+        }
+        StringBuilder indent = new StringBuilder();
+        for(int i = 0 ; i < level + 1 ; i++) {
+            indent.append("\t");
         }
         // preorder, deal with the path
         log.info(zkPath);
         byte[] data = zk.getData(zkPath, false, null);
         if (null != data) {
-            log.info("\tdata: '{}'", new String(data, "UTF-8"));
-            log.debug("\tdata: '{}'", data);
+            log.info("{}data string: '{}'", indent, new String(data, "UTF-8"));
+            log.debug("{}data bytes: '{}'", indent, data);
         }
 
         List<String> children = zk.getChildren(zkPath, false);
 
         for (String c : children) {
             String path = zkPath.replaceAll("/+$", "") + "/" + c;
-            travelByPreorder(zk, path);
+            travelByPreorder(zk, path, level + 1);
         }
     }
 }
