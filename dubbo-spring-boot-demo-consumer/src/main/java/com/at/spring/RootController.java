@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 public class RootController {
 
     @Reference(version="1.0.0"
-//            , application = "${dubbo.application.id}"
+//            // direct link
 //            , url = "dubbo://localhost:12345"
             )
     private DemoService demoService;

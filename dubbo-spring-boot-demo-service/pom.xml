@@ -66,6 +66,11 @@
       <artifactId>dubbo-spring-boot-demo-api</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
+    
+    <!-- dubbo-spring-boot-starter
+            0.1.x => spring-boot 1.x
+            0.2.x => spring-boot 2.x
+    -->
     <dependency>
       <groupId>com.alibaba.boot</groupId>
       <artifactId>dubbo-spring-boot-starter</artifactId>
