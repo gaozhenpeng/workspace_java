@@ -16,18 +16,20 @@
   <description>Demo project for Spring Boot</description>
 
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <java.version>1.8</java.version>
-    <spring-boot-maven-plugin.configuration.mainClass>com.at.spring_boot.demo.DemoApplication</spring-boot-maven-plugin.configuration.mainClass>
-    <!--
+     <!--
        start-class with spring-boot-starter-parent
        or define the mainClass property with spring-boot-maven-plugin
      -->
+    <spring-boot-maven-plugin.configuration.mainClass>com.at.spring_boot.demo.Application</spring-boot-maven-plugin.configuration.mainClass>
     <start-class>${spring-boot-maven-plugin.configuration.mainClass}</start-class>
+
+    <spring-boot-framework-version>2.0.1.RELEASE</spring-boot-framework-version>
   </properties>
 
   <dependencies>
+  
+  
+  
     <!-- spring boot starter -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -39,11 +41,13 @@
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
     <!-- hot swapping -->
+    <!-- 
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-devtools</artifactId>
       <optional>true</optional>
     </dependency>
+    -->
 
     <!-- lombok -->
     <dependency>
@@ -65,7 +69,7 @@
       <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.0.RELEASE</version>
+        <version>${spring-boot-framework-version}</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
@@ -78,21 +82,18 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
-        <!-- 
+        <version>${spring-boot-framework-version}</version>
         <configuration>
+            <!-- main class -->
             <mainClass>${spring-boot-maven-plugin.configuration.mainClass}</mainClass>
         </configuration>
-        -->
-      </plugin>
-      <!-- compiler options -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>${java.version}</source>
-          <target>${java.version}</target>
-          <encoding>${project.build.sourceEncoding}</encoding>
-        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
