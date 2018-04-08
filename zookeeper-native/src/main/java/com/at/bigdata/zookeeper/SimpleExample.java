@@ -41,6 +41,7 @@ public class SimpleExample {
             .create("/transactionpath2", "data2".getBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL)
             .setData("/transactionpath1", "data1".getBytes(), -1)
 //            .delete("/transactionpathx", -1)
+            .commit()
             ;
         
         
