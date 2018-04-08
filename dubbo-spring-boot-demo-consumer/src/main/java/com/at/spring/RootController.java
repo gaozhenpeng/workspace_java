@@ -1,6 +1,7 @@
 package com.at.spring;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.dubbo.config.annotation.Reference;
@@ -19,9 +20,14 @@ public class RootController {
     private DemoService demoService;
 
     @RequestMapping("/")
-    public String home() {
+    public String home(@RequestParam(name="name", required=true) String name) {
         log.info("hello home.");
-        log.info("demoService.sayHello(\"whoami\"): '{}'", demoService.sayHello("whoami"));
-        return "hello world!";
+        
+        
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("demoService.sayHello(\"").append(name).append("\"): ");
+        stringBuilder.append(demoService.sayHello(name));
+        log.info(stringBuilder.toString());
+        return stringBuilder.toString();
     }
 }
