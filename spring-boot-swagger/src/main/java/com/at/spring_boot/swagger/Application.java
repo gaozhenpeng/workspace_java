@@ -4,9 +4,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import lombok.extern.slf4j.Slf4j;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Slf4j
 @SpringBootApplication(scanBasePackages="com.at.spring_boot.swagger.controller")
+@EnableSwagger2
 public class Application {
 
     public static void main(String[] args) {
