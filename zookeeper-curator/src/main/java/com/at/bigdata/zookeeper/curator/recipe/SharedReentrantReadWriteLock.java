@@ -61,7 +61,6 @@ public class SharedReentrantReadWriteLock {
         return writeLock;
     }
     
-    @SuppressWarnings("unchecked")
     public static void main(String[] args) throws Exception {
         ExecutorService executorService = Executors.newFixedThreadPool(3);
         
@@ -71,14 +70,14 @@ public class SharedReentrantReadWriteLock {
         InterProcessMutex readLock = srrwl.getReadLock();
         InterProcessMutex writeLock = srrwl.getWriteLock();
         
-        executorService.submit(new Callable() {
+        executorService.submit(new Callable<Long>() {
             @Override
             public Long call() throws Exception {
                 if(readLock != null) {
                     try {
                         if(readLock.acquire(2, TimeUnit.SECONDS)) {
                             log.info("do some read work here....");
-                            Thread.currentThread().sleep(1000);
+                            Thread.sleep(1000);
                             log.info("done read work!");
                         }
                     }finally {
@@ -89,14 +88,14 @@ public class SharedReentrantReadWriteLock {
             }
             
         });
-        executorService.submit(new Callable() {
+        executorService.submit(new Callable<Long>() {
             @Override
             public Long call() throws Exception {
                 if(writeLock != null) {
                     try {
                         if(writeLock.acquire(2, TimeUnit.SECONDS)) {
                             log.info("do some write work here....");
-                            Thread.currentThread().sleep(1000);
+                            Thread.sleep(1000);
                             log.info("done write work!");
                         }
                     }finally {
