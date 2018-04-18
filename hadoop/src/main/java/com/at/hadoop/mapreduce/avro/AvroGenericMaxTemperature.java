@@ -25,6 +25,9 @@ import org.apache.hadoop.util.ToolRunner;
 
 import com.at.hadoop.parser.NcdcRecordParser;
 
+/**
+ * hadoop jar hadoop-0.0.1-SNAPSHOT-hadoop.jar com.at.hadoop.mapreduce.avro.AvroGenericMaxTemperature output_avro input/ncdc_data
+ */
 public class AvroGenericMaxTemperature extends Configured implements Tool {
 	private static final Schema SCHEMA = new Schema.Parser().parse(
 			  " { "

@@ -20,6 +20,9 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
+/**
+ * hadoop jar target/hadoop-0.0.1-SNAPSHOT-hadoop.jar com.at.hadoop.mapreduce.avro.AvroSort WeatherRecord.avsc output_avrosort output_avro/
+ */
 public class AvroSort extends Configured implements Tool {
 	static class SortMapper<K> extends Mapper<AvroKey<K>, NullWritable, AvroKey<K>, AvroValue<K>>{
 		@Override

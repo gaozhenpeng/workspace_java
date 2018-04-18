@@ -18,6 +18,9 @@ import org.apache.hadoop.util.ToolRunner;
 import org.apache.parquet.avro.AvroParquetOutputFormat;
 import org.apache.parquet.example.data.Group;
 
+/**
+ * hadoop jar target/hadoop-0.0.1-SNAPSHOT-hadoop.jar com.at.hadoop.mapreduce.parquet.TextToParquetWithAvro output_parquet input/ncdc_data
+ */
 public class TextToParquetWithAvro extends Configured implements Tool {
     private static final Schema SCHEMA = new Schema.Parser().parse(
             "{\n" + 
@@ -42,8 +45,8 @@ public class TextToParquetWithAvro extends Configured implements Tool {
     
     @Override
     public int run(String[] args) throws Exception{
-        if( args.length != 2) {
-            System.err.printf("Usage: %s [generic options] <input> <output>\n", getClass().getSimpleName());
+        if( args.length < 2) {
+            System.err.printf("Usage: %s [generic options] <output> <input>...\n", getClass().getSimpleName());
             ToolRunner.printGenericCommandUsage(System.err);
             return -1;
         }
