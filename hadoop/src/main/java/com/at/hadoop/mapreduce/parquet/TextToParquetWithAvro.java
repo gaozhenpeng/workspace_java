@@ -19,7 +19,12 @@ import org.apache.parquet.avro.AvroParquetOutputFormat;
 import org.apache.parquet.example.data.Group;
 
 /**
- * hadoop jar target/hadoop-0.0.1-SNAPSHOT-hadoop.jar com.at.hadoop.mapreduce.parquet.TextToParquetWithAvro output_parquet input/ncdc_data
+ * hadoop jar target/hadoop-0.0.1-SNAPSHOT-hadoop.jar com.at.hadoop.mapreduce.parquet.TextToParquetWithAvro output_parquet input/ncdc_data/1901.gz
+ *
+ * 
+ * <p><strong>Notice for tez:</strong>
+ *  Just doesn't work!
+ * </p>
  */
 public class TextToParquetWithAvro extends Configured implements Tool {
     private static final Schema SCHEMA = new Schema.Parser().parse(

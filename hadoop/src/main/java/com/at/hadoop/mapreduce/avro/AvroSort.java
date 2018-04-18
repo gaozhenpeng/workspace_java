@@ -21,7 +21,11 @@ import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
 /**
- * hadoop jar target/hadoop-0.0.1-SNAPSHOT-hadoop.jar com.at.hadoop.mapreduce.avro.AvroSort WeatherRecord.avsc output_avrosort output_avro/
+ * hadoop jar target/hadoop-0.0.1-SNAPSHOT-hadoop.jar com.at.hadoop.mapreduce.avro.AvroSort src/main/avro/WeatherRecord.avsc output_avrosort output_avro/
+ * 
+ * <p><strong>Notice for tez:</strong>
+ *  Just doesn't work!
+ * </p>
  */
 public class AvroSort extends Configured implements Tool {
 	static class SortMapper<K> extends Mapper<AvroKey<K>, NullWritable, AvroKey<K>, AvroValue<K>>{
