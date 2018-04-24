@@ -28,6 +28,17 @@ public class JobBuilder {
         
         return job;
     }
+    public static Job parseArgs(Tool tool, Configuration conf, String[] args) throws IOException {
+        if(args.length < 1) {
+            printUsage(tool, "<arg1> [...<argN>]");
+            return null;
+        }
+        Job job = Job.getInstance(conf);
+        job.setJarByClass(tool.getClass());
+        job.setJobName(tool.getClass().getSimpleName());
+        
+        return job;
+    }
 
     public static void printUsage(Tool tool, String extraArgsUsage) {
         System.err.printf("Usage: %s [genericOptions] %s\n\n", tool.getClass().getSimpleName(), extraArgsUsage);

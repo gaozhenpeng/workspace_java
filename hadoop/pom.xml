@@ -10,11 +10,14 @@
   <artifactId>hadoop</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <dependencies>
+    <!-- hadoop-client -->
     <dependency>
       <groupId>org.apache.hadoop</groupId>
       <artifactId>hadoop-client</artifactId>
       <version>2.7.5</version>
     </dependency>
+    
+    <!-- avro-mapred -->
     <dependency>
       <groupId>org.apache.avro</groupId>
       <artifactId>avro-mapred</artifactId>
@@ -27,6 +30,8 @@
         </exclusion>
       </exclusions>
     </dependency>
+    
+    <!-- parquet-avro -->
     <dependency>
       <groupId>org.apache.parquet</groupId>
       <artifactId>parquet-avro</artifactId>
@@ -38,6 +43,8 @@
         </exclusion>
       </exclusions>
     </dependency>
+    
+    <!-- hive -->
     <dependency>
       <groupId>org.apache.hive</groupId>
       <artifactId>hive-exec</artifactId>
@@ -50,7 +57,17 @@
       </exclusions>
     </dependency>
     
-    
+    <!-- hbase -->
+    <dependency>
+      <groupId>org.apache.hbase</groupId>
+      <artifactId>hbase-client</artifactId>
+      <version>1.2.6</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.hbase</groupId>
+      <artifactId>hbase-server</artifactId>
+      <version>1.2.6</version>
+    </dependency>
     
     
     <dependency>
