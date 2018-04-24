@@ -23,9 +23,9 @@ import com.at.hadoop.parser.NcdcRecordParser;
  * mvn clean package
  * set HBASE_CLASSPATH=target\hadoop-0.0.1-SNAPSHOT.jar
  * 
- * %HBASE_HOME%\bin\hbase.cmd com.at.hbase.HBaseTemperatureImporter /tmp/ncdc_data_plain/1901
+ * hadoop jar target\hadoop-0.0.1-SNAPSHOT-hadoop.jar com.at.hbase.HBaseTemperatureImporter /tmp/ncdc_data_plain/1901
  * 
- * <strong>Exception from container-launch.</strong>
+ * <strong>Note: calling **hadoop.cmd** instead of **hbase.cmd**</strong>
  */
 public class HBaseTemperatureImporter extends Configured implements Tool {
     static class HBaseTemperatureMapper<K> extends Mapper<LongWritable, Text, K, Put>{
