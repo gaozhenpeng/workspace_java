@@ -79,8 +79,10 @@ public class StreamTest {
 //                    // get name, chain operations can be followed
 //                    .map(mp -> mp.getName())
                     .collect(Collectors.groupingBy(MyPo::getRemark, Collectors.counting()))
+                    
 //                    .entrySet().stream()
 //                    .sorted(Map.Entry.<String,Long>comparingByValue())
+//                    .sorted(Map.Entry.<String,Long>comparingByValue().reversed())
 //                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue))
                 );
         }
@@ -113,6 +115,8 @@ public class StreamTest {
                 myPos.stream().parallel()
                     // filter out the nulls
                     .filter(v->v!=null)
+//                    .sorted(Comparator.comparing(MyPo::getName))
+//                    .sorted(Comparator.comparing(MyPo::getName).reversed())
 //                    .sorted((a,b)->b.getId().compareTo(a.getId())
                     .map(mp->mp.getName())
                     .sorted((a,b)->a.compareTo(b))
