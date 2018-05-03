@@ -8,12 +8,12 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <groupId>com.at.spring_boot</groupId>
-  <artifactId>spring-boot-demo</artifactId>
+  <artifactId>spring-boot-web-demo</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>demo</name>
-  <description>Demo project for Spring Boot</description>
+  <description>Demo web project for Spring Boot</description>
 
   <properties>
      <!--
@@ -83,7 +83,7 @@
 
   <build>
     <plugins>
-      <!-- mvn spring-boot:run -->
+      <!-- Package as an executable jar -->
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
