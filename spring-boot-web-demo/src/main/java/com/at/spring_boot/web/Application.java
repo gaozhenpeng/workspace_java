@@ -1,4 +1,4 @@
-package com.at.spring_boot.demo;
+package com.at.spring_boot.web;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

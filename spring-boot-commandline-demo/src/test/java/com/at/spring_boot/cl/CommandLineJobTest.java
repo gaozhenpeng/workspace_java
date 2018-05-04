@@ -1,4 +1,4 @@
-package com.at.spring_boot.demo;
+package com.at.spring_boot.cl;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
@@ -12,6 +12,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.at.spring_boot.cl.Application;
+import com.at.spring_boot.cl.CommandLineJob;
 
 /**
  * Command line test example. 

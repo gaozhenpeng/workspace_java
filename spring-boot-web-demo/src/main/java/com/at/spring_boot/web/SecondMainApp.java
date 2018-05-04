@@ -1,4 +1,4 @@
-package com.at.spring_boot.demo;
+package com.at.spring_boot.web;
 
 import lombok.extern.slf4j.Slf4j;
 
