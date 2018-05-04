@@ -11,10 +11,6 @@
   <artifactId>spring-boot-commandline-demo</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
-
-  <name>demo</name>
-  <description>Demo commandline project for Spring Boot</description>
-
   <properties>
      <!--
        start-class with spring-boot-starter-parent
