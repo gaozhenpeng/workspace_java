@@ -25,11 +25,16 @@
     </RollingFile>
   </Appenders>
   <Loggers>
-    <!-- async all loggers with vm arguments (recommended for efficiency) 
-      -DLog4jContextSelector=org.apache.logging.log4j.core.async.AsyncLoggerContextSelector 
-      or use <AyncLogger>, <AsyncRoot> (recommended for certainty) <AsyncLogger 
-      name="com.at" level="trace" includeLocation="true" additivity="false"> <AppenderRef 
-      ref="file-all" /> </AsyncLogger> -->
+    <!--
+        1. async all loggers with vm arguments  (recommended for efficiency)
+            -DLog4jContextSelector=org.apache.logging.log4j.core.async.AsyncLoggerContextSelector
+        2. or
+            use <AyncLogger>, <AsyncRoot> (recommended for certainty)
+
+    <AsyncLogger name="com.at" level="trace" includeLocation="true" additivity="false">
+        <AppenderRef ref="file-all" />
+    </AsyncLogger>
+    -->
 
     <!-- common loggers -->
     <AsyncLogger name="org.hibernate" level="WARN"
