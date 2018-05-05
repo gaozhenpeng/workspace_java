@@ -14,10 +14,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.mysql.cj.jdbc.Driver;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
 @EnableTransactionManagement // <tx:annotation-driven />, @Transactional
@@ -39,12 +39,22 @@ public class SpringMybatisDataSourceConfiguration {
     public DataSource dataSource() throws InstantiationException, IllegalAccessException, ClassNotFoundException{
         logger.info("Preparing simple driver datasource:");
 
-        SimpleDriverDataSource simpleDriverDataSource  = new SimpleDriverDataSource();
-        Driver driver = (Driver)Class.forName(database_driverclass).newInstance();
-        simpleDriverDataSource.setDriver(driver);
-        simpleDriverDataSource.setUrl(database_url);
-        simpleDriverDataSource.setUsername(database_username);
-        simpleDriverDataSource.setPassword(database_password);
+//        SimpleDriverDataSource simpleDriverDataSource  = new SimpleDriverDataSource();
+//        Driver driver = (Driver)Class.forName(database_driverclass).newInstance();
+//        simpleDriverDataSource.setDriver(driver);
+//        simpleDriverDataSource.setUrl(database_url);
+//        simpleDriverDataSource.setUsername(database_username);
+//        simpleDriverDataSource.setPassword(database_password);
+//        
+        HikariConfig hikariConfig = new HikariConfig();
+        hikariConfig.setJdbcUrl(database_url);
+        hikariConfig.setUsername(database_username);
+        hikariConfig.setPassword(database_password);
+        hikariConfig.addDataSourceProperty("cachePrepStmts", "true");
+        hikariConfig.addDataSourceProperty("prepStmtCacheSize", "250");
+        hikariConfig.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+
+        HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
         
 //      logger.info("\tchecking database:");
 //      JdbcTemplate jdbcTemplate = new JdbcTemplate(simpleDriverDataSource);
@@ -52,7 +62,7 @@ public class SpringMybatisDataSourceConfiguration {
 //      logger.info("\t\tdatabase ok");
         
         logger.debug("initializing database");;
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(simpleDriverDataSource);
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(hikariDataSource);
         jdbcTemplate.execute("DROP TABLE IF EXISTS `blog`;");
         jdbcTemplate.execute("CREATE TABLE `blog` ("
                              + "  `blog_id` bigint unsigned NOT NULL AUTO_INCREMENT,"
@@ -71,7 +81,7 @@ public class SpringMybatisDataSourceConfiguration {
                             + ",('name5', 'content5', now(), now())"
                             + "");
 
-        return simpleDriverDataSource;
+        return hikariDataSource;
     }
     
     
