@@ -1,5 +1,6 @@
 package com.at.spring_boot.config;
 
+import java.sql.Driver;
 import java.util.Properties;
 
 import javax.sql.DataSource;
@@ -15,8 +16,6 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.interceptor.TransactionInterceptor;
-
-import com.mysql.jdbc.Driver;
 
 /**
  * <p>It's not required to define the datasource explicitly if a single one is presented.

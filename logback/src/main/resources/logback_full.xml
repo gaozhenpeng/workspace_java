@@ -180,7 +180,7 @@
         <!-- direct db connection -->
         <connectionSource
             class="ch.qos.logback.core.db.DriverManagerConnectionSource">
-            <driverClass>com.mysql.jdbc.Driver</driverClass>
+            <driverClass>com.mysql.cj.jdbc.Driver</driverClass>
             <url>jdbc:mysql://localhost:3306/logback_db?serverTimezone=UTC</url>
             <user>logback</user>
             <password>logback</password>
@@ -267,7 +267,7 @@
         <!-- db datasource -->
         <connectionSource class="ch.qos.logback.core.db.DataSourceConnectionSource">
             <dataSource class="org.apache.commons.dbcp2.BasicDataSource">
-                <driverClassName>com.mysql.jdbc.Driver</driverClassName>
+                <driverClassName>com.mysql.cj.jdbc.Driver</driverClassName>
                 <url>jdbc:mysql://localhost:3306/logback_ds_db?serverTimezone=UTC</url>
                 <username>logback_ds</username>
                 <password>logback_ds</password>
