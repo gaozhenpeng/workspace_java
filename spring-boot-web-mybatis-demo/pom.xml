@@ -16,7 +16,7 @@
        start-class with spring-boot-starter-parent
        or define the mainClass property with spring-boot-maven-plugin
      -->
-    <spring-boot-maven-plugin.configuration.mainClass>com.at.spring_boot.demo.Application</spring-boot-maven-plugin.configuration.mainClass>
+    <spring-boot-maven-plugin.configuration.mainClass>com.at.spring_boot.Application</spring-boot-maven-plugin.configuration.mainClass>
     <start-class>${spring-boot-maven-plugin.configuration.mainClass}</start-class>
 
     <spring-boot-framework-version>2.0.1.RELEASE</spring-boot-framework-version>
