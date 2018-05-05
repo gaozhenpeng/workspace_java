@@ -29,7 +29,7 @@ public class SpringMybatisMain {
         BlogMapper blogMapper = context.getBean(BlogMapper.class);
         Blog blog2 = blogMapper.selectBlog(3);
         logger.info(blog2 == null ? "blog is null" : "blog: " + blog2.toString());
-        Long blog2_id = blog2.getBlog_id();
+        Long blog2_id = blog2.getBlogId();
         
         
         DataSourceTransactionManager txManager = context.getBean(DataSourceTransactionManager.class);
@@ -40,19 +40,19 @@ public class SpringMybatisMain {
         try{
             int i = 1;
             Blog toUpdateBlog = new Blog();
-            toUpdateBlog.setBlog_id(blog2_id);
+            toUpdateBlog.setBlogId(blog2_id);
             toUpdateBlog.setContent("Update: "+(i++)+"; Current Time: " + new Date().getTime());
             blogMapper.updateBlog(toUpdateBlog);
             
 //          if(true) throw new RuntimeException("Broken the transaction.");
             
             Blog toUpdateBlog2 = new Blog();
-            toUpdateBlog2.setBlog_id(blog2_id);
+            toUpdateBlog2.setBlogId(blog2_id);
             toUpdateBlog2.setContent("Update: "+(i++)+"; Current Time: " + new Date().getTime());
             blogMapper.updateBlog(toUpdateBlog2);
             
             Blog toUpdateBlog3 = new Blog();
-            toUpdateBlog3.setBlog_id(blog2_id);
+            toUpdateBlog3.setBlogId(blog2_id);
             toUpdateBlog3.setContent("Update: "+(i++)+"; Current Time: " + new Date().getTime());
             blogMapper.updateBlog(toUpdateBlog3);
             

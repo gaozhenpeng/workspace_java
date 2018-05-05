@@ -31,13 +31,12 @@ public interface BlogMapper {
     + " where blog_id = #{blog_id}"
     + "</script>")
     Long updateBlog(Blog blog);
-    // 注：使用 <set> 时，会自动删除末尾的 ","
-    //    参考: http://www.mybatis.org/mybatis-3/dynamic-sql.html
+    // Note: when using <set>, the tailing "," will be removed automatically.
+    //    Ref: http://www.mybatis.org/mybatis-3/dynamic-sql.html
     //    Here, the set element will dynamically prepend the SET
     //    keyword, and also eliminate any extraneous commas that
     //    might trail the value assignments after the conditions
     //    are applied.
-
     @Insert("insert into blog (name, content, updated_datetime, created_datetime) values (#{name}, #{content}, now(), now()) ")
     @Options(keyProperty="blog_id", useGeneratedKeys=true) // useGeneratedKeys=true, after successful inserting, the keyProperty will be updated
     Long insertBlog(Blog blog);

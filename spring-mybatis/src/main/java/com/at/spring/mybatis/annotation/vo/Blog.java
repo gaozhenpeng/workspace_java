@@ -2,14 +2,12 @@ package com.at.spring.mybatis.annotation.vo;
 
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import lombok.Data;
 
 /**
+ * <pre><code>
  * USE test;
  * DROP TABLE IF EXISTS `blog`;
  * CREATE TABLE `blog` (
@@ -30,56 +28,14 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * ;
  * commit
  * ;
- *
+ * </code></pre>
  */
+@SuppressWarnings("serial")
+@Data
 public class Blog implements Serializable{
-    private static final long serialVersionUID = 5617011791638352165L;
-    private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.US);
-    private Long blog_id;
+    private Long blogId;
     private String name;
     private String content;
-    private Date updated_datetime;
-    private Date created_datetime;
-    public Long getBlog_id() {
-        return blog_id;
-    }
-    public void setBlog_id(Long blog_id) {
-        this.blog_id = blog_id;
-    }
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public String getContent() {
-        return content;
-    }
-    public void setContent(String content) {
-        this.content = content;
-    }
-    public Date getUpdated_datetime() {
-        return updated_datetime;
-    }
-    public void setUpdated_datetime(Date updated_datetime) {
-        this.updated_datetime = updated_datetime;
-    }
-    public Date getCreated_datetime() {
-        return created_datetime;
-    }
-    public void setCreated_datetime(Date created_datetime) {
-        this.created_datetime = created_datetime;
-    }
-    @Override
-    public String toString(){
-//      return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
-        return new ToStringBuilder(this, ToStringStyle.JSON_STYLE)
-                .append("blog_id", blog_id)
-                .append("name", name)
-                .append("content", content)
-                .append("updated_datetime", updated_datetime == null ? null : simpleDateFormat.format(updated_datetime))
-                .append("created_datetime", created_datetime == null ? null : simpleDateFormat.format(created_datetime))
-                .build();
-    }
-    
+    private Date updatedDatetime;
+    private Date createdDatetime;
 }

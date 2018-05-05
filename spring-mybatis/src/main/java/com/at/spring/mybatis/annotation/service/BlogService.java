@@ -19,19 +19,19 @@ public class BlogService {
 	public void updateBatch(Long toUpdateBlogID) {
 		int i = 1;
 		Blog toUpdateBlog = new Blog();
-		toUpdateBlog.setBlog_id(toUpdateBlogID);
+		toUpdateBlog.setBlogId(toUpdateBlogID);
 		toUpdateBlog.setContent("Update: " + (i++) + "; Current Time: " + new Date().getTime());
 		blogMapper.updateBlog(toUpdateBlog);
 
 		// if(true) throw new RuntimeException("Broken the transaction.");
 
 		Blog toUpdateBlog2 = new Blog();
-		toUpdateBlog2.setBlog_id(toUpdateBlogID);
+		toUpdateBlog2.setBlogId(toUpdateBlogID);
 		toUpdateBlog2.setContent("Update: " + (i++) + "; Current Time: " + new Date().getTime());
 		blogMapper.updateBlog(toUpdateBlog2);
 
 		Blog toUpdateBlog3 = new Blog();
-		toUpdateBlog3.setBlog_id(toUpdateBlogID);
+		toUpdateBlog3.setBlogId(toUpdateBlogID);
 		toUpdateBlog3.setContent("Update: " + (i++) + "; Current Time: " + new Date().getTime());
 		blogMapper.updateBlog(toUpdateBlog3);
 
