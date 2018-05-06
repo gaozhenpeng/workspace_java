@@ -7,12 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import com.at.spring_boot.mybatis.dto.BlogDto;
 import com.at.spring_boot.mybatis.mapper3.BlogMapper;
 import com.at.spring_boot.mybatis.po.Blog;
 import com.at.spring_boot.mybatis.po.BlogExample;
-import com.mysql.jdbc.StringUtils;
 
 import lombok.extern.slf4j.Slf4j;
 import ma.glasnost.orika.MapperFacade;
@@ -52,7 +52,7 @@ public class BlogService {
             String msg = String.format("Not able to insert record, blog: '%s'", blog);
             throw new RuntimeException(msg);
         }
-        if(!StringUtils.isEmptyOrWhitespaceOnly(content) && content.contains("throw")) {
+        if(!StringUtils.isEmpty(content) && content.contains("throw")) {
             throw new RuntimeException(content);
         }
         
