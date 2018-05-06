@@ -8,7 +8,7 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <groupId>com.at.spring_boot</groupId>
-  <artifactId>spring-boot-web-mybatis-demo</artifactId>
+  <artifactId>spring-boot-web-mybatis-quartz-demo</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
   <properties>
