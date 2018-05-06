@@ -1,2 +1,4 @@
+# file: log4j2.component.properties
+
 # make all logger asynchronous
 Log4jContextSelector=org.apache.logging.log4j.core.async.AsyncLoggerContextSelector
