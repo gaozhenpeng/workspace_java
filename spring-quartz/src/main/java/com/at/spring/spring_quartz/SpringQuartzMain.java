@@ -13,14 +13,13 @@ import lombok.extern.slf4j.Slf4j;
 @ComponentScan(basePackages = "com.at.spring.spring_quartz")
 public class SpringQuartzMain {
 
-    @SuppressWarnings("static-access")
     public static void main(String[] args) throws SchedulerException, InterruptedException {
         log.debug("Enterring Main.");
 
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(
                 SpringQuartzMain.class);
 
-        Thread.currentThread().sleep(60000);
+        Thread.sleep(60000);
 
         context.close();
 

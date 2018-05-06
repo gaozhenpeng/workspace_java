@@ -1,17 +1,20 @@
 package com.at.spring_boot.quartz.job;
 
+import org.quartz.CronScheduleBuilder;
+import org.quartz.DateBuilder;
 import org.quartz.DisallowConcurrentExecution;
+import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.quartz.PersistJobDataAfterExecution;
+import org.quartz.SchedulerException;
+import org.quartz.SimpleScheduleBuilder;
 import org.quartz.Trigger;
+import org.quartz.TriggerBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.quartz.CronTriggerFactoryBean;
-import org.springframework.scheduling.quartz.JobDetailFactoryBean;
 import org.springframework.scheduling.quartz.QuartzJobBean;
-import org.springframework.scheduling.quartz.SimpleTriggerFactoryBean;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,41 +37,44 @@ public class SpringHelloworldJob extends QuartzJobBean {
     }
 
     
-    
-    
-    
-    @Bean(name="springhellworldjob")
-    public JobDetailFactoryBean springHelloworld() {
-        JobDetailFactoryBean bean = new JobDetailFactoryBean();
-        bean.setJobClass(SpringHelloworldJob.class);
-        bean.setDurability(true);
-        bean.setRequestsRecovery(true);
-        bean.setName("springhellworldjob");
-        bean.setGroup("springhellworldjob_group");
-        return bean;
+    @Bean
+    public JobDetail springHelloworldJobDetail() {
+        JobDetail jobDetail = 
+                JobBuilder.newJob(this.getClass())
+                    .storeDurably(true)
+                    .requestRecovery(true)
+                    .withIdentity("springhellworldjob", "springhellworldjob_group")
+                    .build()
+                    ;
+        return jobDetail;
     }
 
-    @Bean(name="springhellworldjob_crontrigger")
-    public CronTriggerFactoryBean dailySummarytrigger() {
-        CronTriggerFactoryBean bean = new CronTriggerFactoryBean();
-        bean.setJobDetail(springHelloworld().getObject());
-        bean.setStartDelay(5000);
-        bean.setBeanName("springhellworldjob_crontrigger");
-        bean.setGroup("springhellworldjob_group");
-        //                      sec min hou day mon wee year
-        bean.setCronExpression("0/3   *   *  *   *   ?   *");
-        return bean;
+    @Bean
+    public Trigger dailySummarytrigger() throws SchedulerException {
+        Trigger trigger = 
+                TriggerBuilder.newTrigger()
+                    .withIdentity("springhellworldjob_crontrigger", "springhellworldjob_group")
+                    .forJob(springHelloworldJobDetail())
+                    .startAt(DateBuilder.futureDate(5, DateBuilder.IntervalUnit.SECOND))
+                    .withSchedule(
+                            //                                sec min hou day mon wee year
+                            CronScheduleBuilder.cronSchedule("0/3   *   *  *   *   ?   *"))
+                    .build()
+                    ;
+        return trigger;
     }
 
-    @Bean(name="springhellworldjob_simpletrigger")
-    public SimpleTriggerFactoryBean simpleTrigger() {
-        SimpleTriggerFactoryBean bean = new SimpleTriggerFactoryBean();
-        bean.setJobDetail(springHelloworld().getObject());
-        bean.setBeanName("springhellworldjob_simpletrigger");
-        bean.setGroup("springhellworldjob_group");
-        bean.setRepeatInterval(2000); // repeat interval, in miliseconds
-        bean.setRepeatCount(19); // total execution = repeat count + 1
-        return bean;
+    @Bean
+    public Trigger simpleTrigger() throws SchedulerException {
+        Trigger trigger = 
+                TriggerBuilder.newTrigger()
+                    .withIdentity("springhellworldjob_simpletrigger", "springhellworldjob_group")
+                    .forJob(springHelloworldJobDetail())
+                    .withSchedule(
+                            SimpleScheduleBuilder.repeatSecondlyForTotalCount(20, 2)) // total count
+                    .build()
+                    ;
+        return trigger;
     }
 
 }

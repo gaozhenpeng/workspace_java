@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
 
+import org.quartz.JobDetail;
 import org.quartz.Trigger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
@@ -22,7 +23,9 @@ public class QuartzScheduler {
 //    @Autowired
 //    @Qualifier("springhellworldjob_crontrigger")
 //    private CronTriggerFactoryBean springhellworldjob_crontrigger;
-    
+
+    @Autowired
+    private List<JobDetail> jobDetails;
     @Autowired
     private List<Trigger> triggers;
         
@@ -45,6 +48,8 @@ public class QuartzScheduler {
 //        scheduler.setTriggers(
 //                springhellworldjob_crontrigger.getObject()
 //                , springhellworldjob_simpletrigger.getObject());
+
+        scheduler.setJobDetails(jobDetails.toArray(new JobDetail[0]));
         scheduler.setTriggers(triggers.toArray(new Trigger[0]));
         return scheduler;
     }
