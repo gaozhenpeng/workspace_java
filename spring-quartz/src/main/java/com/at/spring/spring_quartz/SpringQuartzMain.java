@@ -20,7 +20,7 @@ public class SpringQuartzMain {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(
                 SpringQuartzMain.class);
 
-        Thread.currentThread().sleep(11000);
+        Thread.currentThread().sleep(60000);
 
         context.close();
 
