@@ -13,7 +13,6 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 /**
  * 0 - 12345678 12345678 12345678 12345678 12345678 1 - 12345678 12 - 12345678 1234
  *   * 0
@@ -25,17 +24,17 @@ import lombok.extern.slf4j.Slf4j;
  *       It can set to be the eliminating time since a start point
  *   * 12345678 12
  *       10 bits of machine id
- *          5 bits for data center id, 5 bits for machine id
+ *          5 bits for data center id
+ *          5 bits for machine id
  *       2^10 = 1024
  *   * 12345678 1234
  *       12 bits of lastSequenceNum id
- *          2^12 = 4096
+ *       2^12 = 4096
  */
+@Slf4j
 public class SnowflakeIdGenerator {
     
-    /**
-     * start miliseconds (2018-01-01 00:00:00.000 = 1514736000000)
-     */
+    /** start time in miliseconds (2018-01-01 00:00:00.000 = 1514736000000) */
     private final long START_TIME_IN_MS = 1514736000000L;
 
     private final long MACHINE_ID_BITS = 5L;
@@ -49,7 +48,7 @@ public class SnowflakeIdGenerator {
     /** 0b1111 1111 1111 = 0xFFF */
     private final long SEQUENCE_MASK = 0xFFF;
     /** 0b1 1111 = 0x1F */
-    private final long WORKER_ID_MASK = 0x1F;
+    private final long MACHINE_ID_MASK = 0x1F;
     /** 0b1 1111 = 0x1F */
     private final long DATA_CENTER_ID_MASK = 0x1F;
     /** 0b 1 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 = 0x1FFFFFFFFFF */
@@ -59,19 +58,26 @@ public class SnowflakeIdGenerator {
     /** lock for sequential */
     private static final ReentrantLock reentrantLock = new ReentrantLock();
     
-
     
-    
-    private long dataCenterId;
-    private long workerId;
+    /** 5 bits in signed long, no bigger than 2^4 = 16 */
+    private final long dataCenterId;
+    /** 5 bits in signed long, no bigger than 2^4 = 16 */
+    private final long machineId;
     
     private long lastSequenceNum = 0L;
     private long lastTimestamp = -1L;
 
-    public SnowflakeIdGenerator(long dataCenterId, long workerId) {
+    public SnowflakeIdGenerator(long dataCenterId, long machineId) {
         super();
+
+        if(dataCenterId != (dataCenterId & DATA_CENTER_ID_MASK)) {
+            throw new RuntimeException("5 bits in signed long, no bigger than 2^4 = 16, but get dataCenterId: '"+dataCenterId+"'");
+        }
+        if(machineId != (machineId & MACHINE_ID_MASK)) {
+            throw new RuntimeException("5 bits in signed long, no bigger than 2^4 = 16, but get machineId: '"+machineId+"'");
+        }
         this.dataCenterId = dataCenterId;
-        this.workerId = workerId;
+        this.machineId = machineId;
     }
 
     public long nextId() throws InterruptedException {
@@ -91,9 +97,51 @@ public class SnowflakeIdGenerator {
         lastTimestamp = thisTimestamp;
         reentrantLock.unlock();
         
+        if(log.isDebugEnabled()) {
+            log.debug("(thisTimestamp - START_TIME_IN_MS): {}, (thisTimestamp - START_TIME_IN_MS) & TIMESTAMP_MASK: {}, isEquals: '{}'"
+                    , (thisTimestamp - START_TIME_IN_MS)
+                    , (thisTimestamp - START_TIME_IN_MS) & TIMESTAMP_MASK
+                    , (thisTimestamp - START_TIME_IN_MS) == ((thisTimestamp - START_TIME_IN_MS) & TIMESTAMP_MASK));
+            log.debug("dataCenterId: {}, dataCenterId & DATA_CENTER_ID_MASK: {}, isEquals: '{}'"
+                    , dataCenterId
+                    , dataCenterId & DATA_CENTER_ID_MASK
+                    , dataCenterId == (dataCenterId & DATA_CENTER_ID_MASK));
+            log.debug("machineId: {}, machineId & MACHINE_ID_MASK: {}, isEquals: '{}'"
+                    , machineId
+                    , machineId & MACHINE_ID_MASK
+                    , machineId == (machineId & MACHINE_ID_MASK));
+            log.debug("thisSequenceNum: {}, thisSequenceNum & SEQUENCE_MASK: {}, isEquals: '{}'"
+                    , thisSequenceNum
+                    , thisSequenceNum & SEQUENCE_MASK
+                    , thisSequenceNum == (thisSequenceNum & SEQUENCE_MASK));
+        }
+        if((thisTimestamp - START_TIME_IN_MS) != ((thisTimestamp - START_TIME_IN_MS) & TIMESTAMP_MASK)) {
+            log.info("(thisTimestamp - START_TIME_IN_MS): {}, (thisTimestamp - START_TIME_IN_MS) & TIMESTAMP_MASK: {}, isEquals: '{}'"
+                    , (thisTimestamp - START_TIME_IN_MS)
+                    , (thisTimestamp - START_TIME_IN_MS) & TIMESTAMP_MASK
+                    , (thisTimestamp - START_TIME_IN_MS) == ((thisTimestamp - START_TIME_IN_MS) & TIMESTAMP_MASK));
+        }
+        if(dataCenterId != (dataCenterId & DATA_CENTER_ID_MASK)) {
+            log.info("dataCenterId: {}, dataCenterId & DATA_CENTER_ID_MASK: {}, isEquals: '{}'"
+                    , dataCenterId
+                    , dataCenterId & DATA_CENTER_ID_MASK
+                    , dataCenterId == (dataCenterId & DATA_CENTER_ID_MASK));
+        }
+        if(machineId != (machineId & MACHINE_ID_MASK)) {
+            log.info("machineId: {}, machineId & MACHINE_ID_MASK: {}, isEquals: '{}'"
+                    , machineId
+                    , machineId & MACHINE_ID_MASK
+                    , machineId == (machineId & MACHINE_ID_MASK));
+        }
+        if(thisSequenceNum != (thisSequenceNum & SEQUENCE_MASK)) {
+            log.info("thisSequenceNum: {}, thisSequenceNum & SEQUENCE_MASK: {}, isEquals: '{}'"
+                    , thisSequenceNum
+                    , thisSequenceNum & SEQUENCE_MASK
+                    , thisSequenceNum == (thisSequenceNum & SEQUENCE_MASK));
+        }
         return (((thisTimestamp - START_TIME_IN_MS) & TIMESTAMP_MASK)      << TIMESTAMP_LEFT_SHIFT_BITS)
                 | ((dataCenterId                    & DATA_CENTER_ID_MASK) << DATACENTER_ID_LEFT_SHIFT_BITS)
-                | ((workerId                        & WORKER_ID_MASK)      << MACHINE_ID_LEFT_SHIFT_BITS)
+                | ((machineId                       & MACHINE_ID_MASK)     << MACHINE_ID_LEFT_SHIFT_BITS)
                 | (thisSequenceNum                  & SEQUENCE_MASK);
     }
 
@@ -111,7 +159,7 @@ public class SnowflakeIdGenerator {
     }
     
     public static void main(String[] args) throws InterruptedException {
-        SnowflakeIdGenerator snowflakeIdGenerator = new SnowflakeIdGenerator(123, 456);
+        SnowflakeIdGenerator snowflakeIdGenerator = new SnowflakeIdGenerator(12, 5);
         
         List<Future<Long>> futureIds = new ArrayList<>(10000);
         ExecutorService executorService = Executors.newCachedThreadPool();

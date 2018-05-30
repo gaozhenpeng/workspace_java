@@ -49,6 +49,8 @@
     <!-- special loggers -->
     <AsyncLogger name="com.at" level="DEBUG"
       includeLocation="true" />
+    <AsyncLogger name="com.at.snowflake.SnowflakeIdGenerator" level="INFO"
+      includeLocation="true" />
 
     <AsyncRoot level="INFO" includeLocation="true">
       <AppenderRef ref="stdout" />
