@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
 
 import com.at.mybatis.annotation.mapper.BlogMapper;
 import com.at.mybatis.annotation.vo.Blog;
+import com.github.pagehelper.PageInterceptor;
 
 public class MyBatisAnnotationMain {
     private static final Logger logger = LoggerFactory.getLogger(MyBatisAnnotationMain.class);
@@ -51,6 +52,15 @@ public class MyBatisAnnotationMain {
         
         logger.debug("adding mappers to configuration");
         configuration.addMappers("com.at.mybatis.annotation.mapper");
+
+        logger.debug("adding plugin to configuration");
+        PageInterceptor pageInterceptor = new PageInterceptor();
+        Properties pageInterceptorProperties = new Properties();
+        //// enable method arguments in Mapper @Param("pageNumKey"), @Param("PageSizeKey")
+//        pageInterceptorProperties.setProperty("supportMethodsArguments", "true");
+//        pageInterceptorProperties.setProperty("params", "pageNum=pageNumKey;pageSize=pageSizeKey;");
+        pageInterceptor.setProperties(pageInterceptorProperties);
+        configuration.addInterceptor(pageInterceptor);
         
         
         logger.debug("building SqlSessionFactoryBuilder");

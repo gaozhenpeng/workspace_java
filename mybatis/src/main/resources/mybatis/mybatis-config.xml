@@ -3,18 +3,38 @@
     PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-	<environments default="development">
-		<environment id="development">
-			<transactionManager type="JDBC" />
-			<dataSource type="POOLED">
-				<property name="driver" value="com.mysql.cj.jdbc.Driver" />
-				<property name="url" value="jdbc:mysql://127.0.0.1:3306/test?serverTimezone=UTC&amp;useSSL=false" />
-				<property name="username" value="root" />
-				<property name="password" value="" />
-			</dataSource>
-		</environment>
-	</environments>
-	<mappers>
-		<mapper resource="mybatis/mapper/mybatis-BlogMapper.xml" />
-	</mappers>
+  <!-- 
+      properties?
+      , settings?
+      , typeAliases?
+      , typeHandlers?
+      , objectFactory?
+      , objectWrapperFactory?
+      , plugins?
+      , environments?
+      , databaseIdProvider?
+      , mappers?
+  -->
+  <plugins>
+    <plugin interceptor="com.github.pagehelper.PageInterceptor">
+      <!-- enable method arguments in Mapper @Param("pageNumKey"), @Param("PageSizeKey")
+      <property name="supportMethodsArguments" value="true"/>
+      <property name="params" value="pageNum=pageNumKey;pageSize=pageSizeKey;"/>
+      -->
+    </plugin>
+  </plugins>
+  <environments default="development">
+    <environment id="development">
+      <transactionManager type="JDBC" />
+      <dataSource type="POOLED">
+        <property name="driver" value="com.mysql.cj.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://127.0.0.1:3306/test?serverTimezone=UTC&amp;useSSL=false" />
+        <property name="username" value="root" />
+        <property name="password" value="" />
+      </dataSource>
+    </environment>
+  </environments>
+  <mappers>
+    <mapper resource="mybatis/mapper/mybatis-BlogMapper.xml" />
+  </mappers>
 </configuration>

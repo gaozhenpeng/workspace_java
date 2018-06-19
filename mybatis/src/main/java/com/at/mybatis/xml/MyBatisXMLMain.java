@@ -16,6 +16,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.at.mybatis.xml.vo.Blog;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 
 public class MyBatisXMLMain {
@@ -31,6 +33,7 @@ public class MyBatisXMLMain {
         boolean isAutoCommit = false;
         SqlSession session = sqlSessionFactory.openSession(isAutoCommit);
         try {
+            // mybatis original select and pagination (in memory)
             List<Integer> ids = new ArrayList<Integer>();
             ids.add(1);
             ids.add(2);
@@ -54,10 +57,31 @@ public class MyBatisXMLMain {
 	            blog.setContent("Current Time: " + System.currentTimeMillis());
 	            blog.setName(null);
 	            blog.setUpdated_datetime(new Date());
-	            session.update("com.at.mybatis.xml.mapper.BlogMapper.updateBlog", blog);
+	            session.update("com.at.mybatis.xml.mapper.BlogMapper.updateSelective", blog);
 	//          if(true){throw new RuntimeException("Broken the transaction.");}
 	            session.commit();
             }
+            
+
+            // mybatis pagehelper pagination (in sql)
+            // require plugin configuration in mybatis-config.xml
+            PageHelper.startPage(2, 3); // PageHelper.offsetPage(3, 3); // 
+            blogs = session.selectList("com.at.mybatis.xml.mapper.BlogMapper.selectBlogs", params);
+            logger.info(blogs == null ? "blogs is null" : "blog: " + blogs.toString());
+            // blogs is exactly a Page instance
+            PageInfo<Blog> pageInfo = new PageInfo<>(blogs);
+            logger.info("pageInfo: '{}'", pageInfo);
+            
+            for(Blog blog : blogs){
+                blog.setContent("Current Time: " + System.currentTimeMillis());
+                blog.setName(null);
+                blog.setUpdated_datetime(new Date());
+                session.update("com.at.mybatis.xml.mapper.BlogMapper.updateSelective", blog);
+    //          if(true){throw new RuntimeException("Broken the transaction.");}
+                session.commit();
+            }
+            
+            
         }catch(Exception e){
             logger.error("Shit happened!", e);
             session.rollback();
