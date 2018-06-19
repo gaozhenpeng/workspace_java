@@ -10,6 +10,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.stream.Collectors;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -175,7 +176,7 @@ public class SnowflakeIdGenerator {
         AtomicInteger counter = new AtomicInteger();
         ConcurrentMap<Long, Long> id2Count = new ConcurrentHashMap<>(10000);
         futureIds.stream().parallel()
-            .forEach(f->{
+            .map(f->{
                 try {
                     long id = f.get();
                     id2Count.computeIfPresent(id, (k,v)->{
@@ -187,8 +188,10 @@ public class SnowflakeIdGenerator {
                 } catch (Exception e) {
                     log.error("err", e);
                 }
-                
-            });
+                return 1;
+            })
+            .collect(Collectors.toList())
+            ;
         log.error("Shit total: '{}'", counter.get());
         executorService.shutdown();
     }

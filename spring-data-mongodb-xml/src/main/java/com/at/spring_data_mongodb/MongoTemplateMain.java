@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -204,9 +205,12 @@ public class MongoTemplateMain {
         log.info("mallIndustryStaticsList.size(): '{}'", mallIndustryStaticsList.size());
         if(mallIndustryStaticsList != null) {
             mallIndustryStaticsList.stream().parallel()
-                .forEach((mis) -> {
+                .map((mis) -> {
                     log.info("mis : '{}'", mis);
-                });
+                    return 1;
+                })
+                .collect(Collectors.toList())
+                ;
         }
         return mallIndustryStaticsList;
     }
