@@ -23,10 +23,17 @@
     <mybatis-spring-boot-starter-version>1.3.2</mybatis-spring-boot-starter-version>
     <orika-version>1.5.2</orika-version>
     <mysql-connector-java-version>6.0.6</mysql-connector-java-version>
+    <pagehelper-spring-boot-starter-version>1.2.5</pagehelper-spring-boot-starter-version>
   </properties>
 
   <dependencies>
   
+    <!-- pagehelper -->
+    <dependency>
+      <groupId>com.github.pagehelper</groupId>
+      <artifactId>pagehelper-spring-boot-starter</artifactId>
+      <version>${pagehelper-spring-boot-starter-version}</version>
+    </dependency>
     <!-- mybatis -->
     <dependency>
       <groupId>org.mybatis.spring.boot</groupId>

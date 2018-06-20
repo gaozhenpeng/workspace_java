@@ -12,19 +12,19 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.at.mybatis.xml.vo.Blog;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
+import lombok.extern.slf4j.Slf4j;
 
+
+@Slf4j
 public class MyBatisXMLMain {
-    private static final Logger logger = LoggerFactory.getLogger(MyBatisXMLMain.class);
 
     public static void main(String[] args) throws IOException {
-        logger.debug("Enterring Main.");
+        log.debug("Enterring Main.");
 
         String resource = "mybatis/mybatis-config.xml";
         InputStream inputStream = MyBatisXMLMain.class.getClassLoader().getResourceAsStream(resource);
@@ -52,7 +52,7 @@ public class MyBatisXMLMain {
             params.put("not_ids", not_ids);
 
             List<Blog> blogs = session.selectList("com.at.mybatis.xml.mapper.BlogMapper.selectBlogs", params, new RowBounds(3, 3));
-            logger.info(blogs == null ? "blogs is null" : "blog: " + blogs.toString());
+            log.info(blogs == null ? "blogs is null" : "blog: " + blogs.toString());
             for(Blog blog : blogs){
 	            blog.setContent("Current Time: " + System.currentTimeMillis());
 	            blog.setName(null);
@@ -67,10 +67,10 @@ public class MyBatisXMLMain {
             // require plugin configuration in mybatis-config.xml
             PageHelper.startPage(2, 3); // PageHelper.offsetPage(3, 3); // 
             blogs = session.selectList("com.at.mybatis.xml.mapper.BlogMapper.selectBlogs", params);
-            logger.info(blogs == null ? "blogs is null" : "blog: " + blogs.toString());
+            log.info(blogs == null ? "blogs is null" : "blog: " + blogs.toString());
             // blogs is exactly a Page instance
             PageInfo<Blog> pageInfo = new PageInfo<>(blogs);
-            logger.info("pageInfo: '{}'", pageInfo);
+            log.info("pageInfo: '{}'", pageInfo);
             
             for(Blog blog : blogs){
                 blog.setContent("Current Time: " + System.currentTimeMillis());
@@ -83,12 +83,12 @@ public class MyBatisXMLMain {
             
             
         }catch(Exception e){
-            logger.error("Shit happened!", e);
+            log.error("Shit happened!", e);
             session.rollback();
         } finally {
             session.close();
         }
 
-        logger.debug("Exiting Main.");
+        log.debug("Exiting Main.");
     }
 }

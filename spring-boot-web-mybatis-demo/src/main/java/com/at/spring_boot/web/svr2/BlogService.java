@@ -12,6 +12,8 @@ import com.at.spring_boot.mybatis.dto.BlogDto;
 import com.at.spring_boot.mybatis.mapper2.BlogMapper;
 import com.at.spring_boot.mybatis.po.Blog;
 import com.at.spring_boot.mybatis.po.BlogExample;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 import lombok.extern.slf4j.Slf4j;
 import ma.glasnost.orika.MapperFacade;
@@ -73,6 +75,33 @@ public class BlogService {
         }
 
         List<Blog> blogs = blogMapper.selectByExample(blogExample);
+
+        return mapperFacade.mapAsList(blogs, BlogDto.class);
+    }
+
+    /**
+     * list blogs pagingly, if blogId is not null, show the specific blog
+     * @param blogId
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    public List<BlogDto> list(Long blogId, Integer pageNo, Integer pageSize) {
+        log.info("list, blogId: '{}', pageNo: '{}', pageSize: '{}' ", blogId, pageNo, pageSize);
+        
+        BlogExample blogExample = new BlogExample();
+        blogExample.setOrderByClause("name asc");
+        
+        BlogExample.Criteria blogExampleCriteria = blogExample.or();
+        if(blogId != null) {
+            blogExampleCriteria.andBlogIdEqualTo(blogId);
+        }
+
+        PageHelper.startPage(pageNo, pageSize);
+        List<Blog> blogs = blogMapper.selectByExample(blogExample);
+        log.info(blogs == null ? "blogs is null" : "blog: " + blogs.toString());
+        PageInfo<Blog> pageInfo = new PageInfo<>(blogs);
+        log.info("pageInfo: '{}'", pageInfo);
 
         return mapperFacade.mapAsList(blogs, BlogDto.class);
     }

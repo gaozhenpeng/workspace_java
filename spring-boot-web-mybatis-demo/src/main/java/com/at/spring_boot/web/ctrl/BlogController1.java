@@ -33,13 +33,21 @@ public class BlogController1 {
         return blogDto;
     }
 
+
     @RequestMapping(method=RequestMethod.GET)
     public List<BlogDto> list(
             @RequestParam(name="blogId", required=false) Long blogId
+            ,@RequestParam(name="pageNo", required=false) Integer pageNo
+            ,@RequestParam(name="pageSize", required=false) Integer pageSize
             ) {
-        log.info("list blog, blogId: '{}' ", blogId);
+        log.info("list blog, blogId: '{}', pageNo: '{}', pageSize: '{}' ", blogId, pageNo, pageSize);
         
-        List<BlogDto> blogDtos = blogService.list(blogId);
+        List<BlogDto> blogDtos = null;
+        if(pageNo == null || pageSize == null) {
+            blogDtos = blogService.list(blogId);
+        }else {
+            blogDtos = blogService.list(blogId, pageNo, pageSize);
+        }
         return blogDtos;
     }
 }
