@@ -18,7 +18,7 @@ import lombok.Data;
  *   `created_datetime` datetime DEFAULT null,
  *   `updated_datetime` datetime DEFAULT null,
  *   PRIMARY KEY (`blog_id`)
- * ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ * ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
  * 
  * insert into `blog` (`name`, `content`, `created_datetime`, `updated_datetime`) values
  *  ('name1', 'content1', now(), now())

@@ -30,7 +30,7 @@
             GRANT ALL ON log4j2.* TO log4j2@'%';
             
             DROP DATABASE IF EXISTS `log4j2`;
-            CREATE DATABASE `log4j2` CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+            CREATE DATABASE `log4j2` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_520_ci';
             USE log4j2;
             
             DROP TABLE IF EXISTS `log4j2_logs`;
@@ -47,7 +47,7 @@
                 ,`exception` varchar(4096) DEFAULT NULL COMMENT '%exception{full}'
                 ,PRIMARY KEY (`logs_id`)
                 ,KEY `INDEX_LOG_DATE` (`event_datetime`) USING BTREE
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8; 
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4; 
         -->
         <JDBC name="database" tableName="log4j2_logs">
             <ConnectionFactory class="com.at.log4j2.db.ConnectionFactory" method="getDatabaseConnection" />
