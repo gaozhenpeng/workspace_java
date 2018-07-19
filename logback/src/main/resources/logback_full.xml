@@ -108,7 +108,7 @@
         flush privileges;
         
         DROP DATABASE IF EXISTS `logback_db`;
-        CREATE DATABASE `logback_db` CHARACTER SET 'utf8' COLLATE 'utf8_general_ci'; 
+        CREATE DATABASE `logback_db` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_520_ci'; 
         USE `logback_db`;
         
         
@@ -196,7 +196,7 @@
         flush privileges;
         
         DROP DATABASE IF EXISTS `logback_ds_db`;
-        CREATE DATABASE `logback_ds_db` CHARACTER SET 'utf8' COLLATE 'utf8_general_ci'; 
+        CREATE DATABASE `logback_ds_db` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_520_ci'; 
         USE `logback_ds_db`;
         
         # Logback: the reliable, generic, fast and flexible logging framework.
