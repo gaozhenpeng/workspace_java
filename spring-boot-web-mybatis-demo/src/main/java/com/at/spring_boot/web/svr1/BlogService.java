@@ -23,9 +23,9 @@ import ma.glasnost.orika.MapperFacade;
 public class BlogService {
     @Autowired
     @Qualifier("blogMapper1")
-    private BlogMapper blogMapper;
+    BlogMapper blogMapper;
     @Autowired
-    private MapperFacade mapperFacade;
+    MapperFacade mapperFacade;
 
     /** 
      * create a new blog
@@ -69,9 +69,10 @@ public class BlogService {
         BlogExample blogExample = new BlogExample();
         blogExample.setOrderByClause("name asc");
         
-        BlogExample.Criteria blogExampleCriteria = blogExample.or();
         if(blogId != null) {
-            blogExampleCriteria.andBlogIdEqualTo(blogId);
+            blogExample
+                .or()
+                    .andBlogIdEqualTo(blogId);
         }
 
         List<Blog> blogs = blogMapper.selectByExample(blogExample);
@@ -92,9 +93,10 @@ public class BlogService {
         BlogExample blogExample = new BlogExample();
         blogExample.setOrderByClause("name asc");
         
-        BlogExample.Criteria blogExampleCriteria = blogExample.or();
         if(blogId != null) {
-            blogExampleCriteria.andBlogIdEqualTo(blogId);
+            blogExample
+                .or()
+                    .andBlogIdEqualTo(blogId);
         }
 
         PageHelper.startPage(pageNo, pageSize);
