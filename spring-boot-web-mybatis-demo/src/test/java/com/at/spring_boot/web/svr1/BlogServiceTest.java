@@ -10,7 +10,11 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import com.at.spring_boot.mybatis.dto.BlogDto;
 import com.at.spring_boot.mybatis.mapper1.BlogMapper;
@@ -23,12 +27,13 @@ import ma.glasnost.orika.converter.ConverterFactory;
 import ma.glasnost.orika.converter.builtin.DateToStringConverter;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
 
+@RunWith(MockitoJUnitRunner.class)
 @Slf4j
 public class BlogServiceTest {
+    @InjectMocks
     private BlogService blogService;
+    @Mock
     private BlogMapper blogMapper;
-    
-    
     
     private List<Blog> blogMockList = null;
     @Before
@@ -43,16 +48,7 @@ public class BlogServiceTest {
             blog.setUpdatedDatetime(new Date());
             blogMockList.add(blog);
         }
-        blogService = new BlogService();
-        blogMapper = Mockito.mock(BlogMapper.class);
-    }
-    
-    @Test
-    public void testListAll() {
-        when(blogMapper.selectByExample(Mockito.any(BlogExample.class))).thenReturn(blogMockList);
-        
-        blogService.blogMapper = blogMapper;
-        
+
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
         ConverterFactory converterFactory  = mapperFactory.getConverterFactory();
                 
@@ -62,6 +58,12 @@ public class BlogServiceTest {
         converterFactory.registerConverter("dateFull", new DateToStringConverter("yyyy-MM-dd"));
         converterFactory.registerConverter("dateTimeFull", new DateToStringConverter("yyyy-MM-dd HH:mm:ss"));
         blogService.mapperFacade = mapperFactory.getMapperFacade();
+    }
+    
+    @Test
+    public void testListAll() {
+        when(blogMapper.selectByExample(Mockito.any(BlogExample.class))).thenReturn(blogMockList);
+        
         
         List<BlogDto> blogDtos = blogService.list(null);
         log.info("blogDtos: '{}'", blogDtos);
