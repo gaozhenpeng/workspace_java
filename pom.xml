@@ -16,6 +16,7 @@
         
         <maven-surefire-plugin.version>2.22.0</maven-surefire-plugin.version>
         <maven-surefire-plugin.skipTests>true</maven-surefire-plugin.skipTests>
+        <skipTests>${maven-surefire-plugin.skipTests}</skipTests>
         
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
@@ -132,7 +133,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
                 <configuration>
-                    <skipTests>${maven-surefire-plugin.skipTests}</skipTests>
+                    <skipTests>${skipTests}</skipTests>
                 </configuration>
             </plugin>
 
