@@ -11,6 +11,9 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
+  <properties>
+    <failOnMissingWebXml>false</failOnMissingWebXml>
+  </properties>
 	<dependencies>
 		<!-- 数据库连接池，提供防sql注入、监控(web)等功能 -->
 		<dependency>
