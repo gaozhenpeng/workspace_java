@@ -1,15 +1,15 @@
 {
-  "type" : "record",
-  "name" : "WeatherRecord",
-  "doc" : "A weather reading.",
-  "fields" : [ {
-    "name" : "year",
-    "type" : "int"
+  "type" : "record"
+  ,"name" : "WeatherRecord"
+  ,"doc" : "A weather record."
+  ,"fields" : [ {
+    "name" : "year"
+    ,"type" : "int"
   }, {
-    "name" : "temperature",
-    "type" : "int"
+    "name" : "temperature"
+    ,"type" : "int"
   }, {
-    "name" : "stationId",
-    "type" : "string"
+    "name" : "stationId"
+    ,"type" : "string"
   } ]
 }

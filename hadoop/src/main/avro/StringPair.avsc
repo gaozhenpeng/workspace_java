@@ -1,7 +1,7 @@
 {
  "type" : "record"
  ,"name" : "StringPair"
- ,"doc" : "A pair of strings, sorted by right field descending."
+ ,"doc" : "A pair of strings, sorted by the 'right' field descendingly."
  ,"fields" : [
    { "name" : "left", "type" : "string", "order" : "ignore" }
    ,{ "name" : "right", "type" : "string", "order" : "descending" }
