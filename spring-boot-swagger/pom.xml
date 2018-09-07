@@ -54,6 +54,15 @@
     </dependency>
     <!-- hot swapping -->
     <!-- 
+      Default excludes:
+          /META-INF/maven
+          /META-INF/resources
+          /resources
+          /static
+          /public
+          /templates
+      User property:
+          spring.devtools.restart.exclude=/static/**,/templates/**
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-devtools</artifactId>
