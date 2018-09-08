@@ -2,7 +2,7 @@ package com.at.junit4.spring;
 
 import javax.annotation.Resource;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.junit.Test;
 import org.springframework.test.context.ContextConfiguration;
@@ -19,7 +19,7 @@ public class JUnit4SpringContextTestsTest extends AbstractJUnit4SpringContextTes
 
 	@Test
 	public void testMethod() {
-		Assert.assertNotNull(injectedString);
+		Assert.assertNotNull("injectedString is null", injectedString);
 		System.out.println("injectedString: " + injectedString);
 	}
 }

@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.EmptyStackException;
+import java.util.List;
 import java.util.Stack;
 
 import org.junit.After;
@@ -24,9 +24,15 @@ public class JUnit4Example1 {
 		this.number = number;
 	}
 
+    /**
+     * Annotation <code>@Parameters</code>  for a method which provides parameters to be injected into the
+     * test class constructor by <code>Parameterized</code>. The method has to
+     * be public and static.
+     */
 	@Parameters
-	public static Collection data() {
-		final Object[][] data = new Object[][] { { 1 }, { 2 }, { 3 }, { 4 } };
+	public static List<Integer[]> data() {
+	    // run THIS test 4 times, each with one parameter, like JUnit4Example1(1),JUnit4Example1(2),...
+		final Integer[][] data = new Integer[][] { { 1 }, { 2 }, { 3 }, { 4 } };
 		return Arrays.asList(data);
 	}
 
@@ -43,7 +49,7 @@ public class JUnit4Example1 {
 	@Test
 	public void pushTest() {
 		stack.push(number);
-		assertEquals(stack.peek(), number);
+		assertEquals("stack.peek() ne number", stack.peek(), number);
 
 	}
 
@@ -60,7 +66,7 @@ public class JUnit4Example1 {
 	@Test
 	public void emptyTest() {
 		stack = new Stack<Integer>();
-		assertTrue(stack.isEmpty());
+		assertTrue("stack.isEmpty() is false", stack.isEmpty());
 	}
 
 	@Test
