@@ -10,6 +10,10 @@
 	<groupId>com.at</groupId>
 	<artifactId>apache-log4j2</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+  <properties>
+    <disruptor.version>3.4.2</disruptor.version>
+    <log4j-bom.version>2.11.1</log4j-bom.version>
+  </properties>
 	<dependencies>
 		
 		<!-- mysql connector -->
@@ -58,7 +62,7 @@
 		<dependency>
 			<groupId>com.lmax</groupId>
 			<artifactId>disruptor</artifactId>
-			<version>3.3.6</version>
+			<version>${disruptor.version}</version>
 		</dependency>
 		<!-- slf4j to log4j, require slf4j, NOT compatible with log4j-to-slf4j -->
 		<dependency>
@@ -89,7 +93,7 @@
 			<dependency>
 				<groupId>org.apache.logging.log4j</groupId>
 				<artifactId>log4j-bom</artifactId>
-				<version>2.11.0</version>
+				<version>${log4j-bom.version}</version>
 				<scope>import</scope>
 				<type>pom</type>
 			</dependency>
