@@ -16,8 +16,9 @@ public class CloseableResource implements Closeable {
     
     @Override
     public void close() throws IOException {
-        log.info("I'm being closed.");
+        log.info("Closing");
         inList.clear();
+        log.info("Closed");
     }
     @SneakyThrows
     public void noDeclarationOfThrownException() {
