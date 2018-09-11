@@ -1,6 +1,6 @@
 package com.at.junit5.exams.intf2;
 
-public class StringTests implements ComparableContract<String>, EqualsContract<String> {
+public class StringTest implements ComparableContract<String>, EqualsContract<String> {
 
     @Override
     public String createValue() {

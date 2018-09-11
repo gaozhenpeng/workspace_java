@@ -112,7 +112,7 @@
         <version>${spring-boot-framework-version}</version>
         <configuration>
             <!-- main class -->
-            <mainClass>${spring-boot-maven-plugin.configuration.mainClass}</mainClass>
+            <mainClass>${start-class}</mainClass>
         </configuration>
         <executions>
           <execution>
