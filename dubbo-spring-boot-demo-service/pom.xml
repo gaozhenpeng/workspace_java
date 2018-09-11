@@ -23,7 +23,7 @@
     <spring-boot-maven-plugin.configuration.mainClass>com.at.spring.Application</spring-boot-maven-plugin.configuration.mainClass>
     <start-class>${spring-boot-maven-plugin.configuration.mainClass}</start-class>
     
-    <spring-boot-framework-version>1.5.11.RELEASE</spring-boot-framework-version>
+    <spring-boot.version>1.5.11.RELEASE</spring-boot.version>
   </properties>
 
   <dependencies>
@@ -122,7 +122,7 @@
       <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>${spring-boot-framework-version}</version>
+        <version>${spring-boot.version}</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
@@ -136,7 +136,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <!--  -->
-        <version>${spring-boot-framework-version}</version>
+        <version>${spring-boot.version}</version>
         <configuration>
             <!-- main class -->
             <mainClass>${start-class}</mainClass>
