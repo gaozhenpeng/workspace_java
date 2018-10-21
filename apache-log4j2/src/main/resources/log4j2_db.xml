@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN"> <!-- logging level for log4j2 events -->
     <Properties>
-    <Property name="defaultLayoutPattern">[%-5level] [%date{ISO8601}] [%15.15thread] [%40.40logger{3.}:%-5.5line] | %message%n</Property>
-        <Property name="stdoutLayoutPattern">${sd:defaultLayoutPattern}</Property>
-        <Property name="fileLayoutPattern">${sd:defaultLayoutPattern}</Property>
+      <Property name="defaultLayoutPattern">[%-5level] [%date{ISO8601}] [%15.15thread] [%40.40logger{3.}:%-5.5line] | %message%n</Property>
+      <Property name="stdoutLayoutPattern">${sd:defaultLayoutPattern}</Property>
+      <Property name="fileLayoutPattern">${sd:defaultLayoutPattern}</Property>
+      <Property name="logFileName">${env:LOG_FILE_NAME:-all}</Property>
     </Properties>
     <Appenders>
         <Console name="stdout" target="SYSTEM_OUT">
             <PatternLayout pattern="${sd:stdoutLayoutPattern}" charset="UTF-8"/>
         </Console>
         <RollingFile name="file-all"
-            fileName="logs/all.log"
-            filePattern="logs/all.%d{yyyy-MM-dd}.%i.log.gz"
+            fileName="logs/${sd:logFileName}.log"
+            filePattern="logs/${sd:logFileName}.%d{yyyy-MM-dd}.%i.log.gz"
             append="true"
             immediateFlush="false" >
             <PatternLayout pattern="${sd:fileLayoutPattern}" charset="UTF-8"/>
