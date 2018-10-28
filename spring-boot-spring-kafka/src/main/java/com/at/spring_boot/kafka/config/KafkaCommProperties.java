@@ -7,5 +7,16 @@ import lombok.Data;
 @ConfigurationProperties(prefix="kafka.comm")
 @Data
 public class KafkaCommProperties {
-    private String topic;
+    private P2s p2s;
+    private S2p s2p;
+    @Data
+    public static class P2s {
+        private String topic;
+        private String producerTransIdPrefix;
+    }
+    @Data
+    public static class S2p {
+        private String topic;
+        private String producerTransIdPrefix;
+    }
 }

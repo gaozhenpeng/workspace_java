@@ -1,11 +1,11 @@
 {"properties": [
   {
-    "name": "kafka.topic.comm.s2p",
+    "name": "kafka.comm.s2p.topic",
     "type": "java.lang.String",
     "description": "school to platform"
   },
   {
-    "name": "kafka.topic.comm.p2s",
+    "name": "kafka.comm.p2s.topic",
     "type": "java.lang.String",
     "description": "platform to school"
   }
