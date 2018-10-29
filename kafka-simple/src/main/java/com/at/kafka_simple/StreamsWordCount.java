@@ -29,8 +29,12 @@ public class StreamsWordCount {
      *      </li>
      *      </ul>
      * </li>
+     * <li>Run This Program
+     * </li>
      * <li>Run Producer/Consumer
      *      <ul>
+     *      <li>kafka-console-consumer --bootstrap-server localhost:9092 --topic wordcount-output --value-deserializer org.apache.kafka.common.serialization.LongDeserializer --property print.key=true --property key.separator=" : "
+     *      </li>
      *      <li>kafka-console-producer --broker-list localhost:9092 --topic wordcount-input
      *      <pre><code>>a b c d e f g h i j k l m n
 >who are you indeed ?
@@ -42,11 +46,7 @@ public class StreamsWordCount {
 </code></pre>
      *      </li>
      *      
-     *      <li>kafka-console-consumer --bootstrap-server localhost:9092 --topic wordcount-output --value-deserializer org.apache.kafka.common.serialization.LongDeserializer --from-beginning --property print.key=true --property key.separator=" : "
-     *      </li>
      *      </ul>
-     * </li>
-     * <li>Run This Program
      * </li>
      * </ul>
      * @param args
