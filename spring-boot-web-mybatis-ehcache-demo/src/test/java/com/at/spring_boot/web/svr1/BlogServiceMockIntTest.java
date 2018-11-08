@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.NONE)
 @Slf4j
-public class BlogServiceIntTest {
+public class BlogServiceMockIntTest {
     @Autowired
     @Qualifier("blogService1")
     private BlogService blogService;

@@ -8,7 +8,7 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <groupId>com.at.spring_boot</groupId>
-  <artifactId>spring-boot-web-mybatis-demo</artifactId>
+  <artifactId>spring-boot-web-mybatis-ehcache-demo</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
   <properties>
@@ -20,10 +20,10 @@
     <start-class>${spring-boot-maven-plugin.configuration.mainClass}</start-class>
 
     <spring-boot.version>2.0.6.RELEASE</spring-boot.version>
-    <mybatis-spring-boot-starter-version>1.3.2</mybatis-spring-boot-starter-version>
-    <orika-version>1.5.2</orika-version>
-    <mysql-connector-java-version>8.0.13</mysql-connector-java-version>
-    <pagehelper-spring-boot-starter-version>1.2.5</pagehelper-spring-boot-starter-version>
+    <mybatis-spring-boot-starter.version>1.3.2</mybatis-spring-boot-starter.version>
+    <orika.version>1.5.2</orika.version>
+    <mysql-connector-java.version>8.0.13</mysql-connector-java.version>
+    <pagehelper-spring-boot-starter.version>1.2.5</pagehelper-spring-boot-starter.version>
   </properties>
 
   <dependencies>
@@ -32,26 +32,30 @@
     <dependency>
       <groupId>com.github.pagehelper</groupId>
       <artifactId>pagehelper-spring-boot-starter</artifactId>
-      <version>${pagehelper-spring-boot-starter-version}</version>
+      <version>${pagehelper-spring-boot-starter.version}</version>
     </dependency>
     <!-- mybatis -->
     <dependency>
       <groupId>org.mybatis.spring.boot</groupId>
       <artifactId>mybatis-spring-boot-starter</artifactId>
-      <version>${mybatis-spring-boot-starter-version}</version>
+      <version>${mybatis-spring-boot-starter.version}</version>
     </dependency>
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
       <scope>runtime</scope>
-      <version>${mysql-connector-java-version}</version><!--$NO-MVN-MAN-VER$-->
+      <version>${mysql-connector-java.version}</version><!--$NO-MVN-MAN-VER$-->
+    </dependency>
+    <dependency>
+       <groupId>net.sf.ehcache</groupId>
+       <artifactId>ehcache</artifactId>
     </dependency>
      
     <!-- orika -->
     <dependency>
       <groupId>ma.glasnost.orika</groupId>
       <artifactId>orika-core</artifactId>
-      <version>${orika-version}</version>
+      <version>${orika.version}</version>
     </dependency>
     
     
@@ -72,6 +76,11 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <!-- cache -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-cache</artifactId>
     </dependency>
     <!-- actuator -->
     <dependency>
