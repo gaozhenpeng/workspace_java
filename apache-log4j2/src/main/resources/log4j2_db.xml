@@ -29,6 +29,7 @@
             
             CREATE USER log4j2@'%' IDENTIFIED BY 'log4j2';
             GRANT ALL ON log4j2.* TO log4j2@'%';
+            FLUSH PRIVILEGES;
             
             DROP DATABASE IF EXISTS `log4j2`;
             CREATE DATABASE `log4j2` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_520_ci';

@@ -1,5 +1,6 @@
 -- create user
-GRANT ALL ON cmware.* to cmware@'%' identified by 'cmware' ;
+CREATE USER cmware@'%' IDENTIFIED BY 'cmware' ;
+GRANT ALL ON cmware.* TO cmware@'%';
 FLUSH PRIVILEGES;
 
 -- create db

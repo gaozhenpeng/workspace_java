@@ -192,8 +192,9 @@
     <appender name="db-ds" class="ch.qos.logback.classic.db.DBAppender">
         <!-- logback-classic-*.jar!ch/qos/logback/classic/db/script/mysql.sql
         
-        grant all privileges on logback_ds_db.* to logback_ds@'%' identified by 'logback_ds';
-        flush privileges;
+        CREATE USER logback_ds@'%' IDENTIFIED BY 'logback_ds';
+        GRANT ALL PRIVILEGES ON logback_ds_db.* TO logback_ds@'%';
+        FLUSH PRIVILEGES;
         
         DROP DATABASE IF EXISTS `logback_ds_db`;
         CREATE DATABASE `logback_ds_db` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_520_ci'; 
