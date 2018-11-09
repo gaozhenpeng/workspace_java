@@ -43,6 +43,7 @@
     <AsyncLogger name="org.apache" level="WARN" includeLocation="true" />
     <AsyncLogger name="net.sf.ehcache" level="WARN" includeLocation="true" />
      -->
+    <AsyncLogger name="org.springframework.cache" level="TRACE" includeLocation="true" />
 
     <!-- special loggers -->
     <AsyncLogger name="com.at" level="DEBUG" includeLocation="true" />

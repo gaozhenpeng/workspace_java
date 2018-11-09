@@ -1,5 +1,6 @@
 package com.at.spring_boot.web.ctrl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,9 +43,13 @@ public class BlogController2 {
             ) {
         log.info("list blog, blogId: '{}', pageNo: '{}', pageSize: '{}' ", blogId, pageNo, pageSize);
         
-        List<BlogDto> blogDtos = null;
+        List<BlogDto> blogDtos = new ArrayList<>();
         if(pageNo == null || pageSize == null) {
-            blogDtos = blogService.list(blogId);
+            if(blogId == null) {
+                blogDtos.add(blogService.list(blogId));
+            }else{
+                blogDtos.addAll(blogService.list());
+            }
         }else {
             blogDtos = blogService.list(blogId, pageNo, pageSize);
         }

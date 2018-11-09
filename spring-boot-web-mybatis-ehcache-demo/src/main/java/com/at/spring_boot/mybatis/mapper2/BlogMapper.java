@@ -15,34 +15,25 @@ import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 import com.at.spring_boot.mybatis.po.Blog;
 import com.at.spring_boot.mybatis.po.BlogExample;
 
-@CacheConfig(cacheNames = {"blog"})
 @Component("blogMapper2")
 public interface BlogMapper {
-    
-    @Cacheable
     @SelectProvider(type=BlogSqlProvider.class, method="countByExample")
     long countByExample(BlogExample example);
     
-    @CacheEvict
     @DeleteProvider(type=BlogSqlProvider.class, method="deleteByExample")
     int deleteByExample(BlogExample example);
 
-    @CacheEvict
     @Delete({
         "delete from blog",
         "where blog_id = #{blogId,jdbcType=BIGINT}"
     })
     int deleteByPrimaryKey(Long blogId);
 
-    @CacheEvict
     @Insert({
         "insert into blog (blog_id, name, ",
         "content, created_datetime, ",
@@ -54,12 +45,10 @@ public interface BlogMapper {
     @Options(keyColumn="blog_id", keyProperty="blogId", useGeneratedKeys=true) // useGeneratedKeys=true, after successful inserting, the keyProperty will be updated
     int insert(Blog record);
 
-    @CacheEvict
     @InsertProvider(type=BlogSqlProvider.class, method="insertSelective")
     @Options(keyColumn="blog_id", keyProperty="blogId", useGeneratedKeys=true) // useGeneratedKeys=true, after successful inserting, the keyProperty will be updated
     int insertSelective(Blog record);
 
-    @Cacheable
     @SelectProvider(type=BlogSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="blog_id", property="blogId", jdbcType=JdbcType.BIGINT, id=true),
@@ -70,7 +59,6 @@ public interface BlogMapper {
     })
     List<Blog> selectByExample(BlogExample example);
 
-    @Cacheable
     @Select({
         "select",
         "blog_id, name, content, created_datetime, updated_datetime",
@@ -86,19 +74,15 @@ public interface BlogMapper {
     })
     Blog selectByPrimaryKey(Long blogId);
 
-    @CacheEvict
     @UpdateProvider(type=BlogSqlProvider.class, method="updateByExampleSelective")
     int updateByExampleSelective(@Param("record") Blog record, @Param("example") BlogExample example);
 
-    @CacheEvict
     @UpdateProvider(type=BlogSqlProvider.class, method="updateByExample")
     int updateByExample(@Param("record") Blog record, @Param("example") BlogExample example);
 
-    @CacheEvict
     @UpdateProvider(type=BlogSqlProvider.class, method="updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(Blog record);
 
-    @CacheEvict
     @Update({
         "update blog",
         "set name = #{name,jdbcType=VARCHAR},",

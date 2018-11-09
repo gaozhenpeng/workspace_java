@@ -5,7 +5,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 import com.at.spring_boot.mybatis.dto.BlogDto;
@@ -33,6 +38,10 @@ public class BlogService {
      * @param content
      * @return
      */
+    @Caching(
+        put = {@CachePut(cacheNames = {"blogdto"}, key = "#result.blogId")}
+        ,evict = {@CacheEvict(cacheNames = {"blogdto_all"}, allEntries = true)}
+    )
 //    @Transactional
     public BlogDto create(String name, String content) {
         log.info("create, name: '{}', content: '{}' ", name, content);
@@ -63,20 +72,87 @@ public class BlogService {
      * @param blogId
      * @return
      */
-    public List<BlogDto> list(Long blogId) {
-        log.info("list, blogId: '{}' ", blogId);
+    @Caching(
+            cacheable = {
+                    @Cacheable(cacheNames = {"blogdto_all"})
+                    }
+            )
+    public List<BlogDto> list() {
         
         BlogExample blogExample = new BlogExample();
         blogExample.setOrderByClause("name asc");
         
-        BlogExample.Criteria blogExampleCriteria = blogExample.or();
-        if(blogId != null) {
-            blogExampleCriteria.andBlogIdEqualTo(blogId);
-        }
-
         List<Blog> blogs = blogMapper.selectByExample(blogExample);
 
         return mapperFacade.mapAsList(blogs, BlogDto.class);
+    }
+
+    /**
+     * list blogs, if blogId is not null, show the specific blog
+     * @param blogId
+     * @return
+     */
+    @Caching(
+            cacheable = {
+                    @Cacheable(cacheNames = {"blogdto"})
+                    }
+            )
+    public BlogDto list(Long blogId) {
+        log.info("list, blogId: '{}' ", blogId);
+        Assert.notNull(blogId, "blogId should not be null");
+        
+        Blog blog = blogMapper.selectByPrimaryKey(blogId);
+
+        return mapperFacade.map(blog, BlogDto.class);
+    }
+    
+    /**
+     * remove a blog by id
+     * @param blogId
+     * @return
+     */
+    @Caching(
+            evict = {
+                    @CacheEvict(cacheNames = {"blogdto_all"}, allEntries = true)
+                    ,@CacheEvict(cacheNames = {"blogdto"}, key = "#blogId")
+                    }
+            )
+    public int remove(Long blogId) {
+        log.info("remove, blogId: '{}' ", blogId);
+        Assert.notNull(blogId, "blogId should not be null");
+        
+        return blogMapper.deleteByPrimaryKey(blogId);
+    }
+
+    /**
+     * remove a blog by id
+     * @param blogId
+     * @return
+     */
+    @Caching(
+            evict = {
+                    @CacheEvict(cacheNames = {"blogdto_all"}, allEntries = true)
+                    }
+            ,put = {
+                    @CachePut(cacheNames = {"blogdto"}, key = "#blogId")
+                    }
+            )
+    public BlogDto update(Long blogId, String name, String content) {
+        log.info("update, blogId: '{}' ", blogId);
+        Assert.notNull(blogId, "blogId should not be null");
+        Assert.isTrue(name != null || content != null, "both of name and content are null");
+        
+        Blog blog = new Blog();
+        blog.setBlogId(blogId);
+        blog.setName(name);
+        blog.setContent(content);
+        
+        int affectedRows = blogMapper.updateByPrimaryKeySelective(blog);
+        if(affectedRows <= 0) {
+            return mapperFacade.map(null, BlogDto.class);
+        }else {
+            return mapperFacade.map(blogMapper.selectByPrimaryKey(blogId), BlogDto.class);
+        }
     }
 
     /**
@@ -86,6 +162,7 @@ public class BlogService {
      * @param pageSize
      * @return
      */
+    @Cacheable(cacheNames = {"blogdto_all"})
     public List<BlogDto> list(Long blogId, Integer pageNo, Integer pageSize) {
         log.info("list, blogId: '{}', pageNo: '{}', pageSize: '{}' ", blogId, pageNo, pageSize);
         
