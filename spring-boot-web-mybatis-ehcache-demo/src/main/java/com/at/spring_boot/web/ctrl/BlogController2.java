@@ -46,9 +46,9 @@ public class BlogController2 {
         List<BlogDto> blogDtos = new ArrayList<>();
         if(pageNo == null || pageSize == null) {
             if(blogId == null) {
-                blogDtos.add(blogService.list(blogId));
-            }else{
                 blogDtos.addAll(blogService.list());
+            }else{
+                blogDtos.add(blogService.list(blogId));
             }
         }else {
             blogDtos = blogService.list(blogId, pageNo, pageSize);

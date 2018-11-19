@@ -6,9 +6,11 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.io.Resource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -35,7 +37,7 @@ public class MybatisTest3Configuration {
 
     @Primary
     @Bean("sqlSessionFactory3")
-    public SqlSessionFactory sqlSessionFactory() throws Exception {
+    public SqlSessionFactory sqlSessionFactory(ApplicationContext applicationContext) throws Exception {
         SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
 
@@ -44,7 +46,11 @@ public class MybatisTest3Configuration {
         configuration.setMapUnderscoreToCamelCase(true);
         configuration.setCallSettersOnNulls(true);
         sessionFactory.setConfiguration(configuration);
-        
+
+        // Mybatis Mapper XML
+        Resource[] resourceArray = applicationContext.getResources("classpath:/mybatis/**/*Mapper.xml");
+        sessionFactory.setMapperLocations(resourceArray);
+
         return sessionFactory.getObject();
     }
 

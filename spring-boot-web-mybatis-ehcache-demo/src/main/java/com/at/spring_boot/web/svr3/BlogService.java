@@ -11,8 +11,8 @@ import org.springframework.util.StringUtils;
 
 import com.at.spring_boot.mybatis.dto.BlogDto;
 import com.at.spring_boot.mybatis.mapper3.BlogMapper;
-import com.at.spring_boot.mybatis.po.Blog;
-import com.at.spring_boot.mybatis.po.BlogExample;
+import com.at.spring_boot.mybatis.po3.Blog;
+import com.at.spring_boot.mybatis.po3.BlogExample;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
