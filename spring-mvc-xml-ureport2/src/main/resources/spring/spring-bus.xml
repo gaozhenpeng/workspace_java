@@ -10,10 +10,9 @@
      http://www.springframework.org/schema/mvc 
      http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
+  <context:property-placeholder location="classpath:*.properties" ignore-unresolvable="true"  />
+  
   <import  resource="classpath:ureport-console-context.xml"  />
-	<!--
-	<context:property-placeholder location="classpath:*.properties" ignore-unresolvable="true"  />
-	-->
 	
   <!-- viewResolver
  -->
