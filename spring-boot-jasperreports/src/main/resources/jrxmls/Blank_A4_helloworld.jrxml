@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_helloworld" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="903e8480-647d-4a49-8ba7-8beb3a47c7f3">
+	<style name="Base" isDefault="true" hTextAlign="Center" hImageAlign="Center" vTextAlign="Middle" vImageAlign="Middle" fontName="华文宋体" fontSize="12"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<title>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement x="137" y="0" width="280" height="40" uuid="783aa820-bea3-4e13-a160-877e7a27d001"/>
+				<textElement textAlignment="Center">
+					<font size="26"/>
+				</textElement>
+				<text><![CDATA[Hello JasperReport!]]></text>
+			</staticText>
+		</band>
+	</title>
+	<summary>
+		<band height="420" splitType="Stretch">
+			<staticText>
+				<reportElement x="70" y="100" width="400" height="60" uuid="958d9fca-b941-4f2a-ae36-febf710a84e6"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[你好，JasperReport！]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

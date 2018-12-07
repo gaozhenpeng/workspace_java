@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8c5a2bd2-c894-43c2-aba5-585923b2a655">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="mysql_localhost_test"/>
+	<style name="Base" isDefault="true" hTextAlign="Center" hImageAlign="Center" vTextAlign="Middle" vImageAlign="Middle" fontName="华文宋体" fontSize="12"/>
+	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="blog" uuid="7588d287-7e2a-4f16-a2d7-3cd0cd1474d1">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="mysql_localhost_test"/>
+		<queryString language="SQL">
+			<![CDATA[select * from blog]]>
+		</queryString>
+		<field name="blog_id" class="java.math.BigInteger">
+			<property name="com.jaspersoft.studio.field.label" value="blog_id"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="blog"/>
+		</field>
+		<field name="name" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="name"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="blog"/>
+		</field>
+		<field name="content" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="content"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="blog"/>
+		</field>
+		<field name="created_datetime" class="java.sql.Timestamp">
+			<property name="com.jaspersoft.studio.field.label" value="created_datetime"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="blog"/>
+		</field>
+		<field name="updated_datetime" class="java.sql.Timestamp">
+			<property name="com.jaspersoft.studio.field.label" value="updated_datetime"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="blog"/>
+		</field>
+	</subDataset>
+	<subDataset name="age" uuid="79cffa40-1a45-4c82-ac47-50e28c1d818b">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="mysql_localhost_test"/>
+		<queryString language="SQL">
+			<![CDATA[select age,count(id) as age_cnt from nameage group by age]]>
+		</queryString>
+		<field name="age" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="age"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="nameage"/>
+		</field>
+		<field name="age_cnt" class="java.lang.Long">
+			<property name="com.jaspersoft.studio.field.label" value="age_cnt"/>
+		</field>
+	</subDataset>
+	<subDataset name="userrole" uuid="bda53a2c-9cf8-4c85-b16f-a1a8a500131b">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="mysql_localhost_test"/>
+		<queryString language="SQL">
+			<![CDATA[select
+  sursr.role_name
+  ,count(su.user_id) as user_cnt
+from sec_user su
+   left outer join 
+		(select sur.user_id,sr.role_name from sec_user_role sur,sec_role sr where sur.role_id = sr.role_id) sursr
+		on sursr.user_id = su.user_id
+group by sursr.role_name]]>
+		</queryString>
+		<field name="role_name" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="role_name"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="sec_role"/>
+		</field>
+		<field name="user_cnt" class="java.lang.Long">
+			<property name="com.jaspersoft.studio.field.label" value="user_cnt"/>
+		</field>
+	</subDataset>
+	<queryString language="SQL">
+		<![CDATA[select * from blog]]>
+	</queryString>
+	<field name="blog_id" class="java.math.BigInteger">
+		<property name="com.jaspersoft.studio.field.label" value="blog_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="blog"/>
+	</field>
+	<field name="name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="blog"/>
+	</field>
+	<field name="content" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="content"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="blog"/>
+	</field>
+	<field name="created_datetime" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="created_datetime"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="blog"/>
+	</field>
+	<field name="updated_datetime" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="updated_datetime"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="blog"/>
+	</field>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="161" y="0" width="232" height="79" uuid="a78fefbd-8d47-40d7-8b39-d7b540a62f69"/>
+				<textElement verticalAlignment="Middle">
+					<font size="26"/>
+				</textElement>
+				<text><![CDATA[JasperReport 试用]]></text>
+			</staticText>
+		</band>
+	</title>
+	<summary>
+		<band height="490" splitType="Stretch">
+			<componentElement>
+				<reportElement x="37" y="3" width="490" height="210" uuid="bffc8e9a-b5e8-4e01-906a-fd8d5e6843de">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
+					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
+					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="blog" uuid="1190c4d6-3c6e-4180-9e53-0c492590d93c">
+						<datasetParameter name="REPORT_MAX_COUNT">
+							<datasetParameterExpression><![CDATA[8]]></datasetParameterExpression>
+						</datasetParameter>
+					</datasetRun>
+					<jr:column width="20" uuid="9cbbf0f5-15d6-4d23-97a9-80ee2d5d78f1">
+						<jr:columnHeader style="Table_CH" height="20">
+							<staticText>
+								<reportElement x="0" y="0" width="20" height="20" uuid="80271d35-2a48-43aa-873f-2812106f30f3"/>
+								<text><![CDATA[ID]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="20" height="20" uuid="1acdcde8-2448-4355-8374-4bfac8214315"/>
+								<textFieldExpression><![CDATA[$F{blog_id}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="b0489299-1c59-4770-b6f6-da54cafbb43a">
+						<jr:columnHeader style="Table_CH" height="20">
+							<staticText>
+								<reportElement x="0" y="0" width="100" height="20" uuid="ff53f003-6203-4e8c-8d83-cc4f6612df0f"/>
+								<text><![CDATA[Blog 标题]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="100" height="20" uuid="f7db56a3-c2ee-4c29-816b-94f6dcff5379"/>
+								<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="200" uuid="c6dc2d0d-bc73-4df4-9dfd-3bb95186e9d4">
+						<jr:columnHeader style="Table_CH" height="20">
+							<staticText>
+								<reportElement x="0" y="0" width="200" height="20" uuid="fd430f96-098e-442d-8718-a2fd5b4d2c68"/>
+								<text><![CDATA[Blog 内容]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="200" height="20" uuid="d9b1e366-8bf1-4890-8cc8-519093e40b6f"/>
+								<textFieldExpression><![CDATA[$F{content}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="60" uuid="d6dce83b-fd9e-467c-a4f9-4e92189e9b74">
+						<jr:columnHeader style="Table_CH" height="20">
+							<staticText>
+								<reportElement x="0" y="0" width="60" height="20" uuid="f3da471b-dadc-4c76-9023-a908c502e8f0"/>
+								<text><![CDATA[创建日期]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="20">
+							<textField pattern="yyyy-MM-dd">
+								<reportElement x="0" y="0" width="60" height="20" uuid="4e462137-8caa-442e-b704-8b48a1e11852"/>
+								<textFieldExpression><![CDATA[$F{created_datetime}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="110" uuid="4a1a26d7-c17a-43b0-8aa0-5fb48616f417">
+						<jr:columnHeader style="Table_CH" height="20">
+							<staticText>
+								<reportElement x="0" y="0" width="110" height="20" uuid="f982c871-e58d-4701-89fb-f88d0b99d382"/>
+								<text><![CDATA[更新时间]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="20">
+							<textField pattern="yyyy-MM-dd HH:mm:ss">
+								<reportElement x="0" y="0" width="110" height="20" uuid="257bf224-8346-4b03-97b1-771b7286250f"/>
+								<textFieldExpression><![CDATA[$F{updated_datetime}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<pieChart>
+				<chart evaluationTime="Report">
+					<reportElement x="0" y="220" width="253" height="218" uuid="9d367190-d354-43f8-9cdb-b7f0cc0981fd"/>
+					<chartTitle>
+						<font size="22"/>
+						<titleExpression><![CDATA["年龄分布"]]></titleExpression>
+					</chartTitle>
+					<chartSubtitle/>
+					<chartLegend position="Left"/>
+				</chart>
+				<pieDataset>
+					<dataset>
+						<datasetRun subDataset="age" uuid="c12ce2ea-85d6-4131-a093-193b185323cc"/>
+					</dataset>
+					<keyExpression><![CDATA[$F{age}]]></keyExpression>
+					<valueExpression><![CDATA[$F{age_cnt}]]></valueExpression>
+					<labelExpression><![CDATA[$F{age}]]></labelExpression>
+				</pieDataset>
+				<piePlot labelFormat="{0} {2}" legendLabelFormat="{0}">
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+			<barChart>
+				<chart isShowLegend="false" evaluationTime="Report">
+					<reportElement stretchType="ElementGroupHeight" x="270" y="220" width="290" height="270" uuid="698690db-d977-426b-9ebd-e9c388a5b495">
+						<property name="net.sf.jasperreports.chart.range.axis.integer.unit" value="true"/>
+					</reportElement>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<dataset>
+						<datasetRun subDataset="userrole" uuid="2b651ad4-9a7e-4c14-aac3-c54b33e50c7e"/>
+					</dataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["SERIES 1"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{role_name}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{user_cnt}]]></valueExpression>
+						<labelExpression><![CDATA["人数"]]></labelExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+					</valueAxisFormat>
+					<rangeAxisMinValueExpression><![CDATA[0]]></rangeAxisMinValueExpression>
+					<rangeAxisMaxValueExpression><![CDATA[5]]></rangeAxisMaxValueExpression>
+				</barPlot>
+			</barChart>
+		</band>
+	</summary>
+</jasperReport>
