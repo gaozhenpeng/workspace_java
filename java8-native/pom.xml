@@ -6,7 +6,7 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <groupId>com.at</groupId>
-  <artifactId>java-native</artifactId>
+  <artifactId>java8-native</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <dependencies>
     
