@@ -10,8 +10,10 @@
   <groupId>com.at.spring_boot</groupId>
   <artifactId>spring-boot-web-demo</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <packaging>jar</packaging>
+  <packaging>war</packaging>
   <properties>
+    <!-- No warning for the missing web.xml -->
+    <failOnMissingWebXml>false</failOnMissingWebXml>
      <!--
        start-class with spring-boot-starter-parent
        or define the mainClass property with spring-boot-maven-plugin
@@ -42,6 +44,26 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
+    
+    <!-- jstl -->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
+    </dependency>
+
+    <!-- jsp compiler -->
+    <dependency>
+      <groupId>org.apache.tomcat.embed</groupId>
+      <artifactId>tomcat-embed-jasper</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    
+    
+    
+    
+    
+    
+    
     <!-- actuator -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -104,6 +126,9 @@
   </dependencyManagement>
 
   <build>
+    <!--
+    <finalName>${project.artifactId}</finalName>
+    -->
     <plugins>
       <!-- Package as an executable jar -->
       <plugin>
