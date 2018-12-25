@@ -129,6 +129,18 @@
     <!--
     <finalName>${project.artifactId}</finalName>
     -->
+    <resources>
+      <!-- relative path to pom.xml -->
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+      <resource>
+        <directory>extres</directory>
+        <filtering>false</filtering>
+      </resource>
+    </resources>
+    
     <plugins>
       <!-- Package as an executable jar -->
       <plugin>
