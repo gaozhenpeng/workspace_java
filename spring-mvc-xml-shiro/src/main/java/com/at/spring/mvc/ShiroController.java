@@ -143,7 +143,6 @@ public class ShiroController {
 	
 	
 	
-	
 
 	@RequestMapping(value = "/admin/{admin_path}", method = {RequestMethod.GET,RequestMethod.POST})
 	public String admin(@PathVariable("admin_path") String admin_path) {
