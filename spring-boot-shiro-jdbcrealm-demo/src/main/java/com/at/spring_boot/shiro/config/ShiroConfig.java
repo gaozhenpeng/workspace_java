@@ -7,14 +7,11 @@ import org.apache.shiro.realm.jdbc.JdbcRealm;
 import org.apache.shiro.spring.web.config.DefaultShiroFilterChainDefinition;
 import org.apache.shiro.spring.web.config.ShiroFilterChainDefinition;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ShiroConfig {
-    @Value("#{'${server.servlet.context-path}'.trim()}")
-    private String contextPath;
     @Bean
     public ShiroFilterChainDefinition shiroFilterChainDefinition() {
         DefaultShiroFilterChainDefinition chainDefinition = new DefaultShiroFilterChainDefinition();
@@ -28,23 +25,27 @@ public class ShiroConfig {
 //        // all other paths require a logged in user
 //        chainDefinition.addPathDefinition("/**", "authc");
         
-        chainDefinition.addPathDefinition(contextPath + "/shiro/login", "anon");
-        chainDefinition.addPathDefinition(contextPath + "/shiro/dologin", "anon");
+        chainDefinition.addPathDefinition("/shiro/login", "anon");
+        chainDefinition.addPathDefinition("/shiro/dologin", "anon");
 
-        chainDefinition.addPathDefinition(contextPath + "/shiro/admin/home", "authc");
+        chainDefinition.addPathDefinition("/shiro/admin/home", "authc");
         
         // ',' in perms[] and roles[] means logical 'AND'
-        chainDefinition.addPathDefinition(contextPath + "/shiro/admin/withperm", "authc,perms[user:create]");
-        chainDefinition.addPathDefinition(contextPath + "/shiro/admin/withrole", "authc,roles[user]");
+        chainDefinition.addPathDefinition("/shiro/admin/withperm", "authc,perms[user:create]");
+        chainDefinition.addPathDefinition("/shiro/admin/withrole", "authc,roles[user]");
         
-        // everything else in /api requires authentication:
-        chainDefinition.addPathDefinition(contextPath + "/api/**", "authc");
-        
-        // everything NOT in /api can be accessed anonymously:
+        // everything else can be accessed anonymously:
+        //   you can still combine annotations with this config as default
+        //     anon : @RequiresGuest
+        //     authc : @RequiresAuthentication
+        //     perms[resource1:op1,resource1:op2,resource2:op1] : @RequiresPermissions(value = {"resource1:op1", "resource1:op2", "resource2:op1"})
+        //     roles[role1,role2] : @RequiresRoles(value = {"role1", "role2"})
+        //   annotation examples: {@link com.at.spring_boot.shiro.controller.ShiroController#admin(String)}
         chainDefinition.addPathDefinition("/**", "anon");
 
         return chainDefinition;
     }
+    
     
     /**
      * <pre><code>
