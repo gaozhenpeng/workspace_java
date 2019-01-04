@@ -43,7 +43,7 @@ public class MybatisTest1Configuration {
     public DataSource dataSource(){
         try {
             SimpleDriverDataSource simpleDriverDataSource  = new SimpleDriverDataSource();
-            Driver driver = (Driver)Class.forName(driverClassName).newInstance();
+            Driver driver = (Driver)Class.forName(driverClassName).getDeclaredConstructor().newInstance();
             simpleDriverDataSource.setDriver(driver);
             simpleDriverDataSource.setUrl(url);
             simpleDriverDataSource.setUsername(username);
