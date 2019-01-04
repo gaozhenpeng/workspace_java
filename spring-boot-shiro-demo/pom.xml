@@ -8,7 +8,7 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <groupId>com.at.spring_boot</groupId>
-  <artifactId>spring-boot-web-demo</artifactId>
+  <artifactId>spring-boot-shiro-demo</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
   <properties>
