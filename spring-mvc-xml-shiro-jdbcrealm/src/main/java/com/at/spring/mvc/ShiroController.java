@@ -92,8 +92,8 @@ public class ShiroController {
 				SavedRequest savedRequest = WebUtils.getSavedRequest(request);
 				// saved request url
 				if (savedRequest == null || savedRequest.getRequestUrl() == null) {
-					logger.debug("redirect: admin/home");
-					return "redirect: admin/home";
+					logger.debug("redirect:admin/home");
+					return "redirect:admin/home";
 				} else {
 //					return "forward:" + savedRequest.getRequestUrl();
 					String urlWithContextPath = savedRequest.getRequestUrl();
