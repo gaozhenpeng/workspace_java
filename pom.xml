@@ -34,116 +34,124 @@
                 </excludes>
             </resource>
         </resources>
-        <plugins>
-            <!--
-                For JDK 11
-            -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
-                <configuration>
-                    <release>11</release>
-                </configuration>
-            </plugin>
-            <!--
-                Alibaba p3c checkstyle
-            -->
-            <plugin>
-                <!--
-                    mvn -Dpmd.language=en pmd:check
-                    mvn -Dpmd.language=en pmd:pmd
-                -->
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-pmd-plugin</artifactId>
-                <version>3.8</version>
-                <configuration>
-                    <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
-                    <targetJdk>${maven.compiler.target}</targetJdk>
-                    <!-- minimumTokens>100</minimumTokens -->
-                    <rulesets>
-                        <ruleset>rulesets/java/ali-comment.xml</ruleset>
-                        <ruleset>rulesets/java/ali-concurrent.xml</ruleset>
-                        <ruleset>rulesets/java/ali-constant.xml</ruleset>
-                        <ruleset>rulesets/java/ali-exception.xml</ruleset>
-                        <ruleset>rulesets/java/ali-flowcontrol.xml</ruleset>
-                        <ruleset>rulesets/java/ali-naming.xml</ruleset>
-                        <ruleset>rulesets/java/ali-oop.xml</ruleset>
-                        <ruleset>rulesets/java/ali-orm.xml</ruleset>
-                        <ruleset>rulesets/java/ali-other.xml</ruleset>
-                        <ruleset>rulesets/java/ali-set.xml</ruleset>
-                        <ruleset>rulesets/vm/ali-other.xml</ruleset>
-                    </rulesets>
-                    <printFailingErrors>true</printFailingErrors>
-                     <!-- 1: blocker ; 2: critical ; 3: major -->
-                    <minimumPriority>2</minimumPriority>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.alibaba.p3c</groupId>
-                        <artifactId>p3c-pmd</artifactId>
-                        <version>1.3.6</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
+		<pluginManagement>
+			<plugins>
+				<!--
+					For JDK 11
+				-->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.8.0</version>
+					<configuration>
+						<!-- highest setting
+						<release>11</release>
+						-->
+						<source>11</source>
+						<target>11</target>
+					</configuration>
+				</plugin>
+				<!--
+					Alibaba p3c checkstyle
+				-->
+				<plugin>
+					<!--
+						mvn -Dpmd.language=en pmd:check
+						mvn -Dpmd.language=en pmd:pmd
+					-->
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-pmd-plugin</artifactId>
+					<version>3.8</version>
+					<configuration>
+						<sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
+						<targetJdk>${maven.compiler.target}</targetJdk>
+						<!-- minimumTokens>100</minimumTokens -->
+						<rulesets>
+							<ruleset>rulesets/java/ali-comment.xml</ruleset>
+							<ruleset>rulesets/java/ali-concurrent.xml</ruleset>
+							<ruleset>rulesets/java/ali-constant.xml</ruleset>
+							<ruleset>rulesets/java/ali-exception.xml</ruleset>
+							<ruleset>rulesets/java/ali-flowcontrol.xml</ruleset>
+							<ruleset>rulesets/java/ali-naming.xml</ruleset>
+							<ruleset>rulesets/java/ali-oop.xml</ruleset>
+							<ruleset>rulesets/java/ali-orm.xml</ruleset>
+							<ruleset>rulesets/java/ali-other.xml</ruleset>
+							<ruleset>rulesets/java/ali-set.xml</ruleset>
+							<ruleset>rulesets/vm/ali-other.xml</ruleset>
+						</rulesets>
+						<printFailingErrors>true</printFailingErrors>
+						 <!-- 1: blocker ; 2: critical ; 3: major -->
+						<minimumPriority>2</minimumPriority>
+					</configuration>
+					<executions>
+						<execution>
+							<goals>
+								<goal>check</goal>
+							</goals>
+						</execution>
+					</executions>
+					<dependencies>
+						<dependency>
+							<groupId>com.alibaba.p3c</groupId>
+							<artifactId>p3c-pmd</artifactId>
+							<version>1.3.6</version>
+						</dependency>
+					</dependencies>
+				</plugin>
 
-            <!--
-                Recource copying strategy
-            -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>3.1.0</version>
-                <configuration>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                </configuration>
-            </plugin>
+				<!--
+					Recource copying strategy
+				-->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>3.1.0</version>
+					<configuration>
+						<encoding>${project.build.sourceEncoding}</encoding>
+					</configuration>
+				</plugin>
 
-            <!--
-                Attach the java source as well as the classes
-            -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>3.0.1</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+				<!--
+					Attach the java source as well as the classes
+				-->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>3.0.1</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>jar-no-fork</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <!-- JUnit 5 requires Surefire version 2.22.0 or higher -->
-                <version>2.22.1</version>
-                <configuration>
-                    <!-- Whether skip tests -->
-                    <skipTests>${skipTests}</skipTests>
-                </configuration>
-            </plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<!-- JUnit 5 requires Surefire version 2.22.0 or higher -->
+					<version>2.22.1</version>
+					<configuration>
+						<!-- Whether skip tests -->
+						<skipTests>${skipTests}</skipTests>
+					</configuration>
+				</plugin>
 
-        </plugins>
+			</plugins>
+		</pluginManagement>
     </build>
     <reporting>
-        <plugins>
-            <!-- test reporting -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>2.22.1</version>
-            </plugin>
-        </plugins>
+		<pluginManagement>
+			<plugins>
+				<!-- test reporting -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-report-plugin</artifactId>
+					<version>2.22.1</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
     </reporting>
 
 

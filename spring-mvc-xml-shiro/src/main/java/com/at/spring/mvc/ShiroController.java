@@ -153,22 +153,4 @@ public class ShiroController {
 		logger.debug("Exiting admin((@PathVariable(\"admin_path\") String )");
 		return "/admin/" + admin_path;
 	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
