@@ -74,7 +74,7 @@ public class JwtUtils {
         //// user defined claims
         Map<String, Object> claims = new HashMap<>();
         claims.put("uid", uid);
-        claims.put("scope", "web.spring_boot.at.com");
+        claims.put("scope", "web.springboot.at.com");
         
         long nowInMs = System.currentTimeMillis();
         long expInMs = nowInMs + ONE_DAY_IN_MS;
@@ -122,7 +122,7 @@ public class JwtUtils {
                     //   deocde
                     //      jwt decoded header: '{"typ":"JWT","alg":"HS256"}'
                     log.info("jwt decoded header: '{}'", new String(BASE64_DECODER.decode(jwtArr[0]), CHARSET_UTF8));
-                    //      jwt decoded body: '{"iss":"AT","sub":"jws","uid":"myuid","scope":"web.spring_boot.at.com","iat":1546775316,"exp":1546861716}'
+                    //      jwt decoded body: '{"iss":"AT","sub":"jws","uid":"myuid","scope":"web.springboot.at.com","iat":1546775316,"exp":1546861716}'
                     log.info("jwt decoded body: '{}'", new String(BASE64_DECODER.decode(jwtArr[1]), CHARSET_UTF8));
                 } catch (UnsupportedEncodingException e) {
                     log.error("Decoding jws failed.", e);
@@ -152,7 +152,7 @@ public class JwtUtils {
             return null;
         }
 
-        //      jwsClaims: 'header={typ=JWT, alg=HS256},body={iss=AT, sub=jws, uid=myuid, scope=web.spring_boot.at.com, iat=1546775316, exp=1546861716},signature=EdaViVxqB5eK9tboDdtwSil90afWbEdhqalHvZrE0_0'
+        //      jwsClaims: 'header={typ=JWT, alg=HS256},body={iss=AT, sub=jws, uid=myuid, scope=web.springboot.at.com, iat=1546775316, exp=1546861716},signature=EdaViVxqB5eK9tboDdtwSil90afWbEdhqalHvZrE0_0'
         log.info("jwsClaims: '{}'", jwsClaims);
         
         // check required fields

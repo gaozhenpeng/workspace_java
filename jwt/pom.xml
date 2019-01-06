@@ -7,8 +7,8 @@
     <artifactId>workspace-java</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>com.at.spring_boot</groupId>
-  <artifactId>spring-boot-jwt</artifactId>
+  <groupId>com.at.jwt</groupId>
+  <artifactId>jwt</artifactId>
   <version>0.0.1-SNAPSHOT</version>
 
   <properties>

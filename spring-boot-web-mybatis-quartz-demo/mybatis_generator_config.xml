@@ -9,7 +9,7 @@
     <jdbcConnection connectionURL="jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&amp;characterEncoding=utf8&amp;autoReconnect=true&amp;failOverReadOnly=false&amp;tinyInt1isBit=false&amp;noDatetimeStringSync=true&amp;zeroDateTimeBehavior=convertToNull&amp;serverTimezone=UTC&amp;useSSL=false"
                 driverClass="com.mysql.cj.jdbc.Driver" password="" userId="root" />
     <!-- po -->
-    <javaModelGenerator targetPackage="com.at.spring_boot.mybatis.po2"
+    <javaModelGenerator targetPackage="com.at.springboot.mybatis.po2"
         targetProject="spring-boot-web-mybatis-demo/src/main/java" >
       <property name="enableSubPackages" value="true" />
       <property name="trimStrings" value="true" />
@@ -21,7 +21,7 @@
     </sqlMapGenerator>
      -->
     <!-- XXXMapper.java -->
-    <javaClientGenerator targetPackage="com.at.spring_boot.mybatis.mapper2"
+    <javaClientGenerator targetPackage="com.at.springboot.mybatis.mapper2"
          targetProject="spring-boot-web-mybatis-demo/src/main/java" type="ANNOTATEDMAPPER" >
       <property name="enableSubPackages" value="true" />
     </javaClientGenerator>

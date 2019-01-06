@@ -7,7 +7,7 @@
     <artifactId>workspace-java</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>com.at.spring_boot</groupId>
+  <groupId>com.at.springboot</groupId>
   <artifactId>spring-boot-jasperreports</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
@@ -16,7 +16,7 @@
        start-class with spring-boot-starter-parent
        or define the mainClass property with spring-boot-maven-plugin
      -->
-    <spring-boot-maven-plugin.configuration.mainClass>com.at.spring_boot.Application</spring-boot-maven-plugin.configuration.mainClass>
+    <spring-boot-maven-plugin.configuration.mainClass>com.at.springboot.Application</spring-boot-maven-plugin.configuration.mainClass>
     <start-class>${spring-boot-maven-plugin.configuration.mainClass}</start-class>
 
     <spring-boot.version>2.1.1.RELEASE</spring-boot.version>
