@@ -13,13 +13,12 @@ public class JwtConfig {
         FilterRegistrationBean<JwtFilter> registrationBean = new FilterRegistrationBean<>();
              
         registrationBean.setFilter(new JwtFilter());
-//        registrationBean.addUrlPatterns(
-//                "/jwt/dologout" 
-//                ,"/jwt/userhome"
-//                //, "/jwt/user*"  // invalid
-//                //, "/jwt/*" // valid, but match all methods in /jwt/
-//                //, "/*"  // default url pattern
-//                );
+//        // the url patterns should be filtered by this bean
+//        registrationBean.addUrlPatterns("/jwt/dologout","/jwt/userhome");
+//        // NOTE: "/jwt/user*" is invalid
+//        registrationBean.addUrlPatterns("/jwt/dologout", "/jwt/*");
+//        // default url patterns, org.springframework.boot.web.servlet.AbstractFilterRegistrationBean.DEFAULT_URL_MAPPINGS
+//        registrationBean.addUrlPatterns("/*");
         
         return registrationBean;
     }
