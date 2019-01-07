@@ -7,6 +7,7 @@
     <packaging>pom</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         
         <maven-surefire-plugin.skipTests>true</maven-surefire-plugin.skipTests>
         <skipTests>${maven-surefire-plugin.skipTests}</skipTests>
@@ -20,9 +21,9 @@
         </dependency>
     </dependencies>
     <build>
+        <!-- Resources, Relative path to pom.xml -->
         <resources>
             <resource>
-                <!-- relative path to pom.xml -->
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
             </resource>
@@ -36,9 +37,7 @@
         </resources>
         <pluginManagement>
             <plugins>
-                <!--
-                    For JDK 11
-                -->
+                <!-- For JDK 11 -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
@@ -51,9 +50,8 @@
                         <target>11</target>
                     </configuration>
                 </plugin>
-                <!--
-                    Alibaba p3c checkstyle
-                -->
+
+                <!-- Alibaba p3c checkstyle -->
                 <plugin>
                     <!--
                         mvn -Dpmd.language=en pmd:check
@@ -99,9 +97,7 @@
                     </dependencies>
                 </plugin>
 
-                <!--
-                    Recource copying strategy
-                -->
+                <!-- Recource copying strategy -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
@@ -111,9 +107,7 @@
                     </configuration>
                 </plugin>
 
-                <!--
-                    Attach the java source as well as the classes
-                -->
+                <!-- Attach the java source as well as the classes -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
@@ -127,6 +121,7 @@
                     </executions>
                 </plugin>
 
+                <!-- Test -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
@@ -142,16 +137,14 @@
         </pluginManagement>
     </build>
     <reporting>
-        <pluginManagement>
-            <plugins>
-                <!-- test reporting -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-report-plugin</artifactId>
-                    <version>2.22.1</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
+       <plugins>
+           <!-- Test Reporting -->
+           <plugin>
+               <groupId>org.apache.maven.plugins</groupId>
+               <artifactId>maven-surefire-report-plugin</artifactId>
+               <version>2.22.1</version>
+           </plugin>
+       </plugins>
     </reporting>
 
 
