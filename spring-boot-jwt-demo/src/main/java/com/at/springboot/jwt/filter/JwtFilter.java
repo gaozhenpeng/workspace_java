@@ -28,6 +28,7 @@ public class JwtFilter  implements Filter  {
         log.debug("Entering JwtFilter...");
         
         HttpServletRequest req = (HttpServletRequest) request;
+        log.info("requestUri: '{}'", req.getRequestURI());
         
         String jwt = req.getHeader("jwt");
         if(jwt != null) {
@@ -48,20 +49,20 @@ public class JwtFilter  implements Filter  {
             req.setAttribute("jti", jti);
 
             
-            log.debug("Leaving JwtFilter...");
-            
-            // chaining
-            chain.doFilter(request, response);
         }else {
 
-            req.setAttribute("isAuthenicated", false);
-//            ServletException e = new ServletException("jwt is required.");
-//            log.error("jwt is required.");
-//            throw e;
-            HttpServletResponse res = (HttpServletResponse) response;
-            res.sendRedirect(req.getContextPath() + "/jwt/login");
-            res.flushBuffer();
+            req.setAttribute("isAuthenticated", false);
+////            ServletException e = new ServletException("jwt is required.");
+////            log.error("jwt is required.");
+////            throw e;
+//            HttpServletResponse res = (HttpServletResponse) response;
+//            res.sendRedirect(req.getContextPath() + "/jwt/login");
+//            res.flushBuffer();
         }
+        
+        log.debug("Leaving JwtFilter...");
+        // chaining
+        chain.doFilter(request, response);
     }
 
 }

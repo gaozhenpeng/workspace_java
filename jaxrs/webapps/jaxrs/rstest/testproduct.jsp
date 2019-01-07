@@ -8,7 +8,7 @@
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
 <title>jaxrs trigger form</title>
-<script type="text/javascript" src="<%= request.getContextPath() %>/common/js/jquery-2.1.4.js" ></script>
+<script type="text/javascript" src="<%= request.getContextPath() %>/common/js/jquery-3.3.1.js" ></script>
 <script type="text/javascript" >
     ;(function($){
         $(function(){

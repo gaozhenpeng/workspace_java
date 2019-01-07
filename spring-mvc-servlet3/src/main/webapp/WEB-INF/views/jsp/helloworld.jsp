@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script src="<c:url value="/common/js/jquery-2.1.4.js" />" type="application/javascript" ></script>
+<script src="<c:url value="/common/js/jquery-3.3.1.js" />" type="application/javascript" ></script>
 </head>
 <body><c:out value="${message}" default="No Message" />
 </body>

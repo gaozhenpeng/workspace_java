@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Welcome aboard</title>
-<script src="<c:url value="/common/js/jquery-2.1.4.js" />" type="application/javascript" ></script>
+<script src="<c:url value="/common/js/jquery-3.3.1.js" />" type="application/javascript" ></script>
 </head>
 <body>
 
