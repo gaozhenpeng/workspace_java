@@ -17,15 +17,6 @@
       <log4j-bom.version>2.11.1</log4j-bom.version>
     </properties>
     <dependencies>
-        
-        <!-- lombok -->
-        <dependency>
-          <groupId>org.projectlombok</groupId>
-          <artifactId>lombok</artifactId>
-          <version>${lombok.version}</version>
-          <scope>provided</scope>
-        </dependency>
-    
     
         <!-- mysql connector -->
         <dependency>
@@ -48,6 +39,14 @@
         
         
         
+        
+        <!-- lombok -->
+        <dependency>
+          <groupId>org.projectlombok</groupId>
+          <artifactId>lombok</artifactId>
+          <version>${lombok.version}</version>
+          <scope>provided</scope>
+        </dependency>
         
         <!-- log4j to slf4j, NOT compatible with log4j-slf4j-impl
         <dependency>
