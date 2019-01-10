@@ -135,7 +135,7 @@ public class ShiroConfig {
         jdbcRealm.setAuthenticationQuery("SELECT password FROM sec_user WHERE user_name = ?");
         jdbcRealm.setUserRolesQuery("select sr.role_name from sec_role sr,sec_user_role sur,sec_user su where 1 = 1 and su.user_name = ? and sur.role_id = sr.role_id and su.user_id = sur.user_id");
         jdbcRealm.setPermissionsLookupEnabled(true);
-        jdbcRealm.setPermissionsQuery("select sp.permission_name from sec_permission sp,sec_role_permission srp,sec_role sr where 1 = 1 and sr.role_name = ? and srp.role_id = sr.role_id and sp.permission_id = srp.role_id");
+        jdbcRealm.setPermissionsQuery("select sp.permission_name from sec_permission sp,sec_role_permission srp,sec_role sr where 1 = 1 and sr.role_name = ? and srp.role_id = sr.role_id and sp.permission_id = srp.permission_id");
         return jdbcRealm;
     }
 }

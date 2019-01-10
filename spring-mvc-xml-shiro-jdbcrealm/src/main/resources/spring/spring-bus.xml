@@ -134,7 +134,7 @@
         <property name="userRolesQuery"
                   value="select sr.role_name from sec_role sr,sec_user_role sur,sec_user su where 1 = 1 and su.user_name = ? and sur.role_id = sr.role_id and su.user_id = sur.user_id"></property>
         <property name="permissionsQuery"
-                  value="select sp.permission_name from sec_permission sp,sec_role_permission srp,sec_role sr where 1 = 1 and sr.role_name = ? and srp.role_id = sr.role_id and sp.permission_id = srp.role_id"></property>
+                  value="select sp.permission_name from sec_permission sp,sec_role_permission srp,sec_role sr where 1 = 1 and sr.role_name = ? and srp.role_id = sr.role_id and sp.permission_id = srp.permission_id"></property>
     </bean>
     
     <!-- if password is saved in db by md5, Md5CredentialsMatcher is required. -->
