@@ -32,6 +32,14 @@ public class JwtFilter extends BasicHttpAuthenticationFilter  {
     public static final String JWT_HTTP_HEADER = "jwt";
     
     @Override
+    protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
+        if (isLoginAttempt(request, response)) {
+            executeLogin(request, response);
+        }
+        return true;
+    }
+    
+    @Override
     protected boolean isLoginAttempt(ServletRequest request, ServletResponse response) {
         log.debug("Entering isLoginAttempt...");
         HttpServletRequest req = (HttpServletRequest) request;

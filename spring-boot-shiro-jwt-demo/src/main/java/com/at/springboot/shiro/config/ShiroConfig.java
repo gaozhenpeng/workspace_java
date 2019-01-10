@@ -50,7 +50,7 @@ public class ShiroConfig {
         chainDefinition.addPathDefinition("/jwt/login", "anon");
         chainDefinition.addPathDefinition("/jwt/dologin", "anon");
 
-        chainDefinition.addPathDefinition("/jwt/userhome", "jwt");
+        chainDefinition.addPathDefinition("/jwt/userhome", "jwt,roles[user]");
         
 //        // ',' in perms[] and roles[] means logical 'AND'
 //        chainDefinition.addPathDefinition("/jwt/admin/withperm", "jwt,perms[user:create]");
@@ -79,12 +79,12 @@ public class ShiroConfig {
             ,Map<String, Filter> filterMap) {
         log.info("Entering shiroFilterFactoryBean...");
         
+        
         ShiroFilterFactoryBean filterFactoryBean = new ShiroFilterFactoryBean();
 
         filterFactoryBean.setLoginUrl(loginUrl);
         filterFactoryBean.setSuccessUrl(successUrl);
         filterFactoryBean.setUnauthorizedUrl(unauthorizedUrl);
-
         filterFactoryBean.setSecurityManager(securityManager);
         filterFactoryBean.setFilterChainDefinitionMap(shiroFilterChainDefinition.getFilterChainMap());
         
@@ -104,21 +104,20 @@ public class ShiroConfig {
     public Realm shiroIniRealm() {
         log.info("Entering shiroIniRealm...");
         
-        Realm result = new IniRealm("classpath:shiro.ini");
+        IniRealm iniRealm = new IniRealm("classpath:shiro.ini");
 
         log.info("Leaving shiroIniRealm...");
-        return result;
+        return iniRealm;
     }
 
     @Bean
     public Realm shiroJwtRealm(@Autowired JdbcTemplate jdbcTemplate) {
         log.info("Entering shiroJwtRealm...");
-    
-
-        Realm result = new JwtRealm(jdbcTemplate);
-
+        
+        JwtRealm jwtRealm = new JwtRealm(jdbcTemplate);
+        
         log.info("Leaving shiroJwtRealm...");
-        return result;
+        return jwtRealm;
     }
     
 }

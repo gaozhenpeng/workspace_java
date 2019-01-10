@@ -27,12 +27,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class JwtRealm extends AuthorizingRealm {
     
-    
     private JdbcTemplate jdbcTemplate;
     
     public JwtRealm(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
+    
     @Override
     public boolean supports(AuthenticationToken token) {
         log.info("Entering supports...");
@@ -65,9 +65,6 @@ public class JwtRealm extends AuthorizingRealm {
         String jti = jwsBody.getId();
         String uid = jwsBody.get("uid", String.class);
         if(jti == null || uid == null) {
-//            String msg = new FormattedMessage("both of uid and jti are required in jws. jti: '{}', uid: '{}'", jti, uid).toString();
-//            log.error(msg);
-//            throw new AuthenticationException(msg);
             //// should be authorized outside this method
             return null;
         }
@@ -94,6 +91,8 @@ public class JwtRealm extends AuthorizingRealm {
         if(!CollectionUtils.isEmpty(queryPermsResult)) {
             simpleAuthorizationInfo.addStringPermissions(queryPermsResult);
         }
+
+        log.info("uid: '{}', roles: '{}', permissions: '{}'", uid, simpleAuthorizationInfo.getRoles(), simpleAuthorizationInfo.getStringPermissions());
 
         log.info("Leaving doGetAuthorizationInfo...");
         return simpleAuthorizationInfo;

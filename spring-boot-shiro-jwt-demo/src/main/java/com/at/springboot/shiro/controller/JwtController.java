@@ -88,11 +88,24 @@ public class JwtController {
         // update jti
         int affectedRows = jdbcTemplate.update("update sec_user set jti = ? where user_id = ?", jti, uid);
         if(affectedRows != 1) {
+            log.error("update jti failed, jti: '{}', user_id: '{}'", jti, uid);
             loginResponse.setOk(false);
             loginResponse.setMsg("update jti failed");
-            log.error("update jti failed, jti: '{}', user_id: '{}'", jti, uid);
             return loginResponse;
         }
+
+//        // shiro login
+//        Subject shiroSubject = SecurityUtils.getSubject();
+//        try {
+//            shiroSubject.login(new JwtToken(jwt));
+//        }catch(AuthenticationException e) {
+//            log.error("shiro login failed. user_id: '{}', jti: '{}'", uid, jti, e);
+//            loginResponse.setOk(false);
+//            loginResponse.setMsg("shiro login failed");
+//            return loginResponse;
+//        }
+        
+        
         loginResponse.setJws(jwt);
         loginResponse.setOk(true);
         loginResponse.setMsg("generated");
@@ -144,6 +157,9 @@ public class JwtController {
             log.error("jws is out of date, user_id: '{}', jti: '{}'", uid, jti, e);
             return logoutResponse;
         }
+        
+//        // shiro logout
+//        SecurityUtils.getSubject().logout();
         
         // invalid the jti
         int affectedRows = jdbcTemplate.update("update sec_user set jti = ? where user_id = ?", JTI_INVALID, uid);
