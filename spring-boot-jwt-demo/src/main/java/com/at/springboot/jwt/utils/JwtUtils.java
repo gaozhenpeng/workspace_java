@@ -6,7 +6,6 @@ import java.util.Base64;
 import java.util.Base64.Decoder;
 import java.util.Base64.Encoder;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
@@ -58,7 +57,12 @@ public class JwtUtils {
     }
     
 
-    public static String genJws(String uid) {
+    /**
+     * generate jws
+     * @param claims user-defined claims
+     * @return
+     */
+    public static String genJws(Map<String, Object> claims) {
         log.debug("Entering genJws...");
 
         //// registered claims
@@ -71,11 +75,6 @@ public class JwtUtils {
         // jti  JWT ID
         //
         //
-        //// user defined claims
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("uid", uid);
-        claims.put("scope", "web.springboot.at.com");
-        
         long nowInMs = System.currentTimeMillis();
         long expInMs = nowInMs + ONE_DAY_IN_MS;
         
@@ -90,15 +89,18 @@ public class JwtUtils {
                     .setId(jti)
                     .setIssuedAt(new Date(nowInMs))
                     .setExpiration(new Date(expInMs))
-                    .addClaims(claims)
-//                  .claim("name", "Micah Silverman")
-//                  .claim("scope", "admins")
                     ;
+        
+        if(claims != null) {
+            jwtBuilder.addClaims(claims);
+//          jwtBuilder.claim("name", "Micah Silverman");
+//          jwtBuilder.claim("scope", "admins");
+        }
         try {
             jwtBuilder.signWith(SIGN_KEY, SIGN_ALGO);
         }catch(InvalidKeyException e) {
             log.error("jws, siging key invalid, SIGN_KEY: '{}', SIGN_ALGO: '{}'. ", SIGN_KEY, SIGN_ALGO, e);
-            return null;
+            throw e;
         }
         String jws = jwtBuilder.compact();
         log.info("jws: '{}'", jws);
@@ -118,19 +120,19 @@ public class JwtUtils {
             jwsClaims = jwtParser.parseClaimsJws(jws);
         }catch(UnsupportedJwtException e) {
             log.error("jwt (in this form) is not supported.", e);
-            return null;
+            throw e;
         }catch(ExpiredJwtException e) {
             log.error("jwt expired.", e);
-            return null;
+            throw e;
         }catch(MalformedJwtException e) {
             log.error("jwt form is incorrect.", e);
-            return null;
+            throw e;
         }catch(SignatureException e) {
             log.error("jwt signature is invalid.", e);
-            return null;
+            throw e;
         }catch(IllegalArgumentException e) {
             log.error("jwt argument is illegal.", e);
-            return null;
+            throw e;
         }
 
         //      jwsClaims: 'header={typ=JWT, alg=HS256},body={iss=AT, sub=jws, uid=myuid, scope=web.springboot.at.com, iat=1546775316, exp=1546861716},signature=EdaViVxqB5eK9tboDdtwSil90afWbEdhqalHvZrE0_0'

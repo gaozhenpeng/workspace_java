@@ -54,10 +54,11 @@ public class JwtController {
             return loginResponse;
         }
         // logined
-        String myUid = UID;
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("uid", UID);
         
         // gen jwt
-        String jwt = JwtUtils.genJws(myUid);
+        String jwt = JwtUtils.genJws(claims);
         if(jwt == null) {
             loginResponse.setOk(false);
             loginResponse.setMsg("gen jws failed");
