@@ -1,7 +1,7 @@
 package com.at.springboot.shiro.realm;
 
+import java.util.Collection;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import org.apache.logging.log4j.message.FormattedMessage;
@@ -9,6 +9,7 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -37,7 +38,8 @@ public class JwtRealm extends AuthorizingRealm {
     public boolean supports(AuthenticationToken token) {
         log.info("Entering supports...");
         
-        boolean isSupported = token instanceof JwtToken;
+        boolean isSupported = (token != null && JwtToken.class.isAssignableFrom(token.getClass()));
+        log.debug("isSupported: '{}'", isSupported);
         
         log.info("Leaving supports...");
         return isSupported;
@@ -49,8 +51,16 @@ public class JwtRealm extends AuthorizingRealm {
         Assert.notNull(principals, "PrincipalCollection principals should not be null");
         Assert.isTrue(!principals.isEmpty(), "PrincipalCollection principals should not be empty");
 
+        @SuppressWarnings("rawtypes")
+        Collection realmPrincipals = principals.fromRealm(getName());
+        if(CollectionUtils.isEmpty(realmPrincipals)) {
+            log.info("No principals for this realm, '{}'", getName());
+            return null;
+        }
+        
         // parsing jws
-        String jws = (String) principals.getPrimaryPrincipal();
+        String jws = (String) realmPrincipals.iterator().next();
+        log.debug("jws: '{}'", jws);
         Jws<Claims> jwsClaims = null;
         try {
             jwsClaims = JwtUtils.verifyJws(jws);
@@ -59,15 +69,20 @@ public class JwtRealm extends AuthorizingRealm {
 //            log.error(msg, e);
 //            throw new AuthenticationException(msg, e);
             //// should be authorized outside this method
-            return null;
+            String msg = new FormattedMessage("the jws is invalid, '{}'", jws).toString();
+            log.error(msg, e);
+            throw new AuthorizationException(msg, e);
         }
         Claims jwsBody = jwsClaims.getBody();
         String jti = jwsBody.getId();
         String uid = jwsBody.get("uid", String.class);
         if(jti == null || uid == null) {
             //// should be authorized outside this method
-            return null;
+            String msg = new FormattedMessage("both of jti and uid are required to be not null, jti: '{}', uid: '{}'", jti, uid).toString();
+            log.error(msg);
+            throw new AuthorizationException(msg);
         }
+
         // result
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
         
@@ -100,7 +115,7 @@ public class JwtRealm extends AuthorizingRealm {
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-        log.info("Entering doGetAuthorizationInfo...");
+        log.info("Entering doGetAuthenticationInfo...");
         Assert.notNull(token, "AuthenticationToken token should not be null");
         Assert.isTrue(token instanceof JwtToken, "The token should be JwtToken");
         
@@ -148,7 +163,7 @@ public class JwtRealm extends AuthorizingRealm {
             log.error(msg);
             throw new AuthenticationException(msg);
         }else if(queryResult.get("jti") == null || !queryResult.get("jti").equals(jti)) {
-            String msg = new FormattedMessage("jti is out of date. jti: '{}'", jti).toString();
+            String msg = new FormattedMessage("jti is out of date. jti: '{}', uid: '{}'", jti, uid).toString();
             log.error(msg);
             throw new AuthenticationException(msg);
         }
@@ -160,11 +175,7 @@ public class JwtRealm extends AuthorizingRealm {
         //    They should be defined in the same way.
         //    
         //    The best practice is to set them both to the jws string, unique and quick(you don't need to parse them first)
-        SimpleAuthenticationInfo simpleAuthenticationInfo = 
-                new SimpleAuthenticationInfo(
-                    jws
-                    , jws
-                    , this.getClass().getSimpleName().toLowerCase(Locale.ENGLISH));
+        SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(jws, jws, getName());
 
         log.info("Leaving doGetAuthenticationInfo...");
         return simpleAuthenticationInfo;

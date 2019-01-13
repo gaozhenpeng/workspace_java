@@ -5,7 +5,6 @@ import java.util.Map;
 import javax.servlet.Filter;
 
 import org.apache.shiro.realm.Realm;
-import org.apache.shiro.realm.text.IniRealm;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.spring.web.config.DefaultShiroFilterChainDefinition;
 import org.apache.shiro.spring.web.config.ShiroFilterChainDefinition;
@@ -37,16 +36,19 @@ public class ShiroConfig {
 //        // all other paths require a logged in user
 //        chainDefinition.addPathDefinition("/**", "authc");
         
-        chainDefinition.addPathDefinition("/shiro/login", "anon");
-        chainDefinition.addPathDefinition("/shiro/dologin", "anon");
-
-        chainDefinition.addPathDefinition("/shiro/admin/home", "authc");
         
-        // ',' in perms[] and roles[] means logical 'AND'
-        chainDefinition.addPathDefinition("/shiro/admin/withperm", "authc,perms[user:create]");
-        chainDefinition.addPathDefinition("/shiro/admin/withrole", "authc,roles[user]");
         
+//        // authc, it only supports well only for 1 realm in the whole domain 
+//        chainDefinition.addPathDefinition("/shiro/login", "anon");
+//        chainDefinition.addPathDefinition("/shiro/dologin", "anon");
+//
+//        chainDefinition.addPathDefinition("/shiro/admin/home", "authc");
+//        
+//        // ',' in perms[] and roles[] means logical 'AND'
+//        chainDefinition.addPathDefinition("/shiro/admin/withperm", "authc,perms[user:create]");
+//        chainDefinition.addPathDefinition("/shiro/admin/withrole", "authc,roles[user]");
 
+        // jwt
         chainDefinition.addPathDefinition("/jwt/login", "anon");
         chainDefinition.addPathDefinition("/jwt/dologin", "anon");
 
@@ -68,7 +70,11 @@ public class ShiroConfig {
         log.info("Leaving shiroFilterChainDefinition...");
         return chainDefinition;
     }
-    
+//    /** */
+//    @Bean
+//    public AuthenticationStrategy authenticationStrategy() {
+//        return new FirstSuccessfulStrategy();
+//    }
     @Bean
     public ShiroFilterFactoryBean shiroFilterFactoryBean(
             @Value("#{ @environment['shiro.loginUrl'] ?: '/login.jsp' }") String loginUrl
@@ -100,15 +106,15 @@ public class ShiroConfig {
         return filterFactoryBean;
     }
 
-    @Bean
-    public Realm shiroIniRealm() {
-        log.info("Entering shiroIniRealm...");
-        
-        IniRealm iniRealm = new IniRealm("classpath:shiro.ini");
-
-        log.info("Leaving shiroIniRealm...");
-        return iniRealm;
-    }
+//    @Bean
+//    public Realm shiroIniRealm() {
+//        log.info("Entering shiroIniRealm...");
+//        
+//        IniRealm iniRealm = new IniRealm("classpath:shiro.ini");
+//
+//        log.info("Leaving shiroIniRealm...");
+//        return iniRealm;
+//    }
 
     @Bean
     public Realm shiroJwtRealm(@Autowired JdbcTemplate jdbcTemplate) {
