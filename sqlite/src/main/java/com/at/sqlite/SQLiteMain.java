@@ -8,11 +8,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class SQLiteMain {
-	private static final Logger logger = LoggerFactory.getLogger(SQLiteMain.class);
 
 	public void featured() throws SQLException {
 		Connection connTest = DriverManager.getConnection("jdbc:sqlite:./db/test.db");
@@ -42,8 +41,8 @@ public class SQLiteMain {
 
 		ResultSet rs = stat.executeQuery("select * from TableName;");
 		while (rs.next()) {
-			logger.info("Name = " + rs.getString("Name"));
-			logger.info("ItemCount = " + rs.getString("ItemCount"));
+			log.info("Name = " + rs.getString("Name"));
+			log.info("ItemCount = " + rs.getString("ItemCount"));
 		}
 		rs.close();
 		connTest.close();
@@ -100,11 +99,11 @@ public class SQLiteMain {
 
 		ResultSet rs = stat.executeQuery("select * from `vc3_cloudgateway_key`;");
 		while (rs.next()) {
-			logger.info("k = " + rs.getString("k"));
-			logger.info("v = " + rs.getString("v"));
-			logger.info("cloudtype = " + rs.getString("cloudtype"));
-			logger.info("updated_datetime = " + rs.getTimestamp("updated_datetime"));
-			logger.info("created_datetime = " + rs.getTimestamp("created_datetime"));
+			log.info("k = " + rs.getString("k"));
+			log.info("v = " + rs.getString("v"));
+			log.info("cloudtype = " + rs.getString("cloudtype"));
+			log.info("updated_datetime = " + rs.getTimestamp("updated_datetime"));
+			log.info("created_datetime = " + rs.getTimestamp("created_datetime"));
 		}
 		rs.close();
 		connTest.close();
@@ -162,11 +161,11 @@ public class SQLiteMain {
 
 		ResultSet rs = stat.executeQuery("select * from `vc3_cloudgateway_key`;");
 		while (rs.next()) {
-			logger.info("k = " + rs.getString("k"));
-			logger.info("v = " + rs.getString("v"));
-			logger.info("cloudtype = " + rs.getString("cloudtype"));
-			logger.info("updated_datetime = " + rs.getTimestamp("updated_datetime"));
-			logger.info("created_datetime = " + rs.getTimestamp("created_datetime"));
+			log.info("k = " + rs.getString("k"));
+			log.info("v = " + rs.getString("v"));
+			log.info("cloudtype = " + rs.getString("cloudtype"));
+			log.info("updated_datetime = " + rs.getTimestamp("updated_datetime"));
+			log.info("created_datetime = " + rs.getTimestamp("created_datetime"));
 		}
 		rs.close();
 		connTest.close();
