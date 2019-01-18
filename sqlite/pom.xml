@@ -1,120 +1,96 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>com.at</groupId>
-		<artifactId>workspace-java</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-	</parent>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
     <groupId>com.at</groupId>
-    <artifactId>sqlite</artifactId>
+    <artifactId>workspace-java</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <properties>
-      <lombok.version>1.18.4</lombok.version>
+  </parent>
+  <groupId>com.at</groupId>
+  <artifactId>sqlite</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <properties>
+    <lombok.version>1.18.4</lombok.version>
 
-      <disruptor.version>3.4.2</disruptor.version>
-      <log4j-bom.version>2.11.1</log4j-bom.version>
-      
-      <sqlite-jdbc.version>3.25.2</sqlite-jdbc.version>
-    </properties>
+    <disruptor.version>3.4.2</disruptor.version>
+    <log4j-bom.version>2.11.1</log4j-bom.version>
+
+    <sqlite-jdbc.version>3.25.2</sqlite-jdbc.version>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>org.xerial</groupId>
+      <artifactId>sqlite-jdbc</artifactId>
+      <version>${sqlite-jdbc.version}</version>
+    </dependency>
+
+    <!-- lombok -->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>${lombok.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- log4j to slf4j, NOT compatible with log4j-slf4j-impl
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-to-slf4j</artifactId>
+    </dependency>
+    -->
+
+    <!-- web -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-web</artifactId>
+    </dependency>
+
+
+    <!-- log4j2 -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+    </dependency>
+    <!-- async -->
+    <dependency>
+      <groupId>com.lmax</groupId>
+      <artifactId>disruptor</artifactId>
+      <version>${disruptor.version}</version>
+    </dependency>
+    <!-- slf4j to log4j, require slf4j, NOT compatible with log4j-to-slf4j -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j-impl</artifactId>
+    </dependency>
+    <!-- log4j java util logging
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-jul</artifactId>
+    </dependency>
+    -->
+    <!-- log4j 1.2 bridge
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-1.2-api</artifactId>
+    </dependency>
+    -->
+    <!-- log4j java commons-logging
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-jcl</artifactId>
+    </dependency>
+    -->
+  </dependencies>
+  <dependencyManagement>
     <dependencies>
-        <dependency>
-            <groupId>org.xerial</groupId>
-            <artifactId>sqlite-jdbc</artifactId>
-            <version>${sqlite-jdbc.version}</version>
-            <!--
-                Do not include sqlite-jdbc-(version).jar in
-                WEB-INF/lib folder of your web application package,
-                since multiple web applications hosted by the same
-                Tomcat server cannot load the sqlite-jdbc native
-                library more than once. That is the specification of
-                JNI (Java Native Interface). You will observe
-                UnsatisfiedLinkError exception with the message "no
-                SQLite library found".
-
-                Work-around of this problem is to put
-                sqlite-jdbc-(version).jar file into (TOMCAT_HOME)/lib
-                direcotry, in which multiple web applications can
-                share the same native library file (.dll, .jnilib,
-                .so) extracted from this sqlite-jdbc jar file.
-
-                If you are using Maven for your web application, set
-                the dependency scope as 'provided', and manually put
-                the SQLite JDBC jar file into (TOMCAT_HOME)/lib
-                folder.
-            -->
-            <scope>provided</scope>
-        </dependency>
-        
-        
-        
-        <!-- lombok -->
-        <dependency>
-          <groupId>org.projectlombok</groupId>
-          <artifactId>lombok</artifactId>
-          <version>${lombok.version}</version>
-          <scope>provided</scope>
-        </dependency>
-        
-        <!-- log4j to slf4j, NOT compatible with log4j-slf4j-impl
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-to-slf4j</artifactId>
-        </dependency>
-        -->
-        
-        <!-- web
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-web</artifactId>
-        </dependency>
-         -->
-        
-        
-        <!-- log4j2 -->
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-        </dependency>
-        <!-- async -->
-        <dependency>
-            <groupId>com.lmax</groupId>
-            <artifactId>disruptor</artifactId>
-            <version>${disruptor.version}</version>
-        </dependency>
-        <!-- slf4j to log4j, require slf4j, NOT compatible with log4j-to-slf4j -->
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-slf4j-impl</artifactId>
-        </dependency>
-        <!-- log4j java util logging
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-jul</artifactId>
-        </dependency>
-        -->
-        <!-- log4j 1.2 bridge
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-1.2-api</artifactId>
-        </dependency>
-         -->
-        <!-- log4j java commons-logging
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-jcl</artifactId>
-        </dependency>
-        -->
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-bom</artifactId>
+        <version>${log4j-bom.version}</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
     </dependencies>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-bom</artifactId>
-                <version>${log4j-bom.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+  </dependencyManagement>
 </project>
