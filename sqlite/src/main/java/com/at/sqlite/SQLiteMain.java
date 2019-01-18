@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.SQLType;
 import java.sql.Statement;
 import java.sql.Timestamp;
 
@@ -178,12 +177,16 @@ public class SQLiteMain {
                 + "   `id` integer /* unsigned bigint */ NOT NULL PRIMARY KEY AUTOINCREMENT  "
                 + "   ,`user_name` varchar(20) DEFAULT NULL /* COMMENT 'user name' */ "
                 + "   ,`last_login_info` json DEFAULT NULL /* COMMENT 'the info of last login' */ "
+                // illegal in sqlite
+                //+ "   , PRIMARY KEY(`id`) "
                 + " )");
 
-//        // create index
+        // create index
+        //     Exception in thread "main" org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (near "GENERATED": syntax error)
 //        stat.executeUpdate(
-//                "CREATE INDEX IF NOT EXISTS `vc3_cloudgateway_key_cloudtype_idx` on `vc3_cloudgateway_key` (`cloudtype`);");
-
+//                "ALTER TABLE json_user ADD last_login_result VARCHAR(15) GENERATED ALWAYS AS (JSON_EXTRACT(last_login_info, '$.result')) VIRTUAL ;");
+//        stat.executeUpdate(
+//                "ALTER TABLE json_user ADD index idx_json_user_result(last_login_result) ;");
         //
         PreparedStatement prep = connTest.prepareStatement(
                 "insert into `json_user` (`user_name`, `last_login_info`) values (?, ?) ");
