@@ -2,26 +2,24 @@
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
   <context id="context1">
-    <commentGenerator>
-        <property name="suppressAllComments" value="true" />
-    </commentGenerator>
     <!-- jdbc configuration -->
-    <jdbcConnection connectionURL="jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&amp;characterEncoding=utf8&amp;autoReconnect=true&amp;failOverReadOnly=false&amp;tinyInt1isBit=false&amp;noDatetimeStringSync=true&amp;zeroDateTimeBehavior=convertToNull&amp;serverTimezone=UTC&amp;useSSL=false"
-                driverClass="com.mysql.cj.jdbc.Driver" password="" userId="root" />
+    <jdbcConnection
+        connectionURL="jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&amp;characterEncoding=utf8&amp;autoReconnect=true&amp;failOverReadOnly=false&amp;tinyInt1isBit=false&amp;noDatetimeStringSync=true&amp;zeroDateTimeBehavior=convertToNull&amp;serverTimezone=UTC&amp;useSSL=false&amp;nullCatalogMeansCurrent=true"
+        driverClass="com.mysql.cj.jdbc.Driver"
+        password=""
+        userId="root" />
     <!-- po -->
     <javaModelGenerator targetPackage="com.at.springboot.mybatis.po3"
         targetProject="spring-boot-web-mybatis-ehcache-demo/src/main/java" >
       <property name="enableSubPackages" value="true" />
       <property name="trimStrings" value="true" />
     </javaModelGenerator>
-    <!-- XXXMapper.xml
-     -->
+    <!-- XXXMapper.xml -->
     <sqlMapGenerator targetPackage="mybatis.mappers3"
         targetProject="spring-boot-web-mybatis-ehcache-demo/src/main/resources" >
       <property name="enableSubPackages" value="true" />
     </sqlMapGenerator>
-    <!-- XXXMapper.java XMLMAPPER
-     -->
+    <!-- XXXMapper.java XMLMAPPER -->
     <javaClientGenerator targetPackage="com.at.springboot.mybatis.mapper3"
          targetProject="spring-boot-web-mybatis-ehcache-demo/src/main/java" type="XMLMAPPER" >
       <property name="enableSubPackages" value="true" />
@@ -32,44 +30,11 @@
       <property name="enableSubPackages" value="true" />
     </javaClientGenerator>
     -->
-    <!-- tables -->
-    <table schema="test" tableName="blog"
-        domainObjectName="Blog">
-    </table>
-    <!-- 
-    <table schema="bigdata_web_statis" tableName="tb_node"
-        domainObjectName="Node">
-    </table>
-    <table schema="bigdata_web_statis" tableName="tb_nodeenv"
-        domainObjectName="NodeEnv">
-    </table>
-    <table schema="bigdata_web_statis" tableName="tb_system_application"
-        domainObjectName="SystemApplication">
-    </table>
-    <table schema="bigdata_web_statis" tableName="tb_resourceauth"
-        domainObjectName="ResourceAuth">
-    </table>
-    <table schema="bigdata_web_statis" tableName="tb_department"
-        domainObjectName="Department">
-    </table>
-    <table schema="bigdata_web_statis" tableName="tb_dataex_log"
-        domainObjectName="DataexLog">
-    </table>
-    <table schema="bigdata_web_statis" tableName="tb_dictionary"
-        domainObjectName="Dictionary">
-    </table>
-    <table schema="bigdata_web_statis" tableName="tb_resource_env"
-        domainObjectName="ResourceEnv">
-    </table>
-    <table schema="bigdata_web_statis" tableName="tb_subscription"
-        domainObjectName="Subscription">
-    </table>
-    
-    <table schema="bigdata_web_statis" tableName="tb_subscription"
-        enableSelectByExample="false" enableDeleteByExample="false"
-        enableCountByExample="false" enableUpdateByExample="false" selectByExampleQueryId="false"
-        domainObjectName="Subscription">
-    </table>
+    <!-- tables
+        <insert id="..." parameterType="..."
+            useGeneratedKeys="true" keyProperty="blogId" keyColumn="blog_id">
+            ...
     -->
+    <table tableName="blog" />
   </context>
 </generatorConfiguration>

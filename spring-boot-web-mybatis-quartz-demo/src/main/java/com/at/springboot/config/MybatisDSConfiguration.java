@@ -6,9 +6,11 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.io.Resource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -23,19 +25,19 @@ import com.zaxxer.hikari.HikariDataSource;
  * </p>
  */
 @Configuration
-@MapperScan(basePackages = "com.at.springboot.mybatis.mapper3", sqlSessionFactoryRef="sqlSessionFactory3")
+@MapperScan(basePackages = "com.at.springboot.mybatis.mapper")
 @EnableTransactionManagement
-public class MybatisTest3Configuration {
+public class MybatisDSConfiguration {
     @Primary
-    @Bean("dataSource3")
-    @ConfigurationProperties(prefix = "app.datasource.test3") // spring-boot-configuration-processor
+    @Bean
+    @ConfigurationProperties(prefix = "app.datasource.test") // spring-boot-configuration-processor
     public DataSource dataSource() {
         return new HikariDataSource();
     }
 
     @Primary
-    @Bean("sqlSessionFactory3")
-    public SqlSessionFactory sqlSessionFactory() throws Exception {
+    @Bean
+    public SqlSessionFactory sqlSessionFactory(ApplicationContext applicationContext) throws Exception {
         SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
 
@@ -45,11 +47,15 @@ public class MybatisTest3Configuration {
         configuration.setCallSettersOnNulls(true);
         sessionFactory.setConfiguration(configuration);
         
+        // Mybatis Mapper XML
+        Resource[] resourceArray = applicationContext.getResources("classpath:/mybatis/**/*Mapper.xml");
+        sessionFactory.setMapperLocations(resourceArray);
+
         return sessionFactory.getObject();
     }
 
     @Primary
-    @Bean("dataSourceTransactionManager3")
+    @Bean
     public DataSourceTransactionManager dataSourceTransactionManager() {  
         return new DataSourceTransactionManager(dataSource());
     }  

@@ -1,15 +1,15 @@
-package com.at.springboot.web.svr1;
+package com.at.springboot.web.svr;
 
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import com.at.springboot.mybatis.dto.BlogDto;
-import com.at.springboot.mybatis.mapper1.BlogMapper;
+import com.at.springboot.mybatis.mapper.BlogMapper;
 import com.at.springboot.mybatis.po.Blog;
 import com.at.springboot.mybatis.po.BlogExample;
 import com.github.pagehelper.PageHelper;
@@ -19,10 +19,9 @@ import lombok.extern.slf4j.Slf4j;
 import ma.glasnost.orika.MapperFacade;
 
 @Slf4j
-@Service("blogService1")
+@Service
 public class BlogService {
     @Autowired
-    @Qualifier("blogMapper1")
     private BlogMapper blogMapper;
     @Autowired
     private MapperFacade mapperFacade;
@@ -33,7 +32,7 @@ public class BlogService {
      * @param content
      * @return
      */
-//    @Transactional
+    @Transactional
     public BlogDto create(String name, String content) {
         log.info("create, name: '{}', content: '{}' ", name, content);
         

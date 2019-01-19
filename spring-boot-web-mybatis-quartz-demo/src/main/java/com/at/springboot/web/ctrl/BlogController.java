@@ -3,23 +3,21 @@ package com.at.springboot.web.ctrl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.at.springboot.mybatis.dto.BlogDto;
-import com.at.springboot.web.svr1.BlogService;
+import com.at.springboot.web.svr.BlogService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping("/blog1")
-public class BlogController1 {
+@RequestMapping("/blog")
+public class BlogController {
     @Autowired
-    @Qualifier("blogService1")
     private BlogService blogService;
 
     @RequestMapping(method=RequestMethod.POST)
@@ -32,7 +30,6 @@ public class BlogController1 {
         BlogDto blogDto = blogService.create(name, content);
         return blogDto;
     }
-
 
     @RequestMapping(method=RequestMethod.GET)
     public List<BlogDto> list(
