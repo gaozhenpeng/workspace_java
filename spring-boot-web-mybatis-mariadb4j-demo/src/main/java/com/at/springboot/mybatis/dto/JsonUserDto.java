@@ -10,4 +10,5 @@ public class JsonUserDto implements Serializable {
     private String id;
     private String userName;
     private String lastLoginInfo;
+    private String lastLoginResult;
 }
