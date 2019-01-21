@@ -139,10 +139,6 @@ public class JwtController {
         }
         
 
-        // update user set jti = 'logout' where uid = 'uid' and jti = 'jti'
-        // ;
-        // -- ensure affected rows = 1 
-        
 //        String jti = (String)request.getAttribute("jti");
         if(!currentJti.equals(jti)) {
             log.error("current token is out of date.");
