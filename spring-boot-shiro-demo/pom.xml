@@ -24,6 +24,7 @@
     <spring-boot.version>2.1.1.RELEASE</spring-boot.version>
     
     <shiro-spring-boot-web-starter.version>1.4.0</shiro-spring-boot-web-starter.version>
+    <thymeleaf-extras-shiro.version>2.0.0</thymeleaf-extras-shiro.version>
   </properties>
 
   <dependencies>
@@ -43,26 +44,39 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-tomcat</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     
-    <!-- jstl -->
+    <!-- undertow -->
+    <dependency>  
+        <groupId>org.springframework.boot</groupId>  
+        <artifactId>spring-boot-starter-undertow</artifactId>  
+    </dependency>  
+    
+    <!-- thymeleaf -->
     <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>jstl</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-thymeleaf</artifactId>
     </dependency>
-
-    <!-- jsp compiler -->
-    <dependency>
-      <groupId>org.apache.tomcat.embed</groupId>
-      <artifactId>tomcat-embed-jasper</artifactId>
-      <scope>provided</scope>
-    </dependency>
+    
     
     <!-- shiro -->
     <dependency>
         <groupId>org.apache.shiro</groupId>
         <artifactId>shiro-spring-boot-web-starter</artifactId>
         <version>${shiro-spring-boot-web-starter.version}</version>
+    </dependency>
+    
+    <!-- shiro tags for thymeleaf -->
+    <dependency>
+      <groupId>com.github.theborakompanioni</groupId>
+      <artifactId>thymeleaf-extras-shiro</artifactId>
+      <version>${thymeleaf-extras-shiro.version}</version>
     </dependency>
     
     

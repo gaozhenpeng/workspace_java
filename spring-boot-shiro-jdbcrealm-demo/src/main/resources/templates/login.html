@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>hello</title>
+<script src="/common/js/jquery-3.3.1.js" th:src="@{/common/js/jquery-3.3.1.js}" type="application/javascript" ></script>
+</head>
+<body>
+	<h1>login page</h1>
+	<form action="/shiro/dologin" th:action="@{/shiro/dologin}" method="POST">
+		<label>User Name</label> <input type="text" name="username" maxLength="40" value="adm"/>
+		<label>Password</label> <input type="password" name="password" value="admpw"/>
+		<input type="submit" value="login" />
+	</form>
+
+	<P th:text="|${message}|">No Message</P>
+
+</body>
+</html>

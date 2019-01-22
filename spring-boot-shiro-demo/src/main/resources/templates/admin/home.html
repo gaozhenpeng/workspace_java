@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Welcome aboard</title>
+<script src="/common/js/jquery-3.3.1.js" th:src="@{/common/js/jquery-3.3.1.js}" type="application/javascript" ></script>
+</head>
+<body>
+
+
+<p th:text="|Welcome ${user.username}!|">Welcome!</p>
+
+<p>
+<a href="/shiro/dologout" th:href="@{/shiro/dologout}"><button>logout</button></a><br />
+<a href="/shiro/admin/withperm" th:href="@{/shiro/admin/withperm}"><button>withperm</button></a><br />
+<a href="/shiro/admin/withrole" th:href="@{/shiro/admin/withrole}"><button>withrole</button></a><br />
+</p>
+
+</body>
+</html>

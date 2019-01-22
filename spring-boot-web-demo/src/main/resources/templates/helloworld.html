@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- staic resources path in spring-boot
+    classpath:/META-INF/resources/
+    classpath:/resources/
+    classpath:/static/
+    classpath:/public/
+-->
+<script src="/js/jquery-3.3.1.js" th:src="@{/js/jquery-3.3.1.js}" type="application/javascript" ></script>
+</head>
+<body th:text="|${message}|">No Message
+</body>
+</html>

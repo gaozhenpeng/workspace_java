@@ -17,6 +17,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import com.at.springboot.shiro.filter.JwtFilter;
 import com.at.springboot.shiro.realm.JwtRealm;
 
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -126,4 +127,10 @@ public class ShiroConfig {
         return jwtRealm;
     }
     
+
+    /** shiro tags for thymeleaf */
+    @Bean
+    public ShiroDialect shiroDialect(){
+        return new ShiroDialect();
+    }
 }

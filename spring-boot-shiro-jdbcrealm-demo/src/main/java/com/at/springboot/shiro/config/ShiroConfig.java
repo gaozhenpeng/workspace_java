@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
+
 @Configuration
 public class ShiroConfig {
     @Bean
@@ -137,5 +139,12 @@ public class ShiroConfig {
         jdbcRealm.setPermissionsLookupEnabled(true);
         jdbcRealm.setPermissionsQuery("select sp.permission_name from sec_permission sp,sec_role_permission srp,sec_role sr where 1 = 1 and sr.role_name = ? and srp.role_id = sr.role_id and sp.permission_id = srp.permission_id");
         return jdbcRealm;
+    }
+    
+
+    /** shiro tags for thymeleaf */
+    @Bean
+    public ShiroDialect shiroDialect(){
+        return new ShiroDialect();
     }
 }
