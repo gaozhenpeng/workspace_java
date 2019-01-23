@@ -164,6 +164,7 @@ public class ShiroConfig {
               `password` varchar(128) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
               `created_datetime` datetime DEFAULT NULL,
               `update_datetime` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+              `jti` varchar(32)  COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
               PRIMARY KEY (`user_id`)
             ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
             
