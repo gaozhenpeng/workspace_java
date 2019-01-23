@@ -140,23 +140,6 @@ public class JwtRealm extends AuthorizingRealm {
             throw new AuthenticationException(msg);
         }
 
-        /**
-         * <pre><code>
-            ALTER TABLE `test`.`sec_user` 
-                ADD COLUMN `jti` VARCHAR(45) NULL DEFAULT NULL AFTER `update_datetime`;
-                
-                
-            CREATE TABLE `sec_user` (
-              `user_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-              `user_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
-              `password` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
-              `created_datetime` datetime DEFAULT NULL,
-              `update_datetime` datetime DEFAULT CURRENT_TIMESTAMP,
-              `jti` varchar(45) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
-              PRIMARY KEY (`user_id`)
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci
-           </code></pre>
-         */
         Map<String, Object> queryResult = jdbcTemplate.queryForMap("select user_id,jti from sec_user where user_id = ? ", uid);
         if(queryResult == null || queryResult.isEmpty() || queryResult.get("user_id") == null) {
             String msg = new FormattedMessage("uid is invalid. uid: '{}'", uid).toString();

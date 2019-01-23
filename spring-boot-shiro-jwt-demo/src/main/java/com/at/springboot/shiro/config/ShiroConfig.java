@@ -123,23 +123,23 @@ public class ShiroConfig {
             CREATE TABLE `sec_permission` (
               `permission_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
               `permission_name` varchar(64) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
-              `created_datetime` datetime DEFAULT NULL,
-              `update_datetime` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+              `created_datetime` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+              `updated_datetime` datetime NULL DEFAULT CURRENT_TIMESTAMP,
               PRIMARY KEY (`permission_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
             
-            insert into `sec_permission` (permission_id, permission_name, created_datetime) values(1, '*', now()), (2, 'user:*', now()), (3, 'page:view', now()), (4, 'doc:view', now())
+            insert into `sec_permission` (permission_id, permission_name) values(1, '*'), (2, 'user:*'), (3, 'page:view'), (4, 'doc:view')
             ;
             
             CREATE TABLE `sec_role` (
               `role_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-              `role_name` varchar(64) COLLATE utf8_bin DEFAULT NULL,
-              `created_datetime` datetime DEFAULT NULL,
-              `update_datetime` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+              `role_name` varchar(64) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
+              `created_datetime` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+              `updated_datetime` datetime NULL DEFAULT CURRENT_TIMESTAMP,
               PRIMARY KEY (`role_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
             
-            insert into `sec_role` (role_id, role_name, created_datetime) values(1, 'superadmin', now()), (2, 'admin', now()), (3, 'user', now())
+            insert into `sec_role` (role_id, role_name) values(1, 'superadmin'), (2, 'admin'), (3, 'user')
             ;
             
             
@@ -162,13 +162,13 @@ public class ShiroConfig {
               `user_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
               `user_name` varchar(64) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
               `password` varchar(128) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
-              `created_datetime` datetime DEFAULT NULL,
-              `update_datetime` datetime NULL DEFAULT CURRENT_TIMESTAMP,
-              `jti` varchar(32)  COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
+              `created_datetime` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+              `updated_datetime` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+              `jti` varchar(64) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
               PRIMARY KEY (`user_id`)
             ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
             
-            insert into `sec_user` (user_id, user_name, password, created_datetime) values(1, 'rt', 'rtpw', now()), (2, 'adm', 'admpw', now()), (3, 'at', 'atpw', now())
+            insert into `sec_user` (user_id, user_name, password) values(1, 'rt', 'rtpw'), (2, 'adm', 'admpw'), (3, 'at', 'atpw')
             ;
             
             
