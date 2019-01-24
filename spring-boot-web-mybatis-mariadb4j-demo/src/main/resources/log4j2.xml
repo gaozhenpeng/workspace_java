@@ -37,13 +37,12 @@
     </AsyncLogger>
     -->
 
-    <!-- common loggers
+    <!-- common loggers -->
     <AsyncLogger name="org.hibernate" level="WARN" includeLocation="true" />
     <AsyncLogger name="org.springframework" level="WARN" includeLocation="true" />
     <AsyncLogger name="org.apache" level="WARN" includeLocation="true" />
     <AsyncLogger name="net.sf.ehcache" level="WARN" includeLocation="true" />
-     -->
-    <AsyncLogger name="org.springframework.cache" level="TRACE" includeLocation="true" />
+    <AsyncLogger name="org.springframework.cache" level="WARN" includeLocation="true" />
 
     <!-- special loggers -->
     <AsyncLogger name="com.at" level="DEBUG" includeLocation="true" />
