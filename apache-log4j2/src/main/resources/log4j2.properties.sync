@@ -28,30 +28,30 @@ appender.rolling.policies.size.size=200MB
 appender.rolling.strategy.type = DefaultRolloverStrategy
 appender.rolling.strategy.max = 30
  
-#logger.rolling.name = com.example.my.app
-#logger.rolling.level = debug
-#logger.rolling.additivity = false
-#logger.rolling.appenderRef.rolling.ref = RollingFile
-# 
-logger.R1.name = org.hibernate
-logger.R1.includeLocation = true
-logger.R1.level = WARN
-
-logger.R2.name = org.springframework
-logger.R2.includeLocation = true
-logger.R2.level = WARN
-
-logger.R3.name = org.apache
-logger.R3.includeLocation = true
-logger.R3.level = WARN
-
-logger.R4.name = net.sf.ehcache
-logger.R4.includeLocation = true
-logger.R4.level = WARN
-
-logger.R5.name = com.at
-logger.R5.includeLocation = true
-logger.R5.level = DEBUG
+##logger.rolling.name = com.example.my.app
+##logger.rolling.level = debug
+##logger.rolling.additivity = false
+##logger.rolling.appenderRef.rolling.ref = RollingFile
+## 
+#logger.R1.name = org.hibernate
+#logger.R1.includeLocation = true
+#logger.R1.level = WARN
+#
+#logger.R2.name = org.springframework
+#logger.R2.includeLocation = true
+#logger.R2.level = WARN
+#
+#logger.R3.name = org.apache
+#logger.R3.includeLocation = true
+#logger.R3.level = WARN
+#
+#logger.R4.name = net.sf.ehcache
+#logger.R4.includeLocation = true
+#logger.R4.level = WARN
+#
+#logger.R5.name = com.at
+#logger.R5.includeLocation = true
+#logger.R5.level = DEBUG
 
 # no idea how to set async sync together in properties file
 rootLogger.level = INFO
