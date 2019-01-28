@@ -97,9 +97,6 @@
       <version>${thymeleaf-extras-shiro.version}</version>
     </dependency>
     
-    
-    
-    
     <!-- jwt -->
     <dependency>
       <groupId>io.jsonwebtoken</groupId>
@@ -126,7 +123,6 @@
         <scope>runtime</scope>
     </dependency>
     -->
-    
     
     
     <!-- actuator -->

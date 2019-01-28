@@ -31,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping(value = "/shiro")
 public class ShiroController {
-    private static final String JSP_PREFIX_SHIRO = "/shiro";
+    private static final String TEMPLATES_PREFIX_SHIRO = "/shiro";
     
     @RequestMapping(value = "params", method = { RequestMethod.GET, RequestMethod.POST })
     public String helloWorld(@RequestParam Map<String, String> params, Model m) {
@@ -42,7 +42,7 @@ public class ShiroController {
             m.addAttribute("message", "name = '" + par_name + "'");
         }
 
-        String viewname = JSP_PREFIX_SHIRO + "/helloworld";
+        String viewname = TEMPLATES_PREFIX_SHIRO + "/helloworld";
         String par_url = params.get("url");
         if (par_url != null) {
             viewname = par_url;
@@ -60,7 +60,7 @@ public class ShiroController {
         log.info("page_path: '{}'", page_path);
 
         log.debug("Exiting login()");
-        return JSP_PREFIX_SHIRO + "/login";
+        return TEMPLATES_PREFIX_SHIRO + "/login";
     }
 
     @RequestMapping(value = "/dologout", method = { RequestMethod.GET, RequestMethod.POST })
@@ -162,7 +162,7 @@ public class ShiroController {
         }
 
         ModelAndView mav = new ModelAndView();
-        mav.setViewName(JSP_PREFIX_SHIRO + "/admin/" + admin_path);
+        mav.setViewName(TEMPLATES_PREFIX_SHIRO + "/admin/" + admin_path);
         Map<String, String> user = new HashMap<>();
         user.put("username", username);
         mav.addObject("user", user);

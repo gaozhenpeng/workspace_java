@@ -1,4 +1,4 @@
-package com.at.springboot.shiro.realm;
+package com.at.springboot.shiro.shiro.realm;
 
 import java.util.Collection;
 import java.util.List;
@@ -18,7 +18,7 @@ import org.apache.shiro.util.Assert;
 import org.apache.shiro.util.CollectionUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import com.at.springboot.shiro.controller.jwt.JwtToken;
+import com.at.springboot.shiro.shiro.token.JwtToken;
 import com.at.springboot.shiro.utils.JwtUtils;
 
 import io.jsonwebtoken.Claims;
@@ -120,7 +120,7 @@ public class JwtRealm extends AuthorizingRealm {
         Assert.isTrue(token instanceof JwtToken, "The token should be JwtToken");
         
         JwtToken jwtToken = (JwtToken) token;
-        String jws = jwtToken.getJws();
+        String jws = jwtToken.getJwt();
         
         Jws<Claims> jwsClaims = null;
         try {

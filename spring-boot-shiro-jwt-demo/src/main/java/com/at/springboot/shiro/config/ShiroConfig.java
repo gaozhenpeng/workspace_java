@@ -14,8 +14,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import com.at.springboot.shiro.filter.JwtFilter;
-import com.at.springboot.shiro.realm.JwtRealm;
+import com.at.springboot.shiro.shiro.filter.JwtFilter;
+import com.at.springboot.shiro.shiro.realm.JwtRealm;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import lombok.extern.slf4j.Slf4j;

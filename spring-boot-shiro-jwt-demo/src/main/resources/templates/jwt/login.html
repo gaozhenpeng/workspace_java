@@ -5,6 +5,7 @@
 <title>hello</title>
 <script src="/common/js/jquery-3.3.1.js" th:src="@{/common/js/jquery-3.3.1.js}" type="application/javascript" ></script>
 <script type="application/javascript">
+var hasLogin = false;
 ;(function($){
     $(function(){
       $("#loginBtn").click(function(ev){
@@ -15,6 +16,7 @@
                 ,"success" : function(dat){
                                $("#msgp").text(JSON.stringify(dat));
                                $("#data").text(JSON.stringify(dat));
+                               hasLogin = true;
                             }
             });
       });
@@ -24,8 +26,11 @@
               ,"url" : $("#logoutFrm").attr("action")
               ,"headers" : {"jwt" : JSON.parse($("#data").text()).jws}
               ,"success" : function(dat){
-                              $("#msgp").text(JSON.stringify(dat));
-                              $("#data").text("");
+                  hasLogin = false;
+              }
+              ,"complete" : function(jqXHR){
+                              $("#msgp").text(jqXHR.responseText);
+                              $("#data").text("{}");
                           }
           });
     });
@@ -34,8 +39,8 @@
               "type" : "POST"
               ,"url" : $("#userhomeFrm").attr("action")
               ,"headers" : {"jwt" : JSON.parse($("#data").text()).jws}
-              ,"success" : function(dat){
-                            $("#msgp").html(dat);
+              ,"complete" : function(jqXHR, textStatus){
+                            $("#msgp").html(jqXHR.responseText);
                           }
           });
     });
@@ -63,6 +68,7 @@
   <div id="msgp" style="max-width:700px;word-wrap:break-word;" th:text="${message}">No Message!</div>
   
   <div id="data" style="display:none;">
+  {}
   </div>
 </body>
 </html>

@@ -1,4 +1,4 @@
-package com.at.springboot.shiro.controller.jwt;
+package com.at.springboot.shiro.shiro.token;
 
 import org.apache.shiro.authc.AuthenticationToken;
 
@@ -7,20 +7,20 @@ import lombok.Data;
 @Data
 @SuppressWarnings("serial")
 public class JwtToken implements AuthenticationToken {
-    private String jws;
+    private String jwt;
 
-    public JwtToken(String jws) {
-        this.jws = jws;
+    public JwtToken(String jwt) {
+        this.jwt = jwt;
     }
     
     @Override
     public Object getPrincipal() {
-        return jws;
+        return jwt;
     }
 
     @Override
     public Object getCredentials() {
-        return jws;
+        return jwt;
     }
 
 }

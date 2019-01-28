@@ -8,9 +8,16 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.at.springboot.shiro.exception.ClientAccountException;
+import com.at.springboot.shiro.exception.ClientException;
+import com.at.springboot.shiro.exception.ServerAccountException;
+import com.at.springboot.shiro.exception.ServerException;
+import com.at.springboot.shiro.exception.ServerStorageException;
 import com.at.springboot.shiro.utils.JwtUtils;
 import com.at.springboot.shiro.vo.LoginResponse;
 import com.at.springboot.shiro.vo.LogoutResponse;
@@ -23,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/jwt")
 public class JwtController {
-    private static final String JSP_PREFIX_JWT = "/jwt";
+    private static final String TEMPLATES_PREFIX_JWT = "/jwt";
     private static final String JTI_INVALID = "INVALIDATED JTI";
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -32,21 +39,41 @@ public class JwtController {
     public ModelAndView login() {
         log.info("Entering login...");
         
-        ModelAndView mav = new ModelAndView(JSP_PREFIX_JWT + "/login");
+        ModelAndView mav = new ModelAndView(TEMPLATES_PREFIX_JWT + "/login");
         mav.addObject("message", "the login page");
 
         log.info("Leaving login...");
         return mav;
     }
-    
+
+    @RequestMapping(path = "/exthrower")
+    @ResponseBody
+    public String exceptionThrower(
+            @RequestParam(name="exName", defaultValue="RuntimeException", required=true) String exName
+            ) {
+        log.info("Entering exceptionThrower...");
+        
+        if("RuntimeException".equals(exName)) {
+            throw new RuntimeException("Runtime Exception");
+        }else if("ClientException".equals(exName)) {
+            throw new ClientException("Client Exception");
+        }else if("ClientAccountException".equals(exName)) {
+            throw new ClientAccountException("Client Account Exception");
+        }else if("ServerException".equals(exName)) {
+            throw new ServerException("Server Exception");
+        }else if("ServerAccountException".equals(exName)) {
+            throw new ServerAccountException("Server Account Exception");
+        }else if("ServerStorageException".equals(exName)) {
+            throw new ServerStorageException("Sever Storage Exception");
+        }
+
+        log.info("Leaving exceptionThrower...");
+        return exName;
+    }
 
     @RequestMapping(path = "/dologin")
     public LoginResponse doLogin(String username, String password) {
         log.info("Entering login...");
-        
-        LoginResponse loginResponse = new LoginResponse();
-        loginResponse.setOk(false);
-        loginResponse.setMsg("unknown error");
         
         // login
         Map<String, Object> queryResult = null;
@@ -56,10 +83,8 @@ public class JwtController {
                     , username
                     , password);
         }catch(DataAccessException e) {
-            loginResponse.setOk(false);
-            loginResponse.setMsg("username/password is invalid.");
             log.error("username/password is invalid. username: '{}', password: '{}'", username, password, e);
-            return loginResponse;
+            throw new ClientAccountException("username/password is invalid.", e);
         }
         // get uid
         Long uid = (Long)queryResult.get("user_id");
@@ -69,10 +94,8 @@ public class JwtController {
         claims.put("uid", uid.toString());
         String jwt = JwtUtils.genJws(claims);
         if(jwt == null) {
-            loginResponse.setOk(false);
-            loginResponse.setMsg("gen jws failed");
             log.error("gen jws failed, username: '{}', password: '{}'", username, password);
-            return loginResponse;
+            throw new ServerAccountException("gen jws failed.");
         }
         
         // extract jti
@@ -82,16 +105,15 @@ public class JwtController {
             jti = jwsClaims.getBody().getId();
             log.info("the new generated jti: '{}'", jti);
         }catch(Exception e) {
-            log.error("Passing the new generated jws failed.", e);
+            log.error("passing the new generated jws failed.", e);
+            throw new ServerAccountException("passing the new generated jws failed.", e);
         }
         
         // update jti
         int affectedRows = jdbcTemplate.update("update sec_user set jti = ? where user_id = ?", jti, uid);
         if(affectedRows != 1) {
             log.error("update jti failed, jti: '{}', user_id: '{}'", jti, uid);
-            loginResponse.setOk(false);
-            loginResponse.setMsg("update jti failed");
-            return loginResponse;
+            throw new ServerStorageException("update jti failed");
         }
 
 //        // shiro login
@@ -100,15 +122,12 @@ public class JwtController {
 //            shiroSubject.login(new JwtToken(jwt));
 //        }catch(AuthenticationException e) {
 //            log.error("shiro login failed. user_id: '{}', jti: '{}'", uid, jti, e);
-//            loginResponse.setOk(false);
-//            loginResponse.setMsg("shiro login failed");
-//            return loginResponse;
+//            throw new ServerAccountException("shiro login failed.", e);
 //        }
         
         
+        LoginResponse loginResponse = new LoginResponse();
         loginResponse.setJws(jwt);
-        loginResponse.setOk(true);
-        loginResponse.setMsg("generated");
         log.info("Leaving login...");
         return loginResponse;
     }
@@ -116,15 +135,13 @@ public class JwtController {
     @RequestMapping(path = "/dologout")
     public LogoutResponse doLogout(@RequestHeader(name="jwt", defaultValue="") String jws) {
         log.info("Entering logout...");
-        LogoutResponse logoutResponse = new LogoutResponse();
-        logoutResponse.setOk(false);
-        logoutResponse.setMsg("unknown error");
+
         
         // empty jws
         if("".equals(jws.trim())) {
             log.info("empty jws");
-            
-            logoutResponse.setOk(true);
+
+            LogoutResponse logoutResponse = new LogoutResponse();
             logoutResponse.setMsg("logedout");
             return logoutResponse;
         }
@@ -135,10 +152,8 @@ public class JwtController {
             jwsClaims = JwtUtils.verifyJws(jws);
         }catch(Exception e) {
             log.error("Incoming jws is invalid: '{}'", jws, e);
-
-            logoutResponse.setOk(false);
-            logoutResponse.setMsg("Incoming jws is invalid");
-            return logoutResponse;
+            
+            throw new ClientAccountException("Incoming jws is invalid");
         }
         
         // extract jti, uid
@@ -152,10 +167,8 @@ public class JwtController {
                     , uid
                     , jti);
         }catch(DataAccessException e) {
-            logoutResponse.setOk(false);
-            logoutResponse.setMsg("jws is out of date.");
             log.error("jws is out of date, user_id: '{}', jti: '{}'", uid, jti, e);
-            return logoutResponse;
+            throw new ClientAccountException("jws is out of date.");
         }
         
 //        // shiro logout
@@ -164,13 +177,11 @@ public class JwtController {
         // invalid the jti
         int affectedRows = jdbcTemplate.update("update sec_user set jti = ? where user_id = ?", JTI_INVALID, uid);
         if(affectedRows != 1) {
-            logoutResponse.setOk(false);
-            logoutResponse.setMsg("invalidating jti failed");
             log.error("invalidating jti failed, user_id: '{}'", uid);
-            return logoutResponse;
+            throw new ServerStorageException("invalidating jti failed");
         }
 
-        logoutResponse.setOk(true);
+        LogoutResponse logoutResponse = new LogoutResponse();
         logoutResponse.setMsg("logedout");
         log.info("Leaving logout...");
         return logoutResponse;
@@ -190,7 +201,7 @@ public class JwtController {
         String uid = jwsClaims.getBody().get("uid", String.class);
         log.debug("jti: '{}', uid: '{}'", jti, uid);
         
-        ModelAndView mav = new ModelAndView(JSP_PREFIX_JWT + "/userhome");
+        ModelAndView mav = new ModelAndView(TEMPLATES_PREFIX_JWT + "/userhome");
         Map<String, String> user = new HashMap<>();
         user.put("username", uid);
         mav.addObject("user", user);
