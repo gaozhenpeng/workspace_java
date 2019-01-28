@@ -11,7 +11,7 @@ public class ServerException extends AbstractAtRuntimeException{
 
     private void initProperties(String msg) {
         httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-        errorCode = httpStatus.value() + "-00";
+        errorCode = "9200";
         errorMessage = msg;
     }
     
