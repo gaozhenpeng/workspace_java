@@ -166,7 +166,7 @@ public class ShiroConfig {
               `updated_datetime` datetime NULL DEFAULT CURRENT_TIMESTAMP,
               `jti` varchar(64) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
               PRIMARY KEY (`user_id`)
-            ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
             
             insert into `sec_user` (user_id, user_name, password) values(1, 'rt', 'rtpw'), (2, 'adm', 'admpw'), (3, 'at', 'atpw')
             ;
@@ -181,7 +181,7 @@ public class ShiroConfig {
               KEY `FK_SUR_ROLE_ID` (`role_id`),
               CONSTRAINT `FK_SUR_ROLE_ID` FOREIGN KEY (`role_id`) REFERENCES `sec_role` (`role_id`) ON DELETE CASCADE ON UPDATE CASCADE,
               CONSTRAINT `FK_SUR_USER_ID` FOREIGN KEY (`user_id`) REFERENCES `sec_user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
-            ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
             
             insert into `sec_user_role` (user_role_id, user_id, role_id) values (1, 1, 1), (2, 1, 2), (3, 1, 3), (4, 2, 2), (5,3,3)
             ;
