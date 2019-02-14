@@ -24,7 +24,7 @@
     <orika.version>1.5.2</orika.version>
     <mysql-connector-java.version>8.0.13</mysql-connector-java.version>
     <pagehelper-spring-boot-starter.version>1.2.5</pagehelper-spring-boot-starter.version>
-    <mariaDB4j.version>2.3.0</mariaDB4j.version>
+    <mariaDB4j.version>2.4.0</mariaDB4j.version>
   </properties>
 
   <dependencies>

@@ -9,6 +9,14 @@ import ch.vorburger.mariadb4j.springframework.MariaDB4jSpringService;
 public class MariaDB4JConfiguration {
     @Bean
     public MariaDB4jSpringService mariaDB4j() {
-        return new MariaDB4jSpringService();
+        MariaDB4jSpringService mariaDB4jSpringService = new MariaDB4jSpringService();
+        mariaDB4jSpringService
+            .getConfiguration()
+                .addArg("--character-set-server=utf8mb4")
+                .addArg("--collation-server=utf8mb4_unicode_520_ci")
+                ;
+        
+        
+        return mariaDB4jSpringService;
     }
 }
