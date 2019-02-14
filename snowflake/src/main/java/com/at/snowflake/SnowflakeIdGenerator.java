@@ -168,7 +168,9 @@ public class SnowflakeIdGenerator {
             futureIds.add(executorService.submit(new Callable<Long>() {
                 @Override
                 public Long call() throws Exception {
-                    return snowflakeIdGenerator.nextId();
+                    Long snowFlakeId = snowflakeIdGenerator.nextId();
+                    log.info("snowFlakeId: '{}'", snowFlakeId);
+                    return snowFlakeId;
                 }
                 
             }));
