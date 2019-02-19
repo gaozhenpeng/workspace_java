@@ -6,7 +6,7 @@
 		<artifactId>workspace-java</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>jaxrs</groupId>
+	<groupId>com.at</groupId>
 	<artifactId>jaxrs-demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<build>

@@ -6,7 +6,7 @@
 		<artifactId>workspace-java</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>org.at</groupId>
+	<groupId>com.at</groupId>
 	<artifactId>jpa-demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<dependencies>
