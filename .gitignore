@@ -1,9 +1,9 @@
 .*
-/license-tools/cfg/grgbanking.lic
-/license-tools/cfg/grgbanking.ppk
-/license-tools/cfg/grgbanking.pub
-/spark/metastore_db
-/spark/output
-/sqlite/db
+/license-tools-demo/cfg/grgbanking.lic
+/license-tools-demo/cfg/grgbanking.ppk
+/license-tools-demo/cfg/grgbanking.pub
+/spark-demo/metastore_db
+/spark-demo/output
+/sqlite-demo/db
 /Servers
 /spring-boot-web-mybatis-mariadb4j-demo/mariadb_data/*
