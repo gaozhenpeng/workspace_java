@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
  *          5 bits for machine id
  *       2^10 = 1024
  *   * 12345678 1234
- *       12 bits of lastSequenceNum id
+ *       12 bits of lastSeqNum id
  *       2^12 = 4096
  */
 @Slf4j
@@ -65,7 +65,7 @@ public class SnowflakeIdGenerator {
     /** 5 bits in signed long, no bigger than 2^4 = 16 */
     private final long machineId;
     
-    private long lastSequenceNum = 0L;
+    private long lastSeqNum = 0L;
     private long lastTimestamp = -1L;
 
     public SnowflakeIdGenerator(long dataCenterId, long machineId) {
@@ -84,25 +84,26 @@ public class SnowflakeIdGenerator {
     public long nextId() throws InterruptedException {
         reentrantLock.lock();
         long thisTimestamp = timeGen();
-        long thisSequenceNum = lastSequenceNum;
+        long thisSeqNum = lastSeqNum;
         if (lastTimestamp == thisTimestamp) {
-            thisSequenceNum = (thisSequenceNum + 1) & SEQUENCE_MASK;
+            thisSeqNum = (thisSeqNum + 1) & SEQUENCE_MASK;
             // overflow
-            if (thisSequenceNum == 0) {
+            if (thisSeqNum == 0) {
                 thisTimestamp = tilNextMillis(thisTimestamp);
             }
         } else {
-            thisSequenceNum = 0L;
+            thisSeqNum = 0L;
         }
-        lastSequenceNum = thisSequenceNum;
+        lastSeqNum = thisSeqNum;
         lastTimestamp = thisTimestamp;
+        long theTimestamp = thisTimestamp - START_TIME_IN_MS;
         reentrantLock.unlock();
         
         if(log.isDebugEnabled()) {
-            log.debug("(thisTimestamp - START_TIME_IN_MS): {}, (thisTimestamp - START_TIME_IN_MS) & TIMESTAMP_MASK: {}, isEquals: '{}'"
-                    , (thisTimestamp - START_TIME_IN_MS)
-                    , (thisTimestamp - START_TIME_IN_MS) & TIMESTAMP_MASK
-                    , (thisTimestamp - START_TIME_IN_MS) == ((thisTimestamp - START_TIME_IN_MS) & TIMESTAMP_MASK));
+            log.debug("theTimestamp: {}, theTimestamp & TIMESTAMP_MASK: {}, isEquals: '{}'"
+                    , theTimestamp
+                    , theTimestamp & TIMESTAMP_MASK
+                    , theTimestamp == (theTimestamp & TIMESTAMP_MASK));
             log.debug("dataCenterId: {}, dataCenterId & DATA_CENTER_ID_MASK: {}, isEquals: '{}'"
                     , dataCenterId
                     , dataCenterId & DATA_CENTER_ID_MASK
@@ -112,15 +113,15 @@ public class SnowflakeIdGenerator {
                     , machineId & MACHINE_ID_MASK
                     , machineId == (machineId & MACHINE_ID_MASK));
             log.debug("thisSequenceNum: {}, thisSequenceNum & SEQUENCE_MASK: {}, isEquals: '{}'"
-                    , thisSequenceNum
-                    , thisSequenceNum & SEQUENCE_MASK
-                    , thisSequenceNum == (thisSequenceNum & SEQUENCE_MASK));
+                    , thisSeqNum
+                    , thisSeqNum & SEQUENCE_MASK
+                    , thisSeqNum == (thisSeqNum & SEQUENCE_MASK));
         }
-        if((thisTimestamp - START_TIME_IN_MS) != ((thisTimestamp - START_TIME_IN_MS) & TIMESTAMP_MASK)) {
-            log.info("(thisTimestamp - START_TIME_IN_MS): {}, (thisTimestamp - START_TIME_IN_MS) & TIMESTAMP_MASK: {}, isEquals: '{}'"
-                    , (thisTimestamp - START_TIME_IN_MS)
-                    , (thisTimestamp - START_TIME_IN_MS) & TIMESTAMP_MASK
-                    , (thisTimestamp - START_TIME_IN_MS) == ((thisTimestamp - START_TIME_IN_MS) & TIMESTAMP_MASK));
+        if(theTimestamp != (theTimestamp & TIMESTAMP_MASK)) {
+            log.info("theTimestamp: {}, theTimestamp & TIMESTAMP_MASK: {}, isEquals: '{}'"
+                    , theTimestamp
+                    , theTimestamp & TIMESTAMP_MASK
+                    , theTimestamp == (theTimestamp & TIMESTAMP_MASK));
         }
         if(dataCenterId != (dataCenterId & DATA_CENTER_ID_MASK)) {
             log.info("dataCenterId: {}, dataCenterId & DATA_CENTER_ID_MASK: {}, isEquals: '{}'"
@@ -134,16 +135,16 @@ public class SnowflakeIdGenerator {
                     , machineId & MACHINE_ID_MASK
                     , machineId == (machineId & MACHINE_ID_MASK));
         }
-        if(thisSequenceNum != (thisSequenceNum & SEQUENCE_MASK)) {
+        if(thisSeqNum != (thisSeqNum & SEQUENCE_MASK)) {
             log.info("thisSequenceNum: {}, thisSequenceNum & SEQUENCE_MASK: {}, isEquals: '{}'"
-                    , thisSequenceNum
-                    , thisSequenceNum & SEQUENCE_MASK
-                    , thisSequenceNum == (thisSequenceNum & SEQUENCE_MASK));
+                    , thisSeqNum
+                    , thisSeqNum & SEQUENCE_MASK
+                    , thisSeqNum == (thisSeqNum & SEQUENCE_MASK));
         }
-        return (((thisTimestamp - START_TIME_IN_MS) & TIMESTAMP_MASK)      << TIMESTAMP_LEFT_SHIFT_BITS)
-                | ((dataCenterId                    & DATA_CENTER_ID_MASK) << DATACENTER_ID_LEFT_SHIFT_BITS)
-                | ((machineId                       & MACHINE_ID_MASK)     << MACHINE_ID_LEFT_SHIFT_BITS)
-                | (thisSequenceNum                  & SEQUENCE_MASK);
+        return ((theTimestamp    & TIMESTAMP_MASK)      << TIMESTAMP_LEFT_SHIFT_BITS)
+                | ((dataCenterId & DATA_CENTER_ID_MASK) << DATACENTER_ID_LEFT_SHIFT_BITS)
+                | ((machineId    & MACHINE_ID_MASK)     << MACHINE_ID_LEFT_SHIFT_BITS)
+                | (thisSeqNum    & SEQUENCE_MASK);
     }
 
     private long tilNextMillis(long lastTimestamp) {
@@ -169,7 +170,7 @@ public class SnowflakeIdGenerator {
                 @Override
                 public Long call() throws Exception {
                     Long snowFlakeId = snowflakeIdGenerator.nextId();
-                    log.info("snowFlakeId: '{}'", snowFlakeId);
+//                    log.info("snowFlakeId: '{}'", snowFlakeId);
                     return snowFlakeId;
                 }
                 
