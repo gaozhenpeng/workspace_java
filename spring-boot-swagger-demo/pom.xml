@@ -130,6 +130,8 @@
         <configuration>
             <!-- main class -->
             <mainClass>${start-class}</mainClass>
+            <!-- -Dloader.path=/path/to/classpath -->
+            <layout>ZIP</layout>
         </configuration>
         <executions>
           <execution>
