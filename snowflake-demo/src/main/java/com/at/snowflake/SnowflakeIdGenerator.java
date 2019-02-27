@@ -42,15 +42,18 @@ public class SnowflakeIdGenerator {
     private final long DATACENTER_ID_BITS = 5L;
     private final long SEQUENCE_BITS = 12L;
 
-    private final long MACHINE_ID_LEFT_SHIFT_BITS = SEQUENCE_BITS;
-    private final long DATACENTER_ID_LEFT_SHIFT_BITS = SEQUENCE_BITS + MACHINE_ID_BITS;
-    private final long TIMESTAMP_LEFT_SHIFT_BITS = SEQUENCE_BITS + MACHINE_ID_BITS + DATACENTER_ID_BITS;
+    /** machine id left shift bits */
+    private final long MACHINE_ID_LS_BITS = SEQUENCE_BITS;
+    /** data center id left shift bits */
+    private final long DATACENTER_ID_LS_BITS = SEQUENCE_BITS + MACHINE_ID_BITS;
+    /** timestamp left shift bits */
+    private final long TIMESTAMP_LS_BITS = SEQUENCE_BITS + MACHINE_ID_BITS + DATACENTER_ID_BITS;
 
-    /** 0b1111 1111 1111 = 0xFFF */
+    /** 0b 1111 1111 1111 = 0xFFF */
     private final long SEQUENCE_MASK = 0xFFF;
-    /** 0b1 1111 = 0x1F */
+    /** 0b 1 1111 = 0x1F */
     private final long MACHINE_ID_MASK = 0x1F;
-    /** 0b1 1111 = 0x1F */
+    /** 0b 1 1111 = 0x1F */
     private final long DATA_CENTER_ID_MASK = 0x1F;
     /** 0b 1 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 = 0x1FFFFFFFFFF */
     private final long TIMESTAMP_MASK = 0x1FFFFFFFFFFL;
@@ -141,10 +144,12 @@ public class SnowflakeIdGenerator {
                     , thisSeqNum & SEQUENCE_MASK
                     , thisSeqNum == (thisSeqNum & SEQUENCE_MASK));
         }
-        return ((theTimestamp    & TIMESTAMP_MASK)      << TIMESTAMP_LEFT_SHIFT_BITS)
-                | ((dataCenterId & DATA_CENTER_ID_MASK) << DATACENTER_ID_LEFT_SHIFT_BITS)
-                | ((machineId    & MACHINE_ID_MASK)     << MACHINE_ID_LEFT_SHIFT_BITS)
-                | (thisSeqNum    & SEQUENCE_MASK);
+        return 
+              ((theTimestamp & TIMESTAMP_MASK)      << TIMESTAMP_LS_BITS)
+            | ((dataCenterId & DATA_CENTER_ID_MASK) << DATACENTER_ID_LS_BITS)
+            | ((machineId    & MACHINE_ID_MASK)     << MACHINE_ID_LS_BITS)
+            | (thisSeqNum    & SEQUENCE_MASK)
+            ;
     }
 
     private long tilNextMillis(long lastTimestamp) {
