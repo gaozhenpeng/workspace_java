@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- staic resources path in spring-boot
+    classpath:/META-INF/resources/
+    classpath:/resources/
+    classpath:/static/
+    classpath:/public/
+-->
+<script src="/js/jquery-3.3.1.js" th:src="@{/js/jquery-3.3.1.js}" type="application/javascript" ></script>
+</head>
+<body>
+  <form method="POST" enctype="multipart/form-data" action="/upload" th:action="@{/upload}">
+    File: <input type="file" name="myfile" />
+    <input type="submit" value="upload" />
+  </form>
+  <p th:text="${message}"></p>
+</body>
+</html>
