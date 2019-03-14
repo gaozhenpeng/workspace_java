@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.at.springboot.mybatis.mapper.UuidUserMapper">
+  <resultMap id="BaseResultMap" type="com.at.springboot.mybatis.po.UuidUser">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="bid" jdbcType="BINARY" property="bid" />
+    <result column="cid" jdbcType="CHAR" property="cid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+  </resultMap>
+</mapper>

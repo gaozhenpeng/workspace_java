@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+  <context id="context1" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+    <property name="javaFileEncoding" value="UTF-8"/>
+    <property name="useMapperCommentGenerator" value="true"/>
+    <!-- tkmybatis plugin -->
+    <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+        <property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
+        <property name="caseSensitive" value="true" />
+        <property name="forceAnnotation" value="true" />
+        <property name="beginningDelimiter" value="`" />
+        <property name="endingDelimiter" value="`" />
+        <property name="generateColumnConsts" value="true" />
+        <property name="lombok" value="Data,Accessors" />
+    </plugin>
+
+    <!-- jdbc configuration -->
+    <jdbcConnection
+        connectionURL="jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&amp;characterEncoding=utf8&amp;autoReconnect=true&amp;failOverReadOnly=false&amp;tinyInt1isBit=false&amp;noDatetimeStringSync=true&amp;zeroDateTimeBehavior=convertToNull&amp;serverTimezone=UTC&amp;useSSL=false&amp;nullCatalogMeansCurrent=true"
+        driverClass="com.mysql.cj.jdbc.Driver"
+        password=""
+        userId="root" />
+    <!-- po -->
+    <javaModelGenerator targetPackage="com.at.springboot.mybatis.po"
+        targetProject="src/main/java" >
+        <!-- 
+      <property name="enableSubPackages" value="true" />
+      <property name="trimStrings" value="true" />
+    -->
+    </javaModelGenerator>
+    <!-- XXXMapper.xml
+    -->
+    <sqlMapGenerator targetPackage="mybatis.mapper"
+        targetProject="src/main/resources" >
+        <!-- 
+      <property name="enableSubPackages" value="true" />
+    -->
+    </sqlMapGenerator>
+    <!-- XXXMapper.java XMLMAPPER
+    -->
+    <javaClientGenerator targetPackage="com.at.springboot.mybatis.mapper"
+         targetProject="src/main/java" type="XMLMAPPER" >
+        <!-- 
+      <property name="enableSubPackages" value="true" />
+    -->
+    </javaClientGenerator>
+    <!-- XXXMapper.java ANNOTATEDMAPPER
+    <javaClientGenerator targetPackage="com.at.springboot.mybatis.mapper"
+         targetProject="src/main/java" type="ANNOTATEDMAPPER" >
+      <property name="enableSubPackages" value="true" />
+    </javaClientGenerator>
+    -->
+    <!-- tables
+        <insert id="..." parameterType="..."
+            useGeneratedKeys="true" keyProperty="blogId" keyColumn="blog_id">
+            ...
+    -->
+    <table tableName="uuid_user" >
+    </table>
+  </context>
+</generatorConfiguration>
