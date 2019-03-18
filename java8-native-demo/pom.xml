@@ -8,6 +8,13 @@
   <groupId>com.at</groupId>
   <artifactId>java8-native-demo</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <properties>
+    <lombok.version>1.18.4</lombok.version>
+
+    <disruptor.version>3.4.2</disruptor.version>
+    <log4j-bom.version>2.11.1</log4j-bom.version>
+    
+  </properties>
   <dependencies>
     
     <dependency>

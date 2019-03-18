@@ -1,4 +1,4 @@
-package com.at.java_native;
+package com.at.java8;
 
 import java.util.Random;
 import java.util.UUID;

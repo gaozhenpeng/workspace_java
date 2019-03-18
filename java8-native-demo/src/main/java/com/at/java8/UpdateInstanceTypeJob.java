@@ -1,4 +1,4 @@
-package com.at.java8_concurrent;
+package com.at.java8;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;

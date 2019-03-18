@@ -1,4 +1,4 @@
-package com.at.java_native;
+package com.at.java8;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

@@ -1,4 +1,4 @@
-package com.at.java8_localtime;
+package com.at.java8;
 
 import java.time.DayOfWeek;
 import java.time.Instant;

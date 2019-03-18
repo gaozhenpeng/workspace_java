@@ -1,4 +1,4 @@
-package com.at.java_native;
+package com.at.java8;
 
 import java.util.ArrayList;
 import java.util.HashMap;
