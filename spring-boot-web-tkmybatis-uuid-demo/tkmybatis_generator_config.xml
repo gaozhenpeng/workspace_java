@@ -24,26 +24,26 @@
     <!-- po -->
     <javaModelGenerator targetPackage="com.at.springboot.mybatis.po"
         targetProject="src/main/java" >
-        <!-- 
+      <!-- 
       <property name="enableSubPackages" value="true" />
       <property name="trimStrings" value="true" />
-    -->
+      -->
     </javaModelGenerator>
     <!-- XXXMapper.xml
     -->
     <sqlMapGenerator targetPackage="mybatis.mapper"
         targetProject="src/main/resources" >
-        <!-- 
+      <!-- 
       <property name="enableSubPackages" value="true" />
-    -->
+      -->
     </sqlMapGenerator>
     <!-- XXXMapper.java XMLMAPPER
     -->
     <javaClientGenerator targetPackage="com.at.springboot.mybatis.mapper"
          targetProject="src/main/java" type="XMLMAPPER" >
-        <!-- 
+      <!-- 
       <property name="enableSubPackages" value="true" />
-    -->
+      -->
     </javaClientGenerator>
     <!-- XXXMapper.java ANNOTATEDMAPPER
     <javaClientGenerator targetPackage="com.at.springboot.mybatis.mapper"
