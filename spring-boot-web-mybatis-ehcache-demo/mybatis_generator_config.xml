@@ -30,11 +30,8 @@
       <property name="enableSubPackages" value="true" />
     </javaClientGenerator>
     -->
-    <!-- tables
-        <insert id="..." parameterType="..."
-            useGeneratedKeys="true" keyProperty="blogId" keyColumn="blog_id">
-            ...
-    -->
-    <table tableName="blog" />
+    <table tableName="blog" >
+      <generatedKey column="blog_id" sqlStatement="JDBC" />
+    </table>
   </context>
 </generatorConfiguration>
