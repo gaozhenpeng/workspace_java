@@ -22,7 +22,7 @@ import ma.glasnost.orika.MapperFacade;
  * Request Body:
  *     mutation {
  *       newAuthor( firstName : "fn1", lastName : "fn1"){
- *         id,createdTime,firstName,lastName,books
+ *         id,createdTime,firstName,lastName
  *       }
  *     }
  * 

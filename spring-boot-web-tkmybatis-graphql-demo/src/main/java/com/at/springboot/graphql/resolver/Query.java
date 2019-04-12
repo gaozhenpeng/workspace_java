@@ -38,7 +38,13 @@ import ma.glasnost.orika.MapperFacade;
  *     Request Body:
  *         query {
  *           findAuthorById(id : 1 ){
- *             id,createdTime,firstName,lastName,books
+ *             id,
+ *             createdTime,
+ *             firstName,
+ *             lastName,
+ *             books {
+ *               id,title,isbn,pageCount
+ *             }
  *           }
  *         }
  * 
