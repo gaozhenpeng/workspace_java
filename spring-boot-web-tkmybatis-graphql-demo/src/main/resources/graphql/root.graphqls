@@ -1,0 +1,22 @@
+#查询入口
+type Query {
+    ####### Author相关 #########
+    findAuthorById(id:Long!): AuthorDto
+
+    findAllAuthors: [AuthorDto]!
+
+    countAuthors: Long!
+
+    ####### Book相关 #########
+    findAllBooks: [BookDto]!
+    countBooks: Long!
+}
+
+type Mutation {
+    newAuthor(firstName: String!,lastName: String!) : AuthorDto!
+
+    newBook(title: String!,isbn: String!,pageCount: Int, authorId: Long!) : BookDto!
+    saveBook(input: BookReq!) : BookDto!
+    deleteBook(id: ID!) : Boolean
+    updateBookPageCount(pageCount: Int!, id:Long!) : BookDto!
+}
