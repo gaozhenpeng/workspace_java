@@ -139,7 +139,7 @@ public class MybatisDSConfiguration {
     public AspectJExpressionPointcutAdvisor transactionAdvisor() {
         AspectJExpressionPointcutAdvisor advisor = new AspectJExpressionPointcutAdvisor();
         advisor.setAdvice(myTransactionInterceptor());
-        advisor.setExpression("(execution(* com.at.springboot.web.svr.*Service.*(..))) && (execution(* com.at.springboot.graphql.reolver.*.*(..)))");
+        advisor.setExpression("(execution(* com.at.springboot.web.svr.*Service.*(..))) || (execution(* com.at.springboot.graphql.resolver.*.*(..)) )");
         return advisor;
     }
 }
