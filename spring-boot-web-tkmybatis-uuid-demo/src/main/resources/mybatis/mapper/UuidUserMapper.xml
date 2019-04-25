@@ -8,5 +8,7 @@
     <id column="bid" jdbcType="BINARY" property="bid" />
     <result column="cid" jdbcType="CHAR" property="cid" />
     <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="created_datetime" jdbcType="TIMESTAMP" property="createdDatetime" />
+    <result column="updated_datetime" jdbcType="TIMESTAMP" property="updatedDatetime" />
   </resultMap>
 </mapper>

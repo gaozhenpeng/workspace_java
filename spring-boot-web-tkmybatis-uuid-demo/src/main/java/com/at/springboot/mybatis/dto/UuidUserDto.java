@@ -7,4 +7,6 @@ public class UuidUserDto {
     private String bid;
     private String cid;
     private String name;
+    private String createdDatetime;
+    private String updatedDatetime;
 }

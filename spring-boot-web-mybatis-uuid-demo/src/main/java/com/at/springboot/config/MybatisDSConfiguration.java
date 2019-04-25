@@ -1,11 +1,14 @@
 package com.at.springboot.config;
 
 import java.sql.Driver;
+import java.time.LocalDateTime;
 import java.util.Properties;
 
 import javax.sql.DataSource;
 
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.type.LocalDateTimeTypeHandler;
+import org.apache.ibatis.type.TypeHandlerRegistry;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.aop.aspectj.AspectJExpressionPointcutAdvisor;
@@ -67,6 +70,10 @@ public class MybatisDSConfiguration {
         org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
         configuration.setMapUnderscoreToCamelCase(true);
         configuration.setCallSettersOnNulls(true);
+        // LocalDateTimeTypeHandler
+        TypeHandlerRegistry typeHandlerRegistry = configuration.getTypeHandlerRegistry();
+        typeHandlerRegistry.register(LocalDateTime.class, LocalDateTimeTypeHandler.class);
+        
         sessionFactory.setConfiguration(configuration);
         
         // Mybatis Mapper XML
