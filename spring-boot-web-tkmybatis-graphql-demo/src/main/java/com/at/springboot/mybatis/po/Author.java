@@ -1,6 +1,6 @@
 package com.at.springboot.mybatis.po;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import javax.persistence.*;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -21,13 +21,13 @@ public class Author {
      * 创建时间
      */
     @Column(name = "`created_time`")
-    private Date createdTime;
+    private LocalDateTime createdTime;
 
     /**
      * 更新时间
      */
     @Column(name = "`updated_time`")
-    private Date updatedTime;
+    private LocalDateTime updatedTime;
 
     /**
      * firstName

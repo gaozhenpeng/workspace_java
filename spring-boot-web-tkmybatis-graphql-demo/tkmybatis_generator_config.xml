@@ -21,6 +21,15 @@
         driverClass="com.mysql.cj.jdbc.Driver"
         password=""
         userId="root" />
+    <!-- JSR-310
+      JDBC Type   Resolved Java Type
+      DATE        java.time.LocalDate
+      TIME        java.time.LocalTime
+      TIMESTAMP   java.time.LocalDateTime 
+    -->
+    <javaTypeResolver >
+      <property name="useJSR310Types" value="true" />
+    </javaTypeResolver>
     <!-- po -->
     <javaModelGenerator targetPackage="com.at.springboot.mybatis.po"
         targetProject="src/main/java" >

@@ -5,18 +5,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.at.springboot.mybatis.dto.AuthorDto;
-import com.at.springboot.mybatis.dto.BookDto;
 import com.at.springboot.mybatis.mapper.AuthorMapper;
 import com.at.springboot.mybatis.mapper.BookMapper;
-import com.at.springboot.mybatis.po.Author;
-import com.at.springboot.mybatis.po.Book;
+import com.at.springboot.mybatis.vo.Author;
+import com.at.springboot.mybatis.vo.Book;
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 
 import lombok.AllArgsConstructor;
 import ma.glasnost.orika.MapperFacade;
 
 /**
+ * <pre><code>
  * Query Schema:
  *     POST http://localhost:8080/demo/gql
  *     Content-Type: application/graphql
@@ -47,7 +46,7 @@ import ma.glasnost.orika.MapperFacade;
  *             }
  *           }
  *         }
- * 
+ * </code></pre>
  */
 @Component
 @AllArgsConstructor
@@ -60,32 +59,32 @@ public class Query implements GraphQLQueryResolver {
     @Autowired
     private MapperFacade mapperFacade;
 
-    public AuthorDto findAuthorById(Long id) {
-        Author author = authorMapper.selectByPrimaryKey(id);
+    public Author findAuthorById(Long id) {
+        com.at.springboot.mybatis.po.Author author = authorMapper.selectByPrimaryKey(id);
         
-        return mapperFacade.map(author, AuthorDto.class);
+        return mapperFacade.map(author, Author.class);
     }
 
-    public List<AuthorDto> findAllAuthors() {
-        List<Author> authors = authorMapper.selectAll();
+    public List<Author> findAllAuthors() {
+        List<com.at.springboot.mybatis.po.Author> authors = authorMapper.selectAll();
         
-        return mapperFacade.mapAsList(authors, AuthorDto.class);
+        return mapperFacade.mapAsList(authors, Author.class);
     }
 
     public Long countAuthors() {
-        Author author = new Author();
+        com.at.springboot.mybatis.po.Author author = new com.at.springboot.mybatis.po.Author();
         int cnt = authorMapper.selectCount(author);
         return Long.valueOf(cnt);
     }
 
-    public List<BookDto> findAllBooks() {
-        List<Book> books = bookMapper.selectAll();
+    public List<Book> findAllBooks() {
+        List<com.at.springboot.mybatis.po.Book> books = bookMapper.selectAll();
         
-        return mapperFacade.mapAsList(books, BookDto.class);
+        return mapperFacade.mapAsList(books, Book.class);
     }
 
     public Long countBooks() {
-        Book book = new Book();
+        com.at.springboot.mybatis.po.Book book = new com.at.springboot.mybatis.po.Book();
         int cnt = bookMapper.selectCount(book);
         return Long.valueOf(cnt);
     }

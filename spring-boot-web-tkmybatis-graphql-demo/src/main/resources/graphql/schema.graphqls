@@ -1,4 +1,4 @@
-type AuthorDto {
+type Author {
     #作者Id
     id: Long!
     #创建时间
@@ -8,7 +8,7 @@ type AuthorDto {
     #姓
     lastName: String
     #该作者的所有书籍
-    books: [BookDto]
+    books: [Book]
 }
 
 input BookReq {
@@ -18,10 +18,10 @@ input BookReq {
     authorId: Long
 }
 
-type BookDto {
+type Book {
     id: Long!
     title: String!
     isbn: String!
     pageCount: Int
-    author: AuthorDto
+    author: Author
 }
