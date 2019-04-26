@@ -12,11 +12,10 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class UpdateInstanceTypeJob implements Callable<Long> {
-    private static final Logger logger = LoggerFactory.getLogger(UpdateInstanceTypeJob.class);
     private SecureRandom secureRandom = new SecureRandom();
 
     @Override
@@ -25,15 +24,15 @@ public class UpdateInstanceTypeJob implements Callable<Long> {
 
         long tid = Thread.currentThread().getId();
 
-        logger.debug("I'm a job. TID:" + tid);
+        log.debug("I'm a job. TID:" + tid);
 
 
         long sleepMS = secureRandom.nextInt(5000);
-        logger.debug("I'm going to sleep " + sleepMS + "(ms)");
+        log.debug("I'm going to sleep " + sleepMS + "(ms)");
 
         Thread.currentThread().sleep(sleepMS);
 
-        logger.debug("I'm leaving. TID:" + tid);
+        log.debug("I'm leaving. TID:" + tid);
 
         Date end = new Date();
         Long interval = end.getTime() - start.getTime();
@@ -56,23 +55,23 @@ public class UpdateInstanceTypeJob implements Callable<Long> {
         long total_runtime = 0;
 
         try{
-            logger.debug("before adding futures");
+            log.debug("before adding futures");
             for(int r = 0; r < runs; r++){
                 futures.add(execService.submit(new UpdateInstanceTypeJob())); // add 'Callable' jobs
             }
 
-            logger.debug("before getting results");
+            log.debug("before getting results");
             for(int r = 0; r < runs; r++){
                 total_runtime += futures.get(r).get(24, TimeUnit.HOURS); // the waiting time should be longer than the job itself. the control flow will stop here.
             }
-            logger.debug("after getting results");
+            log.debug("after getting results");
         }finally{
             execService.shutdown(); // 必须调用了 shutdown 方法才能在 awaitTermination 中当线程结束时返回
             execService.awaitTermination(3, TimeUnit.DAYS); // 等待在调用 shutdown之前加入的线程结束或是指定的时间到达
             execService.shutdownNow(); // 强制结束
         }
 
-        logger.info("total_runtime: " + total_runtime);
+        log.info("total_runtime: " + total_runtime);
 
     }
 }
