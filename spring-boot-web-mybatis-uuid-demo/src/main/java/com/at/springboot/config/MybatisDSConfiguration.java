@@ -70,9 +70,6 @@ public class MybatisDSConfiguration {
         org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
         configuration.setMapUnderscoreToCamelCase(true);
         configuration.setCallSettersOnNulls(true);
-        // LocalDateTimeTypeHandler
-        TypeHandlerRegistry typeHandlerRegistry = configuration.getTypeHandlerRegistry();
-        typeHandlerRegistry.register(LocalDateTime.class, LocalDateTimeTypeHandler.class);
         
         sessionFactory.setConfiguration(configuration);
         

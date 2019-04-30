@@ -111,10 +111,6 @@ public class MybatisDSConfiguration {
         configuration.setMapUnderscoreToCamelCase(true);
         configuration.setCallSettersOnNulls(true);
         configuration.setMapperHelper(new MapperHelper());
-
-        // LocalDateTimeTypeHandler
-        TypeHandlerRegistry typeHandlerRegistry = configuration.getTypeHandlerRegistry();
-        typeHandlerRegistry.register(LocalDateTime.class, LocalDateTimeTypeHandler.class);
         
         sessionFactory.setConfiguration(configuration);
         
