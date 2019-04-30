@@ -13,7 +13,7 @@ public class MariaDB4JConfiguration {
         mariaDB4jSpringService
             .getConfiguration()
                 .addArg("--character-set-server=utf8mb4")
-                .addArg("--collation-server=utf8mb4_unicode_520_cs")
+                .addArg("--collation-server=utf8mb4_0900_ai_ci")
                 ;
         
         
