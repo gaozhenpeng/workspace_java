@@ -15,7 +15,7 @@ package com.at.springboot.mybatis.po;
  *     , user_name varchar(20)
  *     , last_login_info json
  *     , primary key (id)
- * ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci
+ * ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_cs
  * ;
  * ALTER TABLE json_user
  *     ADD last_login_result VARCHAR(15) GENERATED ALWAYS AS (JSON_UNQUOTE(JSON_EXTRACT(last_login_info, '$.result')))

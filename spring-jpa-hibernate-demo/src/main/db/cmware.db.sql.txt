@@ -5,7 +5,7 @@ FLUSH PRIVILEGES;
 
 -- create db
 DROP DATABASE IF EXISTS `cmware`;
-CREATE DATABASE `cmware` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_520_ci';
+CREATE DATABASE `cmware` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_520_cs';
 USE `cmware`;
 
 -- table cm_deposit

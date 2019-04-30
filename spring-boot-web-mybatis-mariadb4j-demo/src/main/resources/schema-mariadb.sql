@@ -1,4 +1,4 @@
-CREATE DATABASE `ida` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci;
+CREATE DATABASE `ida` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_cs;
 use ida;
 
 create table borad

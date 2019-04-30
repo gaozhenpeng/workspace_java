@@ -122,22 +122,22 @@ public class ShiroConfig {
             
             CREATE TABLE `sec_permission` (
               `permission_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-              `permission_name` varchar(64) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
+              `permission_name` varchar(64) COLLATE utf8mb4_unicode_520_cs DEFAULT NULL,
               `created_datetime` datetime NULL DEFAULT CURRENT_TIMESTAMP,
               `updated_datetime` datetime NULL DEFAULT CURRENT_TIMESTAMP,
               PRIMARY KEY (`permission_id`)
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_cs;
             
             insert into `sec_permission` (permission_id, permission_name) values(1, '*'), (2, 'user:*'), (3, 'page:view'), (4, 'doc:view')
             ;
             
             CREATE TABLE `sec_role` (
               `role_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-              `role_name` varchar(64) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
+              `role_name` varchar(64) COLLATE utf8mb4_unicode_520_cs DEFAULT NULL,
               `created_datetime` datetime NULL DEFAULT CURRENT_TIMESTAMP,
               `updated_datetime` datetime NULL DEFAULT CURRENT_TIMESTAMP,
               PRIMARY KEY (`role_id`)
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_cs;
             
             insert into `sec_role` (role_id, role_name) values(1, 'superadmin'), (2, 'admin'), (3, 'user')
             ;
@@ -152,7 +152,7 @@ public class ShiroConfig {
               KEY `FK_SRP_ROLE_ID` (`role_id`),
               CONSTRAINT `FK_SRP_PERMISSION_ID` FOREIGN KEY (`permission_id`) REFERENCES `sec_permission` (`permission_id`) ON DELETE CASCADE ON UPDATE CASCADE,
               CONSTRAINT `FK_SRP_ROLE_ID` FOREIGN KEY (`role_id`) REFERENCES `sec_role` (`role_id`) ON DELETE CASCADE ON UPDATE CASCADE
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_cs;
             
             insert into `sec_role_permission` (role_permission_id, role_id, permission_id) values(1, 1, 1), (2, 2, 2), (3, 3, 3), (4, 3, 4)
             ;
@@ -160,13 +160,13 @@ public class ShiroConfig {
             
             CREATE TABLE `sec_user` (
               `user_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-              `user_name` varchar(64) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
-              `password` varchar(128) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
+              `user_name` varchar(64) COLLATE utf8mb4_unicode_520_cs DEFAULT NULL,
+              `password` varchar(128) COLLATE utf8mb4_unicode_520_cs DEFAULT NULL,
               `created_datetime` datetime NULL DEFAULT CURRENT_TIMESTAMP,
               `updated_datetime` datetime NULL DEFAULT CURRENT_TIMESTAMP,
-              `jti` varchar(64) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
+              `jti` varchar(64) COLLATE utf8mb4_unicode_520_cs DEFAULT NULL,
               PRIMARY KEY (`user_id`)
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_cs;
             
             insert into `sec_user` (user_id, user_name, password) values(1, 'rt', 'rtpw'), (2, 'adm', 'admpw'), (3, 'at', 'atpw')
             ;
@@ -181,7 +181,7 @@ public class ShiroConfig {
               KEY `FK_SUR_ROLE_ID` (`role_id`),
               CONSTRAINT `FK_SUR_ROLE_ID` FOREIGN KEY (`role_id`) REFERENCES `sec_role` (`role_id`) ON DELETE CASCADE ON UPDATE CASCADE,
               CONSTRAINT `FK_SUR_USER_ID` FOREIGN KEY (`user_id`) REFERENCES `sec_user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_cs;
             
             insert into `sec_user_role` (user_role_id, user_id, role_id) values (1, 1, 1), (2, 1, 2), (3, 1, 3), (4, 2, 2), (5,3,3)
             ;
