@@ -73,11 +73,13 @@ public class UuidUserService {
         log.info("list, uuidUserId: '{}' ", uuidUserId);
         
         Example uuidUserExample = new Example(UuidUser.class);
+        // NOTE: UuidUser.DB_NAME
         uuidUserExample.setOrderByClause(UuidUser.DB_NAME + " asc");
         
         if(uuidUserId != null) {
             uuidUserExample
                 .or()
+                    // NOTE: UuidUser.CID, not UuidUser.DB_CID
                     .andEqualTo(UuidUser.CID, uuidUserId)
                     ;
         }

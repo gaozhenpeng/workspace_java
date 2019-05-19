@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.at.springboot.mybatis.mapper.GeoipLocationMapper">
+  <resultMap id="BaseResultMap" type="com.at.springboot.mybatis.po.GeoipLocation">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="geoname_id" jdbcType="BIGINT" property="geonameId" />
+    <result column="locale_code" jdbcType="VARCHAR" property="localeCode" />
+    <result column="continent_code" jdbcType="VARCHAR" property="continentCode" />
+    <result column="continent_name" jdbcType="VARCHAR" property="continentName" />
+    <result column="country_iso_code" jdbcType="VARCHAR" property="countryIsoCode" />
+    <result column="country_name" jdbcType="VARCHAR" property="countryName" />
+    <result column="subdivision_1_iso_code" jdbcType="VARCHAR" property="subdivision1IsoCode" />
+    <result column="subdivision_1_name" jdbcType="VARCHAR" property="subdivision1Name" />
+    <result column="subdivision_2_iso_code" jdbcType="VARCHAR" property="subdivision2IsoCode" />
+    <result column="subdivision_2_name" jdbcType="VARCHAR" property="subdivision2Name" />
+    <result column="city_name" jdbcType="VARCHAR" property="cityName" />
+    <result column="metro_code" jdbcType="VARCHAR" property="metroCode" />
+    <result column="time_zone" jdbcType="VARCHAR" property="timeZone" />
+    <result column="is_in_european_union" jdbcType="TINYINT" property="isInEuropeanUnion" />
+  </resultMap>
+</mapper>

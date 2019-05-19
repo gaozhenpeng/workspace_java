@@ -1,0 +1,1168 @@
+* /pom.xml
+    <?xml version="1.0" encoding="UTF-8"?>
+    <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+      <modelVersion>4.0.0</modelVersion>
+      <parent>
+        <groupId>com.at</groupId>
+        <artifactId>workspace-java</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+      </parent>
+      <groupId>com.at.springboot</groupId>
+      <artifactId>spring-boot-web-tkmybatis-geoip-demo</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+      <packaging>jar</packaging>
+      <properties>
+         <!--
+           start-class with spring-boot-starter-parent
+           or define the mainClass property with spring-boot-maven-plugin
+         -->
+        <spring-boot-maven-plugin.configuration.mainClass>com.at.springboot.Application</spring-boot-maven-plugin.configuration.mainClass>
+        <start-class>${spring-boot-maven-plugin.configuration.mainClass}</start-class>
+    
+        <spring-boot.version>2.1.1.RELEASE</spring-boot.version>
+        <mybatis-spring-boot-starter.version>1.3.2</mybatis-spring-boot-starter.version>
+        <mapper-spring-boot-starter.version>2.1.5</mapper-spring-boot-starter.version>
+        <orika.version>1.5.2</orika.version>
+        <mysql-connector-java.version>8.0.13</mysql-connector-java.version>
+        <pagehelper-spring-boot-starter.version>1.2.5</pagehelper-spring-boot-starter.version>
+        <geoip2.version>2.12.0</geoip2.version>
+        <commons-net.version>3.6</commons-net.version>
+      </properties>
+    
+      <dependencies>
+      
+        <dependency>
+          <groupId>com.maxmind.geoip2</groupId>
+          <artifactId>geoip2</artifactId>
+          <version>${geoip2.version}</version>
+        </dependency>
+        
+        <dependency>
+          <groupId>commons-net</groupId>
+          <artifactId>commons-net</artifactId>
+          <version>${commons-net.version}</version>
+        </dependency>
+        
+      
+        <!-- mybatis -->
+        <dependency>
+          <groupId>org.mybatis.spring.boot</groupId>
+          <artifactId>mybatis-spring-boot-starter</artifactId>
+          <version>${mybatis-spring-boot-starter.version}</version>
+        </dependency>
+        <!-- tk.mybatis -->
+        <dependency>
+          <groupId>tk.mybatis</groupId>
+          <artifactId>mapper-spring-boot-starter</artifactId>
+          <version>${mapper-spring-boot-starter.version}</version>
+        </dependency>
+        <!-- mysql -->
+        <dependency>
+          <groupId>mysql</groupId>
+          <artifactId>mysql-connector-java</artifactId>
+          <scope>runtime</scope>
+          <version>${mysql-connector-java.version}</version><!--$NO-MVN-MAN-VER$-->
+        </dependency>
+         
+        <!-- orika -->
+        <dependency>
+          <groupId>ma.glasnost.orika</groupId>
+          <artifactId>orika-core</artifactId>
+          <version>${orika.version}</version>
+        </dependency>
+        
+        
+        <!-- spring boot starter -->
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter</artifactId>
+          <exclusions>
+            <exclusion>
+              <groupId>org.springframework.boot</groupId>
+              <artifactId>spring-boot-starter-logging</artifactId>
+            </exclusion>
+          </exclusions>
+        </dependency>
+        <!-- mvc -->
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!-- cache -->
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
+        <!-- actuator -->
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <!-- hot swapping -->
+        <!-- 
+          Default excludes:
+              /META-INF/maven
+              /META-INF/resources
+              /resources
+              /static
+              /public
+              /templates
+          User property:
+              spring.devtools.restart.exclude=/static/**,/templates/**
+        -->
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-devtools</artifactId>
+          <optional>true</optional>
+        </dependency>
+        <!-- aop transaction -->
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <!-- @ConfigurationProperties on @Bean -->
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-configuration-processor</artifactId>
+          <optional>true</optional>
+        </dependency>
+        <!-- log4j2 -->
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-log4j2</artifactId>
+        </dependency>
+    
+        <!-- async log4j2 -->
+        <dependency>
+          <groupId>com.lmax</groupId>
+          <artifactId>disruptor</artifactId>
+          <version>3.3.6</version>
+        </dependency>
+        <!-- lombok -->
+        <dependency>
+          <groupId>org.projectlombok</groupId>
+          <artifactId>lombok</artifactId>
+          <scope>provided</scope>
+        </dependency>
+    
+        <!-- test -->
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-test</artifactId>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
+    
+      <dependencyManagement>
+        <dependencies>
+          <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-parent</artifactId>
+            <version>${spring-boot.version}</version>
+            <scope>import</scope>
+            <type>pom</type>
+          </dependency>
+        </dependencies>
+      </dependencyManagement>
+    
+      <build>
+        <!--
+        <finalName>${project.artifactId}</finalName>
+        -->
+        <resources>
+          <!-- relative path to pom.xml -->
+          <resource>
+            <directory>src/main/resources</directory>
+            <filtering>true</filtering>
+          </resource>
+          <resource>
+            <directory>extres</directory>
+            <filtering>false</filtering>
+          </resource>
+        </resources>
+        <plugins>
+          <!-- Package as an executable jar -->
+          <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <version>${spring-boot.version}</version>
+            <configuration>
+                <!-- main class -->
+                <mainClass>${start-class}</mainClass>
+                <!-- -Dloader.path=/path/to/classpath -->
+                <layout>ZIP</layout>
+            </configuration>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>repackage</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          
+          <plugin>
+            <groupId>org.mybatis.generator</groupId>
+            <artifactId>mybatis-generator-maven-plugin</artifactId>
+            <version>1.3.7</version>
+            <configuration>
+              <configurationFile>${basedir}/tkmybatis_generator_config.xml</configurationFile>
+              <overwrite>true</overwrite>
+              <verbose>true</verbose>
+            </configuration>
+            <dependencies>
+              <!-- mysql -->
+              <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <scope>runtime</scope>
+                <version>${mysql-connector-java.version}</version><!--$NO-MVN-MAN-VER$-->
+              </dependency>
+              <!-- for tkmybatis generator -->
+              <dependency>
+                <groupId>tk.mybatis</groupId>
+                <artifactId>mapper</artifactId>
+                <version>4.1.5</version>
+              </dependency>
+            </dependencies>
+          </plugin>
+        </plugins>
+      </build>
+    
+    
+    </project>
+
+* /tkmybatis_generator_config.xml
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+    <generatorConfiguration>
+      <context id="context1" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <property name="useMapperCommentGenerator" value="true"/>
+        <!-- tkmybatis plugin -->
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
+            <property name="caseSensitive" value="true" />
+            <property name="forceAnnotation" value="true" />
+            <property name="beginningDelimiter" value="`" />
+            <property name="endingDelimiter" value="`" />
+            <property name="generateColumnConsts" value="true" />
+            <property name="lombok" value="Data,Accessors" />
+        </plugin>
+        
+    
+        <!-- jdbc configuration -->
+        <jdbcConnection
+            connectionURL="jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&amp;characterEncoding=utf8&amp;autoReconnect=true&amp;failOverReadOnly=false&amp;tinyInt1isBit=false&amp;noDatetimeStringSync=true&amp;zeroDateTimeBehavior=convertToNull&amp;serverTimezone=UTC&amp;useSSL=false&amp;nullCatalogMeansCurrent=true"
+            driverClass="com.mysql.cj.jdbc.Driver"
+            password=""
+            userId="root" />
+        <!-- JSR-310
+          JDBC Type   Resolved Java Type
+          DATE        java.time.LocalDate
+          TIME        java.time.LocalTime
+          TIMESTAMP   java.time.LocalDateTime 
+        -->
+        <javaTypeResolver >
+          <property name="useJSR310Types" value="true" />
+        </javaTypeResolver>
+        <!-- po -->
+        <javaModelGenerator targetPackage="com.at.springboot.mybatis.po"
+            targetProject="src/main/java" >
+          <!-- 
+          <property name="enableSubPackages" value="true" />
+          <property name="trimStrings" value="true" />
+          -->
+        </javaModelGenerator>
+        <!-- XXXMapper.xml
+        -->
+        <sqlMapGenerator targetPackage="mybatis.mapper"
+            targetProject="src/main/resources" >
+          <!-- 
+          <property name="enableSubPackages" value="true" />
+          -->
+        </sqlMapGenerator>
+        <!-- XXXMapper.java XMLMAPPER
+        -->
+        <javaClientGenerator targetPackage="com.at.springboot.mybatis.mapper"
+             targetProject="src/main/java" type="XMLMAPPER" >
+          <!-- 
+          <property name="enableSubPackages" value="true" />
+          -->
+        </javaClientGenerator>
+        <!-- XXXMapper.java ANNOTATEDMAPPER
+        <javaClientGenerator targetPackage="com.at.springboot.mybatis.mapper"
+             targetProject="src/main/java" type="ANNOTATEDMAPPER" >
+          <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+        -->
+        <table tableName="geoip_network" >
+          <!-- 
+          <generatedKey column="id" sqlStatement="JDBC"/>
+          -->
+        </table>
+        <table tableName="geoip_location" >
+          <!-- 
+          <generatedKey column="id" sqlStatement="JDBC"/>
+          -->
+        </table>
+      </context>
+    </generatorConfiguration>
+
+* /src/main/java/com/at/springboot/Application.java
+    package com.at.springboot;
+    
+    import org.springframework.boot.SpringApplication;
+    import org.springframework.boot.autoconfigure.SpringBootApplication;
+    
+    import lombok.extern.slf4j.Slf4j;
+    
+    @Slf4j
+    @SpringBootApplication(scanBasePackages="com.at.springboot")
+    public class Application {
+    
+        public static void main(String[] args) {
+            log.info("spring application main");
+            SpringApplication.run(Application.class, args);
+        }
+    }
+
+* /src/main/java/com/at/springboot/config/MmdbConfiguration.java
+    package com.at.springboot.config;
+    
+    import java.io.File;
+    import java.io.IOException;
+    
+    import org.springframework.beans.factory.annotation.Value;
+    import org.springframework.context.annotation.Bean;
+    import org.springframework.context.annotation.Configuration;
+    import org.springframework.core.io.ClassPathResource;
+    
+    import com.maxmind.geoip2.DatabaseReader;
+    
+    import lombok.extern.slf4j.Slf4j;
+    
+    @Slf4j
+    @Configuration
+    public class MmdbConfiguration {
+    
+        @Value("#{'${app.mmdb.fileClassPath}'.trim()}")
+        private String mmdbFileName;
+        
+        @Bean
+        public DatabaseReader mmdbReader() throws IOException {
+            log.info("initializing mmdb DatabaseReader from '{}'", mmdbFileName);
+            
+            File mmdbFile = new ClassPathResource(mmdbFileName).getFile();
+            
+            return new DatabaseReader.Builder(mmdbFile).build();
+        }
+    
+    }
+
+* /src/main/java/com/at/springboot/config/MybatisDSConfiguration.java
+    package com.at.springboot.config;
+    
+    import java.sql.Driver;
+    import java.util.Properties;
+    
+    import javax.sql.DataSource;
+    
+    import org.apache.ibatis.session.SqlSessionFactory;
+    import org.mybatis.spring.SqlSessionFactoryBean;
+    import org.mybatis.spring.annotation.MapperScan;
+    import org.springframework.aop.aspectj.AspectJExpressionPointcutAdvisor;
+    import org.springframework.beans.factory.annotation.Value;
+    import org.springframework.context.ApplicationContext;
+    import org.springframework.context.annotation.Bean;
+    import org.springframework.context.annotation.Configuration;
+    import org.springframework.core.io.Resource;
+    import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+    import org.springframework.jdbc.datasource.SimpleDriverDataSource;
+    import org.springframework.transaction.annotation.EnableTransactionManagement;
+    import org.springframework.transaction.interceptor.TransactionInterceptor;
+    
+    import tk.mybatis.mapper.mapperhelper.MapperHelper;
+    
+    
+    /**
+     * <p>It's not required to define the datasource explicitly if a single one is presented.
+     * </p>
+     * <p>Use <code>@Transactional</code> to mark transactional methods.
+     * </p>
+     * <p>
+     * </p>
+     */
+    @Configuration
+    @MapperScan(basePackages = "com.at.springboot.mybatis.mapper")
+    @EnableTransactionManagement
+    public class MybatisDSConfiguration {
+        @Value("#{'${app.datasource.driverClassName}'.trim()}")
+        private String driverClassName;
+        @Value("#{'${app.datasource.url}'.trim()}")
+        private String url;
+        @Value("#{'${app.datasource.username}'.trim()}")
+        private String username;
+        @Value("#{'${app.datasource.password}'.trim()}")
+        private String password;
+        
+        @Bean
+        public DataSource dataSource(){
+            try {
+                SimpleDriverDataSource simpleDriverDataSource  = new SimpleDriverDataSource();
+                Driver driver = (Driver)Class.forName(driverClassName).getDeclaredConstructor().newInstance();
+                simpleDriverDataSource.setDriver(driver);
+                simpleDriverDataSource.setUrl(url);
+                simpleDriverDataSource.setUsername(username);
+                simpleDriverDataSource.setPassword(password);
+                return simpleDriverDataSource;
+            } catch (Exception e) {
+                throw new RuntimeException("Not able to initilaize the data source.", e);
+            }
+        }
+    
+    
+        @Bean
+        public SqlSessionFactory sqlSessionFactory(ApplicationContext applicationContext) throws Exception {
+            SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
+            sessionFactory.setDataSource(dataSource());
+    
+    //        // Mybatis Config
+    //        org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
+    //        configuration.setMapUnderscoreToCamelCase(true);
+    //        configuration.setCallSettersOnNulls(true);
+            
+            // tk-mybatis Config
+            tk.mybatis.mapper.session.Configuration configuration = new tk.mybatis.mapper.session.Configuration();
+            configuration.setMapUnderscoreToCamelCase(true);
+            configuration.setCallSettersOnNulls(true);
+            configuration.setMapperHelper(new MapperHelper());
+            
+            sessionFactory.setConfiguration(configuration);
+            
+            // Mybatis Mapper XML
+            Resource[] resourceArray = applicationContext.getResources("classpath:/mybatis/**/*Mapper.xml");
+            sessionFactory.setMapperLocations(resourceArray);
+    
+            return sessionFactory.getObject();
+        }
+        
+        @Bean
+        public DataSourceTransactionManager dataSourceTransactionManager() {  
+            return new DataSourceTransactionManager(dataSource());
+        }  
+        
+        @Bean
+        public TransactionInterceptor myTransactionInterceptor() {
+            Properties props = new Properties();
+            props.setProperty("get*", "PROPAGATION_REQUIRED,-Throwable,readOnly");
+            props.setProperty("find*", "PROPAGATION_REQUIRED,-Throwable,readOnly");
+            props.setProperty("query*", "PROPAGATION_REQUIRED,-Throwable,readOnly");
+            props.setProperty("count*", "PROPAGATION_REQUIRED,-Throwable,readOnly");
+            props.setProperty("list*", "PROPAGATION_REQUIRED,-Throwable,readOnly");
+            props.setProperty("*", "PROPAGATION_REQUIRED,-Throwable");
+            return new TransactionInterceptor(dataSourceTransactionManager(), props);
+        }
+    
+        @Bean
+        public AspectJExpressionPointcutAdvisor transactionAdvisor() {
+            AspectJExpressionPointcutAdvisor advisor = new AspectJExpressionPointcutAdvisor();
+            advisor.setAdvice(myTransactionInterceptor());
+            advisor.setExpression("(execution(* com.at.springboot.web.svr.*Service.*(..)))");
+            return advisor;
+        }
+    }
+
+* /src/main/java/com/at/springboot/config/OrikaConfiguration.java
+    package com.at.springboot.config;
+    
+    import java.time.format.DateTimeFormatter;
+    
+    import org.springframework.context.annotation.Bean;
+    import org.springframework.context.annotation.Configuration;
+    
+    import lombok.extern.slf4j.Slf4j;
+    import ma.glasnost.orika.MapperFacade;
+    import ma.glasnost.orika.MapperFactory;
+    import ma.glasnost.orika.converter.ConverterFactory;
+    import ma.glasnost.orika.converter.builtin.DateToStringConverter;
+    import ma.glasnost.orika.impl.DefaultMapperFactory;
+    
+    @Slf4j
+    @Configuration
+    public class OrikaConfiguration {
+        private static final String DATE_PATTERN = "yyyy-MM-dd";
+        private static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
+        private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN);
+    
+        @Bean
+        public MapperFacade orikaMapperFacade() {
+            MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
+            ConverterFactory converterFactory  = mapperFactory.getConverterFactory();
+            
+            // global default date to string converter
+            converterFactory.registerConverter(new DateToStringConverter(DATE_TIME_PATTERN));
+            // named converter
+            converterFactory.registerConverter("dateFull", new DateToStringConverter(DATE_PATTERN));
+            converterFactory.registerConverter("dateTimeFull", new DateToStringConverter(DATE_TIME_PATTERN));
+            
+    
+    //        converterFactory.registerConverter("bidConverter", new BidirectionalConverter<byte[], String>() {
+    //            @Override
+    //            public String convertTo(byte[] bidBytes, Type<String> type, MappingContext mappingContext) {
+    //                log.debug("bidBytes: '{}'", bidBytes);
+    //                if(bidBytes == null) {
+    //                    return null;
+    //                }
+    //                boolean isToLowerCase = true;
+    //                String bidString = Hex.encodeHexString(bidBytes, isToLowerCase);
+    //                log.debug("bidString: '{}'", bidString);
+    //                return bidString;
+    //            }
+    //            @Override
+    //            public byte[] convertFrom(String bidString, Type<byte[]> type, MappingContext mappingContext) {
+    //                log.debug("bidString: '{}'", bidString);
+    //                if(bidString == null) {
+    //                    return null;
+    //                }
+    //                byte[] bidBytes;
+    //                try {
+    //                    bidBytes = Hex.decodeHex(bidString);
+    //                } catch (DecoderException e) {
+    //                    log.error("Hex.decodeHex('{}') failed.", bidString, e);
+    //                    bidBytes = new byte[0];
+    //                }
+    //                return bidBytes;
+    //            }
+    //        });
+    //        
+    //
+    //
+    //        converterFactory.registerConverter(new BidirectionalConverter<LocalDateTime, String>(){
+    //
+    //            @Override
+    //            public String convertTo(LocalDateTime localDateTime, Type<String> destinationType, MappingContext mappingContext) {
+    //                log.debug("source localDateTime: '{}'", localDateTime);
+    //                if(localDateTime == null) {
+    //                    return null;
+    //                }
+    //                String destinationString = dateTimeFormatter.format(localDateTime);
+    //                log.debug("destination string: '{}'", destinationString);
+    //                return destinationString;
+    //            }
+    //
+    //            @Override
+    //            public LocalDateTime convertFrom(String string, Type<LocalDateTime> destinationType, MappingContext mappingContext) {
+    //                log.debug("source string: '{}'", string);
+    //                if(string == null) {
+    //                    return null;
+    //                }
+    //                LocalDateTime destinationLocalDateTime = null;
+    //                try {
+    //                    destinationLocalDateTime = LocalDateTime.parse(string, dateTimeFormatter);
+    //                } catch (DateTimeParseException e) {
+    //                    log.error("LocalDateTime.parse('{}', DateTimeFormatter.ofPattern('{}')) failed.", string, DATE_TIME_PATTERN, e);
+    //                    destinationLocalDateTime = null;
+    //                }
+    //                log.debug("destination localDateTime: '{}'", destinationLocalDateTime);
+    //                return destinationLocalDateTime;
+    //            }
+    //            
+    //        });
+    //        
+    //        mapperFactory
+    //            .classMap(UuidUser.class, GeoipDto.class)
+    //            .byDefault()
+    //            .fieldMap("bid").converter("bidConverter")
+    //            .add()
+    //            .register()
+    //            ;
+    
+            return mapperFactory.getMapperFacade();
+        }
+        
+    }
+
+* /src/main/java/com/at/springboot/mybatis/dto/GeoipDto.java
+    package com.at.springboot.mybatis.dto;
+    
+    import lombok.Data;
+    
+    @Data
+    public class GeoipDto {
+        private String ip;
+        private String city;
+        private String countryName;
+        private String countryIsoCode;
+        private String latitude;
+        private String longitude;
+    }
+
+* /src/main/java/com/at/springboot/mybatis/mapper/GeoipLocationMapper.java
+    package com.at.springboot.mybatis.mapper;
+    
+    import com.at.springboot.mybatis.po.GeoipLocation;
+    import tk.mybatis.mapper.common.Mapper;
+    
+    public interface GeoipLocationMapper extends Mapper<GeoipLocation> {
+    }
+
+* /src/main/java/com/at/springboot/mybatis/mapper/GeoipNetworkMapper.java
+    package com.at.springboot.mybatis.mapper;
+    
+    import com.at.springboot.mybatis.po.GeoipNetwork;
+    import tk.mybatis.mapper.common.Mapper;
+    
+    public interface GeoipNetworkMapper extends Mapper<GeoipNetwork> {
+    }
+
+* /src/main/java/com/at/springboot/mybatis/po/GeoipLocation.java
+    package com.at.springboot.mybatis.po;
+    
+    import javax.persistence.*;
+    import lombok.Data;
+    import lombok.experimental.Accessors;
+    
+    @Data
+    @Accessors(chain = true)
+    @Table(name = "`geoip_location`")
+    public class GeoipLocation {
+        @Id
+        @Column(name = "`id`")
+        private Long id;
+    
+        @Column(name = "`geoname_id`")
+        private Long geonameId;
+    
+        @Column(name = "`locale_code`")
+        private String localeCode;
+    
+        @Column(name = "`continent_code`")
+        private String continentCode;
+    
+        @Column(name = "`continent_name`")
+        private String continentName;
+    
+        @Column(name = "`country_iso_code`")
+        private String countryIsoCode;
+    
+        @Column(name = "`country_name`")
+        private String countryName;
+    
+        @Column(name = "`subdivision_1_iso_code`")
+        private String subdivision1IsoCode;
+    
+        @Column(name = "`subdivision_1_name`")
+        private String subdivision1Name;
+    
+        @Column(name = "`subdivision_2_iso_code`")
+        private String subdivision2IsoCode;
+    
+        @Column(name = "`subdivision_2_name`")
+        private String subdivision2Name;
+    
+        @Column(name = "`city_name`")
+        private String cityName;
+    
+        @Column(name = "`metro_code`")
+        private String metroCode;
+    
+        @Column(name = "`time_zone`")
+        private String timeZone;
+    
+        @Column(name = "`is_in_european_union`")
+        private Byte isInEuropeanUnion;
+    
+        public static final String ID = "id";
+    
+        public static final String DB_ID = "id";
+    
+        public static final String GEONAME_ID = "geonameId";
+    
+        public static final String DB_GEONAME_ID = "geoname_id";
+    
+        public static final String LOCALE_CODE = "localeCode";
+    
+        public static final String DB_LOCALE_CODE = "locale_code";
+    
+        public static final String CONTINENT_CODE = "continentCode";
+    
+        public static final String DB_CONTINENT_CODE = "continent_code";
+    
+        public static final String CONTINENT_NAME = "continentName";
+    
+        public static final String DB_CONTINENT_NAME = "continent_name";
+    
+        public static final String COUNTRY_ISO_CODE = "countryIsoCode";
+    
+        public static final String DB_COUNTRY_ISO_CODE = "country_iso_code";
+    
+        public static final String COUNTRY_NAME = "countryName";
+    
+        public static final String DB_COUNTRY_NAME = "country_name";
+    
+        public static final String SUBDIVISION_1_ISO_CODE = "subdivision1IsoCode";
+    
+        public static final String DB_SUBDIVISION_1_ISO_CODE = "subdivision_1_iso_code";
+    
+        public static final String SUBDIVISION_1_NAME = "subdivision1Name";
+    
+        public static final String DB_SUBDIVISION_1_NAME = "subdivision_1_name";
+    
+        public static final String SUBDIVISION_2_ISO_CODE = "subdivision2IsoCode";
+    
+        public static final String DB_SUBDIVISION_2_ISO_CODE = "subdivision_2_iso_code";
+    
+        public static final String SUBDIVISION_2_NAME = "subdivision2Name";
+    
+        public static final String DB_SUBDIVISION_2_NAME = "subdivision_2_name";
+    
+        public static final String CITY_NAME = "cityName";
+    
+        public static final String DB_CITY_NAME = "city_name";
+    
+        public static final String METRO_CODE = "metroCode";
+    
+        public static final String DB_METRO_CODE = "metro_code";
+    
+        public static final String TIME_ZONE = "timeZone";
+    
+        public static final String DB_TIME_ZONE = "time_zone";
+    
+        public static final String IS_IN_EUROPEAN_UNION = "isInEuropeanUnion";
+    
+        public static final String DB_IS_IN_EUROPEAN_UNION = "is_in_european_union";
+    }
+
+* /src/main/java/com/at/springboot/mybatis/po/GeoipNetwork.java
+    package com.at.springboot.mybatis.po;
+    
+    import java.math.BigDecimal;
+    import javax.persistence.*;
+    import lombok.Data;
+    import lombok.experimental.Accessors;
+    
+    @Data
+    @Accessors(chain = true)
+    @Table(name = "`geoip_network`")
+    public class GeoipNetwork {
+        @Id
+        @Column(name = "`id`")
+        private Long id;
+    
+        @Column(name = "`network`")
+        private String network;
+    
+        @Column(name = "`network_start_ip`")
+        private String networkStartIp;
+    
+        @Column(name = "`network_last_ip`")
+        private String networkLastIp;
+    
+        @Column(name = "`network_start_integer`")
+        private Long networkStartInteger;
+    
+        @Column(name = "`network_last_integer`")
+        private Long networkLastInteger;
+    
+        @Column(name = "`geoname_id`")
+        private Long geonameId;
+    
+        @Column(name = "`registered_country_geoname_id`")
+        private Long registeredCountryGeonameId;
+    
+        @Column(name = "`represented_country_geoname_id`")
+        private String representedCountryGeonameId;
+    
+        @Column(name = "`is_anonymous_proxy`")
+        private Byte isAnonymousProxy;
+    
+        @Column(name = "`is_satellite_provider`")
+        private Byte isSatelliteProvider;
+    
+        @Column(name = "`postal_code`")
+        private String postalCode;
+    
+        @Column(name = "`latitude`")
+        private BigDecimal latitude;
+    
+        @Column(name = "`longitude`")
+        private BigDecimal longitude;
+    
+        @Column(name = "`accuracy_radius`")
+        private Integer accuracyRadius;
+    
+        public static final String ID = "id";
+    
+        public static final String DB_ID = "id";
+    
+        public static final String NETWORK = "network";
+    
+        public static final String DB_NETWORK = "network";
+    
+        public static final String NETWORK_START_IP = "networkStartIp";
+    
+        public static final String DB_NETWORK_START_IP = "network_start_ip";
+    
+        public static final String NETWORK_LAST_IP = "networkLastIp";
+    
+        public static final String DB_NETWORK_LAST_IP = "network_last_ip";
+    
+        public static final String NETWORK_START_INTEGER = "networkStartInteger";
+    
+        public static final String DB_NETWORK_START_INTEGER = "network_start_integer";
+    
+        public static final String NETWORK_LAST_INTEGER = "networkLastInteger";
+    
+        public static final String DB_NETWORK_LAST_INTEGER = "network_last_integer";
+    
+        public static final String GEONAME_ID = "geonameId";
+    
+        public static final String DB_GEONAME_ID = "geoname_id";
+    
+        public static final String REGISTERED_COUNTRY_GEONAME_ID = "registeredCountryGeonameId";
+    
+        public static final String DB_REGISTERED_COUNTRY_GEONAME_ID = "registered_country_geoname_id";
+    
+        public static final String REPRESENTED_COUNTRY_GEONAME_ID = "representedCountryGeonameId";
+    
+        public static final String DB_REPRESENTED_COUNTRY_GEONAME_ID = "represented_country_geoname_id";
+    
+        public static final String IS_ANONYMOUS_PROXY = "isAnonymousProxy";
+    
+        public static final String DB_IS_ANONYMOUS_PROXY = "is_anonymous_proxy";
+    
+        public static final String IS_SATELLITE_PROVIDER = "isSatelliteProvider";
+    
+        public static final String DB_IS_SATELLITE_PROVIDER = "is_satellite_provider";
+    
+        public static final String POSTAL_CODE = "postalCode";
+    
+        public static final String DB_POSTAL_CODE = "postal_code";
+    
+        public static final String LATITUDE = "latitude";
+    
+        public static final String DB_LATITUDE = "latitude";
+    
+        public static final String LONGITUDE = "longitude";
+    
+        public static final String DB_LONGITUDE = "longitude";
+    
+        public static final String ACCURACY_RADIUS = "accuracyRadius";
+    
+        public static final String DB_ACCURACY_RADIUS = "accuracy_radius";
+    }
+
+* /src/main/java/com/at/springboot/mybatis/vo/Geoip.java
+    package com.at.springboot.mybatis.vo;
+    
+    import lombok.Data;
+    
+    @Data
+    public class Geoip {
+        private String ip;
+        private String city;
+        private String countryName;
+        private String countryIsoCode;
+        private String latitude;
+        private String longitude;
+    }
+
+* /src/main/java/com/at/springboot/web/ctrl/GeoipController.java
+    package com.at.springboot.web.ctrl;
+    
+    import java.io.IOException;
+    import java.net.UnknownHostException;
+    
+    import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.web.bind.annotation.RequestMapping;
+    import org.springframework.web.bind.annotation.RequestParam;
+    import org.springframework.web.bind.annotation.RestController;
+    
+    import com.at.springboot.mybatis.dto.GeoipDto;
+    import com.at.springboot.mybatis.vo.Geoip;
+    import com.at.springboot.web.svr.GeoipMmdbService;
+    import com.at.springboot.web.svr.GeoipRmdbService;
+    import com.maxmind.geoip2.exception.GeoIp2Exception;
+    
+    import lombok.extern.slf4j.Slf4j;
+    import ma.glasnost.orika.MapperFacade;
+    
+    @Slf4j
+    @RestController
+    @RequestMapping("/geoip")
+    public class GeoipController {
+        @Autowired
+        private MapperFacade orikaMapper;
+        @Autowired
+        private GeoipRmdbService geoipRmdbService;
+        @Autowired
+        private GeoipMmdbService geoipMmdbService;
+    
+        @RequestMapping("/rmdb/q")
+        public Geoip rmdbq(@RequestParam(required=true) String ip) throws UnknownHostException {
+            log.info("ip: '{}'", ip);
+            
+            GeoipDto geoipDto = geoipRmdbService.queryLocationByIp(ip);
+            return orikaMapper.map(geoipDto, Geoip.class);
+        }
+    
+        @RequestMapping("/mmdb/q")
+        public Geoip mmdbq(@RequestParam(required=true) String ip) throws IOException, GeoIp2Exception {
+            log.info("ip: '{}'", ip);
+            
+            GeoipDto geoipDto = geoipMmdbService.queryLocationByIp(ip);
+            return orikaMapper.map(geoipDto, Geoip.class);
+        }
+    }
+
+* /src/main/java/com/at/springboot/web/svr/GeoipMmdbService.java
+    package com.at.springboot.web.svr;
+    
+    import java.io.IOException;
+    import java.net.InetAddress;
+    import java.text.MessageFormat;
+    
+    import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.stereotype.Service;
+    import org.springframework.util.Assert;
+    
+    import com.at.springboot.mybatis.dto.GeoipDto;
+    import com.maxmind.geoip2.DatabaseReader;
+    import com.maxmind.geoip2.exception.GeoIp2Exception;
+    import com.maxmind.geoip2.model.CityResponse;
+    import com.maxmind.geoip2.record.City;
+    import com.maxmind.geoip2.record.Country;
+    import com.maxmind.geoip2.record.Location;
+    
+    import lombok.extern.slf4j.Slf4j;
+    
+    @Slf4j
+    @Service
+    public class GeoipMmdbService {
+        @Autowired
+        private DatabaseReader mmdbReader = null;
+        
+        public GeoipDto queryLocationByIp(String ip) throws IOException, GeoIp2Exception {
+            log.info("ip: '{}'", ip);
+            Assert.notNull(ip, "ip should not be null");
+            
+            
+            InetAddress ipAddress = InetAddress.getByName(ip);
+    
+            CityResponse response = mmdbReader.city(ipAddress);
+            Location location = response.getLocation();
+            Country country = response.getCountry();
+            City city = response.getCity();
+            
+            GeoipDto geoipDto = new GeoipDto();
+    
+            // assemble geoip dto
+    //        geoipDto.setCity(city.getName()); // Guangzhou
+            geoipDto.setCity(city.getNames().get("zh-CN")); // 广州
+            geoipDto.setCountryIsoCode(country.getIsoCode());
+    //        geoipDto.setCountryName(country.getName()); // China
+            geoipDto.setCountryName(country.getNames().get("zh-CN")); // 中国
+            geoipDto.setIp(ip);
+            geoipDto.setLatitude(MessageFormat.format("{0,number,0.000000}", location.getLatitude()));
+            geoipDto.setLongitude(MessageFormat.format("{0,number,0.000000}", location.getLongitude()));
+            
+            
+            log.info("geoipDto: '{}'", geoipDto);
+            return geoipDto;
+        }
+    }
+
+* /src/main/java/com/at/springboot/web/svr/GeoipRmdbService.java
+    package com.at.springboot.web.svr;
+    
+    import java.net.InetAddress;
+    import java.net.UnknownHostException;
+    import java.nio.ByteBuffer;
+    
+    import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.stereotype.Service;
+    import org.springframework.util.Assert;
+    
+    import com.at.springboot.mybatis.dto.GeoipDto;
+    import com.at.springboot.mybatis.mapper.GeoipLocationMapper;
+    import com.at.springboot.mybatis.mapper.GeoipNetworkMapper;
+    import com.at.springboot.mybatis.po.GeoipLocation;
+    import com.at.springboot.mybatis.po.GeoipNetwork;
+    
+    import lombok.extern.slf4j.Slf4j;
+    import tk.mybatis.mapper.entity.Example;
+    
+    @Slf4j
+    @Service
+    public class GeoipRmdbService {
+    
+        @Autowired
+        private GeoipNetworkMapper geoipNetworkMapper;
+        @Autowired
+        private GeoipLocationMapper geoipLocationMapper;
+        
+        public GeoipDto queryLocationByIp(String ip) throws UnknownHostException {
+            log.info("ip: '{}'", ip);
+            Assert.notNull(ip, "ip should not be null");
+            
+            InetAddress inetAddress = InetAddress.getByName(ip);
+            
+            ByteBuffer byteBuffer = ByteBuffer.allocate(Integer.SIZE);
+            byteBuffer.put(inetAddress.getAddress());
+            byteBuffer.position(0);
+            
+            long ipLong = byteBuffer.getInt() & 0xFFFFFFFFL;
+            
+            GeoipDto geoipDto = new GeoipDto();
+            
+            // get network geoname_id
+            Example networkExample = new Example(GeoipNetwork.class);
+            networkExample
+                .or()
+                    // NOTE: GeoipNetwork.NETWORK_LAST_INTEGER, not GeoipNetwork.DB_NETWORK_LAST_INTEGER
+                    .andLessThanOrEqualTo(GeoipNetwork.NETWORK_START_INTEGER, ipLong)
+                    .andGreaterThanOrEqualTo(GeoipNetwork.NETWORK_LAST_INTEGER, ipLong)
+                    ;
+            GeoipNetwork geoipNetwork = geoipNetworkMapper.selectOneByExample(networkExample);
+            if(geoipNetwork == null) {
+                return geoipDto;
+            }
+            long networkGeonameId = geoipNetwork.getGeonameId();
+            
+            // query location info
+            Example locationExample = new Example(GeoipLocation.class);
+            locationExample
+                .or()
+                    .andEqualTo(GeoipLocation.GEONAME_ID, networkGeonameId)
+                    ;
+            GeoipLocation geoipLocation = geoipLocationMapper.selectOneByExample(locationExample);
+            if(geoipLocation == null) {
+                return geoipDto;
+            }
+            
+            // assemble geoip dto
+            geoipDto.setCity(geoipLocation.getCityName());
+            geoipDto.setCountryIsoCode(geoipLocation.getCountryIsoCode());
+            geoipDto.setCountryName(geoipLocation.getCountryName());
+            geoipDto.setIp(ip);
+            geoipDto.setLatitude(geoipNetwork.getLatitude().toPlainString());
+            geoipDto.setLongitude(geoipNetwork.getLongitude().toPlainString());
+            
+            log.info("geoipDto: '{}'", geoipDto);
+            return geoipDto;
+        }
+    }
+
+* /src/main/resources/application.properties
+    # web server
+    server.port = 8080
+    server.servlet.context-path = /demo
+    
+    # encoding
+    spring.http.encoding.charset = UTF-8
+    spring.http.encoding.enabled = true
+    spring.http.encoding.force = true
+    
+    
+    # management server
+    management.server.port = 8081
+    management.server.address = 127.0.0.1
+    management.server.servlet.context-path = /mgt
+    
+    # expose all endpoints by web
+    management.endpoints.web.exposure.include = *
+    management.endpoint.health.show-details = always
+    
+    # enable shutdown
+    management.endpoint.shutdown.enabled = true
+    
+    ### spring datasource primary
+    #spring.datasource.driverClassName = com.mysql.cj.jdbc.Driver
+    #spring.datasource.url = jdbc:mysql://127.0.0.1:3306/IDA_DB?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&tinyInt1isBit=false&noDatetimeStringSync=true&zeroDateTimeBehavior=convertToNull&serverTimezone=UTC&useSSL=false&createDatabaseIfNotExist=true
+    #spring.datasource.username = root
+    #spring.datasource.password = 
+    #spring.datasource.platform = mariadb
+    #spring.datasource.initialization-mode = always
+    #spring.datasource.continue-on-error = true
+    
+    # datasource
+    app.datasource.driverClassName = com.mysql.cj.jdbc.Driver
+    app.datasource.url = jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&tinyInt1isBit=false&noDatetimeStringSync=true&zeroDateTimeBehavior=convertToNull&serverTimezone=UTC&useSSL=false
+    app.datasource.username = root
+    app.datasource.password = 
+    
+    # tkmybatis
+    mapper.not-empty = true
+    
+    
+    ### pagehelper
+    ## Enable method arguments in Mapper
+    ##    @Param("pageNumKey"), @Param("PageSizeKey")
+    #pagehelper.support-methods-arguments = true
+    #pagehelper.params = pageNum=pageNumKey;pageSize=pageSizeKey;
+    
+    # mmdb
+    app.mmdb.fileClassPath = /geoip/GeoLite2-City.mmdb
+    
+    
+    
+    
+    
+    
+
+* /src/main/resources/log4j2.xml
+
+* /src/main/resources/mybatis/mapper/GeoipLocationMapper.xml
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.at.springboot.mybatis.mapper.GeoipLocationMapper">
+      <resultMap id="BaseResultMap" type="com.at.springboot.mybatis.po.GeoipLocation">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="geoname_id" jdbcType="BIGINT" property="geonameId" />
+        <result column="locale_code" jdbcType="VARCHAR" property="localeCode" />
+        <result column="continent_code" jdbcType="VARCHAR" property="continentCode" />
+        <result column="continent_name" jdbcType="VARCHAR" property="continentName" />
+        <result column="country_iso_code" jdbcType="VARCHAR" property="countryIsoCode" />
+        <result column="country_name" jdbcType="VARCHAR" property="countryName" />
+        <result column="subdivision_1_iso_code" jdbcType="VARCHAR" property="subdivision1IsoCode" />
+        <result column="subdivision_1_name" jdbcType="VARCHAR" property="subdivision1Name" />
+        <result column="subdivision_2_iso_code" jdbcType="VARCHAR" property="subdivision2IsoCode" />
+        <result column="subdivision_2_name" jdbcType="VARCHAR" property="subdivision2Name" />
+        <result column="city_name" jdbcType="VARCHAR" property="cityName" />
+        <result column="metro_code" jdbcType="VARCHAR" property="metroCode" />
+        <result column="time_zone" jdbcType="VARCHAR" property="timeZone" />
+        <result column="is_in_european_union" jdbcType="TINYINT" property="isInEuropeanUnion" />
+      </resultMap>
+    </mapper>
+
+* /src/main/resources/mybatis/mapper/GeoipNetworkMapper.xml
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.at.springboot.mybatis.mapper.GeoipNetworkMapper">
+      <resultMap id="BaseResultMap" type="com.at.springboot.mybatis.po.GeoipNetwork">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="network" jdbcType="VARCHAR" property="network" />
+        <result column="network_start_ip" jdbcType="VARCHAR" property="networkStartIp" />
+        <result column="network_last_ip" jdbcType="VARCHAR" property="networkLastIp" />
+        <result column="network_start_integer" jdbcType="BIGINT" property="networkStartInteger" />
+        <result column="network_last_integer" jdbcType="BIGINT" property="networkLastInteger" />
+        <result column="geoname_id" jdbcType="BIGINT" property="geonameId" />
+        <result column="registered_country_geoname_id" jdbcType="BIGINT" property="registeredCountryGeonameId" />
+        <result column="represented_country_geoname_id" jdbcType="VARCHAR" property="representedCountryGeonameId" />
+        <result column="is_anonymous_proxy" jdbcType="TINYINT" property="isAnonymousProxy" />
+        <result column="is_satellite_provider" jdbcType="TINYINT" property="isSatelliteProvider" />
+        <result column="postal_code" jdbcType="VARCHAR" property="postalCode" />
+        <result column="latitude" jdbcType="DECIMAL" property="latitude" />
+        <result column="longitude" jdbcType="DECIMAL" property="longitude" />
+        <result column="accuracy_radius" jdbcType="INTEGER" property="accuracyRadius" />
+      </resultMap>
+    </mapper>
+

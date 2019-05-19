@@ -7,3 +7,4 @@
 /sqlite-demo/db
 /Servers
 /spring-boot-web-mybatis-mariadb4j-demo/mariadb_data/*
+/spring-boot-web-tkmybatis-geoip-demo/extres/geoip/GeoLite2-City.mmdb
