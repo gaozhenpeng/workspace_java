@@ -36,6 +36,14 @@ public class GeoipController {
         return orikaMapper.map(geoipDto, Geoip.class);
     }
 
+    @RequestMapping("/rmdb/qs")
+    public Geoip rmdbqs(@RequestParam(required=true) String ip) throws UnknownHostException {
+        log.info("ip: '{}'", ip);
+        
+        GeoipDto geoipDto = geoipRmdbService.queryLocationByIpSpatial(ip);
+        return orikaMapper.map(geoipDto, Geoip.class);
+    }
+
     @RequestMapping("/mmdb/q")
     public Geoip mmdbq(@RequestParam(required=true) String ip) throws IOException, GeoIp2Exception {
         log.info("ip: '{}'", ip);

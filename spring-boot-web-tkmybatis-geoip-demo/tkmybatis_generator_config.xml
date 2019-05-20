@@ -65,11 +65,28 @@
       <!-- 
       <generatedKey column="id" sqlStatement="JDBC"/>
       -->
+      <columnOverride column="id" jdbcType="BIGINT" javaType="Long" />
+      <columnOverride column="network_start_integer" jdbcType="BIGINT" javaType="Long" />
+      <columnOverride column="network_last_integer" jdbcType="BIGINT" javaType="Long" />
+      <columnOverride column="geoname_id" jdbcType="BIGINT" javaType="Long" />
+      <columnOverride column="registered_country_geoname_id" jdbcType="BIGINT" javaType="Long" />
     </table>
     <table tableName="geoip_location" >
       <!-- 
       <generatedKey column="id" sqlStatement="JDBC"/>
       -->
+      <columnOverride column="id" jdbcType="BIGINT" javaType="Long" />
+      <columnOverride column="geoname_id" jdbcType="BIGINT" javaType="Long" />
+    </table>
+    <table tableName="geoip_network_spatial" >
+      <!-- 
+      <generatedKey column="id" sqlStatement="JDBC"/>
+      -->
+      <columnOverride column="id" jdbcType="BIGINT" javaType="Long" />
+      <columnOverride column="network_start_integer" jdbcType="BIGINT" javaType="Long" />
+      <columnOverride column="network_last_integer" jdbcType="BIGINT" javaType="Long" />
+      <columnOverride column="geoname_id" jdbcType="BIGINT" javaType="Long" />
+      <columnOverride column="registered_country_geoname_id" jdbcType="BIGINT" javaType="Long" />
     </table>
   </context>
 </generatorConfiguration>

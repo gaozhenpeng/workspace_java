@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.at.springboot.mybatis.mapper.GeoipNetworkSpatialMapper">
+  <resultMap id="BaseResultMap" type="com.at.springboot.mybatis.po.GeoipNetworkSpatial">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="network" jdbcType="VARCHAR" property="network" />
+    <result column="network_start_ip" jdbcType="VARCHAR" property="networkStartIp" />
+    <result column="network_last_ip" jdbcType="VARCHAR" property="networkLastIp" />
+    <result column="network_start_integer" jdbcType="BIGINT" property="networkStartInteger" />
+    <result column="network_last_integer" jdbcType="BIGINT" property="networkLastInteger" />
+    <result column="geoname_id" jdbcType="BIGINT" property="geonameId" />
+    <result column="registered_country_geoname_id" jdbcType="BIGINT" property="registeredCountryGeonameId" />
+    <result column="represented_country_geoname_id" jdbcType="VARCHAR" property="representedCountryGeonameId" />
+    <result column="is_anonymous_proxy" jdbcType="TINYINT" property="isAnonymousProxy" />
+    <result column="is_satellite_provider" jdbcType="TINYINT" property="isSatelliteProvider" />
+    <result column="postal_code" jdbcType="VARCHAR" property="postalCode" />
+    <result column="latitude" jdbcType="DECIMAL" property="latitude" />
+    <result column="longitude" jdbcType="DECIMAL" property="longitude" />
+    <result column="accuracy_radius" jdbcType="INTEGER" property="accuracyRadius" />
+    <result column="network_geometry" jdbcType="BINARY" property="networkGeometry" />
+  </resultMap>
+  
+  <select id="selectByUnsignedIntegerIP" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+      * 
+    from `geoip_network_spatial`
+    where mbrcontains(
+            `network_geometry`
+            , ST_PointFromText(
+              concat('POINT(', #{ip,jdbcType=BIGINT}, ' 0)')
+              )
+          )
+  </select>
+</mapper>
