@@ -26,11 +26,11 @@ import org.bouncycastle.math.ec.ECCurve;
 import org.bouncycastle.math.ec.ECPoint;
 import org.bouncycastle.openssl.EncryptionException;
 import org.bouncycastle.util.encoders.Hex;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class ECMain {
-    private static final Logger logger = LoggerFactory.getLogger(ECMain.class);
     private static final String INNER_STRING_CHARSET = "ISO-8859-1";
     private static final String ENCRYPT_ALGORITHM = "ECIESwithDESede/NONE/PKCS7Padding";
     
@@ -158,12 +158,12 @@ public class ECMain {
     }
 
     public static void main(String[] args) throws Exception {
-        logger.trace("logback is ready.");
+        log.trace("logback is ready.");
         
         long startTime_ms = new Date().getTime();
         long i=0;
         for(i = 0; i < 1; i++){
-            logger.trace("i = " + i);
+            log.trace("i = " + i);
             
 //          Security.addProvider(new BouncyCastleProvider());
             // 生成公钥和私钥
@@ -175,17 +175,17 @@ public class ECMain {
             
             // 打印密钥信息
             ECCurve ecCurve = ecPublicKey.getParameters().getCurve();
-            logger.trace("椭圆曲线参数a = " + ecCurve.getA().toBigInteger().toString(16));
-            logger.trace("椭圆曲线参数b = " + ecCurve.getB().toBigInteger().toString(16));
+            log.trace("椭圆曲线参数a = " + ecCurve.getA().toBigInteger().toString(16));
+            log.trace("椭圆曲线参数b = " + ecCurve.getB().toBigInteger().toString(16));
             ECPoint basePoint = ecPublicKey.getParameters().getG();
-            logger.trace("基点橫坐标              " + basePoint.getAffineXCoord().toBigInteger().toString(16));
-            logger.trace("基点纵坐标              " + basePoint.getAffineYCoord().toBigInteger().toString(16));
+            log.trace("基点橫坐标              " + basePoint.getAffineXCoord().toBigInteger().toString(16));
+            log.trace("基点纵坐标              " + basePoint.getAffineYCoord().toBigInteger().toString(16));
             
             // 公钥：标记位(2B, 0x0004) + 公钥横坐标(32B) + 公钥纵坐标(32B)
             // 注：每个 byte 需要用 2 个 HEX 数表示
-            logger.trace("公钥横坐标              " + ecPublicKey.getQ().getAffineXCoord().toBigInteger().toString(16));
-            logger.trace("公钥纵坐标              " + ecPublicKey.getQ().getAffineYCoord().toBigInteger().toString(16));
-            logger.trace("私钥                         " + ecPrivateKey.getD().toString(16));
+            log.trace("公钥横坐标              " + ecPublicKey.getQ().getAffineXCoord().toBigInteger().toString(16));
+            log.trace("公钥纵坐标              " + ecPublicKey.getQ().getAffineYCoord().toBigInteger().toString(16));
+            log.trace("私钥                         " + ecPrivateKey.getD().toString(16));
             
             
             // ECIES用于加密解密，ECDSA用于签名验签
@@ -193,24 +193,24 @@ public class ECMain {
             byte[] orgText_bytes = "Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!".getBytes(INNER_STRING_CHARSET);
     
             // 加密
-            logger.trace("明文: " + new String(orgText_bytes, INNER_STRING_CHARSET));
+            log.trace("明文: " + new String(orgText_bytes, INNER_STRING_CHARSET));
             byte[] encrypted_bytes = encrypt(ecPublicKey, orgText_bytes);
-            logger.trace("密文, 长度: '"+encrypted_bytes.length+"'; 内容: '" + Hex.toHexString(encrypted_bytes) + "'");
+            log.trace("密文, 长度: '"+encrypted_bytes.length+"'; 内容: '" + Hex.toHexString(encrypted_bytes) + "'");
             // 解密
             byte[] decrypted_text = decrypt(ecPrivateKey, encrypted_bytes);
             // 打印解密后的明文
-            logger.trace("解密后的明文: " + new String(decrypted_text, INNER_STRING_CHARSET));
+            log.trace("解密后的明文: " + new String(decrypted_text, INNER_STRING_CHARSET));
             
             
             // 签名
             byte[] signed_bytes = sign(ecPrivateKey, orgText_bytes);
-            logger.trace("签名, 长度: '"+signed_bytes.length+"'; 内容: '" + Hex.toHexString(signed_bytes)+"'");
+            log.trace("签名, 长度: '"+signed_bytes.length+"'; 内容: '" + Hex.toHexString(signed_bytes)+"'");
             // 验签
             boolean isGoodSign = verify(ecPublicKey, orgText_bytes, signed_bytes);
-            logger.trace("isGoodSign: " + isGoodSign);
+            log.trace("isGoodSign: " + isGoodSign);
         }
     
         long endTime_ms = new Date().getTime();
-        logger.debug("Ran "+i+" times: "+(endTime_ms - startTime_ms)+"ms");
+        log.debug("Ran "+i+" times: "+(endTime_ms - startTime_ms)+"ms");
     }
 }

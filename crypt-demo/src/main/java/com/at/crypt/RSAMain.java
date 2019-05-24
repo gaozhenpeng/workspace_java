@@ -29,11 +29,11 @@ import org.bouncycastle.asn1.DERSequence;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.openssl.EncryptionException;
 import org.bouncycastle.util.encoders.Hex;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class RSAMain {
-    private static final Logger logger = LoggerFactory.getLogger(RSAMain.class);
     private static final String INNER_STRING_CHARSET = "ISO-8859-1";
 
     /**
@@ -176,17 +176,17 @@ public class RSAMain {
         RSAPrivateKey sk = (RSAPrivateKey) kp.getPrivate();
         BigInteger pkMod = pk.getModulus();
         BigInteger pkExp = pk.getPublicExponent();
-        logger.trace("pk.mod: '" + pkMod.toString(16).toUpperCase(Locale.US) + "'");
-        logger.trace("pk.exp: '" + pkExp.toString(16).toUpperCase(Locale.US) + "'");
+        log.trace("pk.mod: '" + pkMod.toString(16).toUpperCase(Locale.US) + "'");
+        log.trace("pk.exp: '" + pkExp.toString(16).toUpperCase(Locale.US) + "'");
         BigInteger skMod = sk.getModulus();
         BigInteger skExp = sk.getPrivateExponent();
-        logger.trace("sk.mod: '" + skMod.toString(16).toUpperCase(Locale.US) + "'");
-        logger.trace("sk.exp: '" + skExp.toString(16).toUpperCase(Locale.US) + "'");
+        log.trace("sk.mod: '" + skMod.toString(16).toUpperCase(Locale.US) + "'");
+        log.trace("sk.exp: '" + skExp.toString(16).toUpperCase(Locale.US) + "'");
 
     }
 
     public static void main(String[] args) throws Exception {
-        logger.trace("logback is ready.");
+        log.trace("logback is ready.");
         String pkMod_hex = "9A998FCE07F479669E2D367751E52E6FABF18D584BA8E2EDEB55F7D89CA3095A1A2D9954962B3950786780BE7D6C86D6FFAA851E7175A0754F16226E9BEC197B1A94507E54E1EC0A726D5642C7A23B561E551DC357EC30C9461F27720EA5E97A9DF2A450F20EB1F3CA861AF50EBB5736677232F6FA6399DF8D505F6B8BD1B555BD1B25AA798DC8C51283B99A3C29AAAFA957B793196BB72ACB6B4229E8C19643646D2FD866292E1E454AA0D6937A014BA7A837DB2FA96EC91326DF48ED5E0BA1CF4579159D766EEA70FA61354B2710479ED5B324582A24C90C92F30932923765C7FB05DAF4334014C4051DC0974E9CD372C15E9B8957E4D8B8ADFDE22A27CF13";
         BigInteger pkMod = new BigInteger(pkMod_hex, 16);
 
@@ -194,8 +194,8 @@ public class RSAMain {
         BigInteger pkExp = new BigInteger(pkExp_hex, 16);
 
         RSAPublicKey pk = genPK(pkMod, pkExp);
-        logger.trace("pk.mod equals: " + pkMod.equals(pk.getModulus()));
-        logger.trace("pk.exp equals: " + pkExp.equals(pk.getPublicExponent()));
+        log.trace("pk.mod equals: " + pkMod.equals(pk.getModulus()));
+        log.trace("pk.exp equals: " + pkExp.equals(pk.getPublicExponent()));
 
         String skMod_hex = "9A998FCE07F479669E2D367751E52E6FABF18D584BA8E2EDEB55F7D89CA3095A1A2D9954962B3950786780BE7D6C86D6FFAA851E7175A0754F16226E9BEC197B1A94507E54E1EC0A726D5642C7A23B561E551DC357EC30C9461F27720EA5E97A9DF2A450F20EB1F3CA861AF50EBB5736677232F6FA6399DF8D505F6B8BD1B555BD1B25AA798DC8C51283B99A3C29AAAFA957B793196BB72ACB6B4229E8C19643646D2FD866292E1E454AA0D6937A014BA7A837DB2FA96EC91326DF48ED5E0BA1CF4579159D766EEA70FA61354B2710479ED5B324582A24C90C92F30932923765C7FB05DAF4334014C4051DC0974E9CD372C15E9B8957E4D8B8ADFDE22A27CF13";
         BigInteger skMod = new BigInteger(skMod_hex, 16);
@@ -204,23 +204,23 @@ public class RSAMain {
         BigInteger skExp = new BigInteger(skExp_hex, 16);
 
         RSAPrivateKey sk = genSK(skMod, skExp);
-        logger.trace("sk.mod equals: " + skMod.equals(sk.getModulus()));
-        logger.trace("sk.exp equals: " + skExp.equals(sk.getPrivateExponent()));
+        log.trace("sk.mod equals: " + skMod.equals(sk.getModulus()));
+        log.trace("sk.exp equals: " + skExp.equals(sk.getPrivateExponent()));
 
-        logger.trace("pk, enc: '" + Hex.toHexString(pk.getEncoded()) + "'");
-        logger.trace("pk, alg: '" + pk.getAlgorithm() + "'");
-        logger.trace("pk, for: '" + pk.getFormat() + "'");
-        logger.trace("pk, mod: len: '" + pk.getModulus().toString(16).length() + "'; val: '"
+        log.trace("pk, enc: '" + Hex.toHexString(pk.getEncoded()) + "'");
+        log.trace("pk, alg: '" + pk.getAlgorithm() + "'");
+        log.trace("pk, for: '" + pk.getFormat() + "'");
+        log.trace("pk, mod: len: '" + pk.getModulus().toString(16).length() + "'; val: '"
                 + pk.getModulus().toString(16) + "'");
-        logger.trace("pk, exp: '" + pk.getPublicExponent().toString(16).length() + "'; val: '"
+        log.trace("pk, exp: '" + pk.getPublicExponent().toString(16).length() + "'; val: '"
                 + pk.getPublicExponent().toString(16) + "'");
 
-        logger.trace("sk, enc: '" + Hex.toHexString(sk.getEncoded()) + "'");
-        logger.trace("sk, alg: '" + sk.getAlgorithm() + "'");
-        logger.trace("sk, for: '" + sk.getFormat() + "'");
-        logger.trace("sk, mod: len: '" + sk.getModulus().toString(16).length() + "'; val: '"
+        log.trace("sk, enc: '" + Hex.toHexString(sk.getEncoded()) + "'");
+        log.trace("sk, alg: '" + sk.getAlgorithm() + "'");
+        log.trace("sk, for: '" + sk.getFormat() + "'");
+        log.trace("sk, mod: len: '" + sk.getModulus().toString(16).length() + "'; val: '"
                 + sk.getModulus().toString(16) + "'");
-        logger.trace("sk, exp: len: '" + sk.getPrivateExponent().toString(16).length() + "'; val: '"
+        log.trace("sk, exp: len: '" + sk.getPrivateExponent().toString(16).length() + "'; val: '"
                 + sk.getPrivateExponent().toString(16) + "'");
 
         ASN1Integer pkMod_di = new ASN1Integer(pkMod);
@@ -230,17 +230,17 @@ public class RSAMain {
         dev.add(pkExp_di);
         DERSequence derSeq = new DERSequence(dev);
         byte[] pk_der_bytes = derSeq.getEncoded("DER");
-        logger.trace("pk_der: " + new String(pk_der_bytes, INNER_STRING_CHARSET));
-        logger.trace("pk_der_hex: " + Hex.toHexString(pk_der_bytes));
+        log.trace("pk_der: " + new String(pk_der_bytes, INNER_STRING_CHARSET));
+        log.trace("pk_der_hex: " + Hex.toHexString(pk_der_bytes));
 
         String pkEPP_rkl = "3082010A0282010100" + pkMod_hex + "0203010001";
-        logger.trace("pkEPP_rkl: '" + pkEPP_rkl + "'");
+        log.trace("pkEPP_rkl: '" + pkEPP_rkl + "'");
 
         long startTime_ms = new Date().getTime();
         long i=0;
 
         for(i = 0; i < 1; i++){
-            logger.debug("i = " + i);
+            log.debug("i = " + i);
             KeyPairGenerator kpg = KeyPairGenerator.getInstance("RSA", new BouncyCastleProvider());
             kpg.initialize(2048);
             KeyPair kp = kpg.genKeyPair();
@@ -248,14 +248,14 @@ public class RSAMain {
             RSAPrivateKey bc_sk = (RSAPrivateKey) kp.getPrivate();
             BigInteger bc_pkMod = bc_pk.getModulus();
             BigInteger bc_pkExp = bc_pk.getPublicExponent();
-            logger.trace("pk.mod: '" + bc_pkMod.toString(16).toUpperCase(Locale.US) + "'");
-            logger.trace("pk.exp: '" + bc_pkExp.toString(16).toUpperCase(Locale.US) + "'");
+            log.trace("pk.mod: '" + bc_pkMod.toString(16).toUpperCase(Locale.US) + "'");
+            log.trace("pk.exp: '" + bc_pkExp.toString(16).toUpperCase(Locale.US) + "'");
             BigInteger bc_skMod = bc_sk.getModulus();
             BigInteger bc_skExp = bc_sk.getPrivateExponent();
-            logger.trace("sk.mod: '" + bc_skMod.toString(16).toUpperCase(Locale.US) + "'");
-            logger.trace("sk.exp: '" + bc_skExp.toString(16).toUpperCase(Locale.US) + "'");
+            log.trace("sk.mod: '" + bc_skMod.toString(16).toUpperCase(Locale.US) + "'");
+            log.trace("sk.exp: '" + bc_skExp.toString(16).toUpperCase(Locale.US) + "'");
             
-            logger.trace("------------------------------------------------------------");
+            log.trace("------------------------------------------------------------");
     
             byte[] orgText_bytes = "Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!".getBytes(INNER_STRING_CHARSET);
             String orgText = Hex.toHexString(orgText_bytes);
@@ -268,16 +268,16 @@ public class RSAMain {
             String signed_str = Hex.toHexString(signed_bytes);
             boolean isGoodSign = verify(bc_pk, orgText_bytes, signed_bytes);
     
-            logger.trace("orgText: len: '" + orgText_bytes.length + "'; text: '" + orgText + "'");
-            logger.trace("encText: len: '" + encText_bytes.length + "'; text: '" + encText + "'");
-            logger.trace("clrText: len: '" + clrText_bytes.length + "'; text: '" + clrText + "'");
+            log.trace("orgText: len: '" + orgText_bytes.length + "'; text: '" + orgText + "'");
+            log.trace("encText: len: '" + encText_bytes.length + "'; text: '" + encText + "'");
+            log.trace("clrText: len: '" + clrText_bytes.length + "'; text: '" + clrText + "'");
             
-            logger.trace("signed_str: len: '" + signed_bytes.length + "'; text: '" + signed_str + "'; isGoodSign: '" + isGoodSign + "';");
+            log.trace("signed_str: len: '" + signed_bytes.length + "'; text: '" + signed_str + "'; isGoodSign: '" + isGoodSign + "';");
     
-            logger.trace("------------------------------------------------------------");
+            log.trace("------------------------------------------------------------");
         }
     
         long endTime_ms = new Date().getTime();
-        logger.debug("Ran "+i+" times: "+(endTime_ms - startTime_ms)+"ms");
+        log.debug("Ran "+i+" times: "+(endTime_ms - startTime_ms)+"ms");
     }
 }
