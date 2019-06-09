@@ -5,6 +5,20 @@ import javax.persistence.*;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+
+/**
+ * <pre><code>
+ * CREATE TABLE `uuid_user` (
+ *   `bid` binary(16) NOT NULL,
+ *   `cid` char(36) COLLATE utf8mb4_0900_ai_ci NOT NULL,
+ *   `name` varchar(256) COLLATE utf8mb4_0900_ai_ci NOT NULL,
+ *   `created_datetime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ *   `updated_datetime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ *   PRIMARY KEY (`bid`)
+ * ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+ * ;
+ * </code></pre>
+ */
 @Data
 @Accessors(chain = true)
 @Table(name = "`uuid_user`")
