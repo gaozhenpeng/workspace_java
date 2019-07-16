@@ -10,7 +10,7 @@
   <groupId>com.at.springboot</groupId>
   <artifactId>spring-boot-shiro-demo</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <packaging>war</packaging>
+  <package>jar</packaging>
   <properties>
     <!-- No warning for the missing web.xml -->
     <failOnMissingWebXml>false</failOnMissingWebXml>

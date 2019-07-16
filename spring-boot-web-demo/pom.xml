@@ -10,7 +10,7 @@
   <groupId>com.at.springboot</groupId>
   <artifactId>spring-boot-web-demo</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <packaging>war</packaging>
+  <packaging>jar</packaging>
   <properties>
     <!-- No warning for the missing web.xml -->
     <failOnMissingWebXml>false</failOnMissingWebXml>
